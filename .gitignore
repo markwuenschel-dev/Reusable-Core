@@ -1,0 +1,307 @@
+
+### `.gitignore`
+
+```gitignore
+# ============================================================
+# Multi-Agent Autonomous System
+# ============================================================
+
+# ------------------------------------------------------------
+# Operating systems
+# ------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+
+# ------------------------------------------------------------
+# Editors / IDEs
+# ------------------------------------------------------------
+.idea/
+*.iml
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+!.vscode/tasks.example.json
+
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ------------------------------------------------------------
+# Environment / secrets
+# ------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+secrets/
+.secret/
+credentials/
+credentials.json
+service-account*.json
+kubeconfig
+*.kubeconfig
+
+# Never commit local authority/signing material.
+keys/
+certs/private/
+authority/private/
+
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+env/
+ENV/
+
+.python-version.local
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.hypothesis/
+.tox/
+.nox/
+
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ------------------------------------------------------------
+# Jupyter
+# ------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ------------------------------------------------------------
+# Node / JavaScript / TypeScript
+# ------------------------------------------------------------
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.next/
+.nuxt/
+.svelte-kit/
+
+# ------------------------------------------------------------
+# Rust
+# ------------------------------------------------------------
+target/
+
+# Keep Cargo.lock for applications.
+# Do not ignore Cargo.lock globally.
+
+# ------------------------------------------------------------
+# Go
+# ------------------------------------------------------------
+bin/
+*.test
+*.out
+
+# ------------------------------------------------------------
+# Java / JVM
+# ------------------------------------------------------------
+*.class
+.gradle/
+build/
+out/
+
+# ------------------------------------------------------------
+# Generic build output
+# ------------------------------------------------------------
+dist/
+tmp/
+temp/
+.cache/
+
+# ------------------------------------------------------------
+# Logs / runtime state
+# ------------------------------------------------------------
+*.log
+logs/
+
+runtime/
+run/
+runs/
+state/
+sessions/
+
+*.pid
+*.pid.lock
+
+# ------------------------------------------------------------
+# Agent / model traces
+# ------------------------------------------------------------
+traces/
+telemetry/local/
+observability/data/
+
+*.trace.json
+*.trace.jsonl
+*.events.jsonl
+
+# Keep committed fixtures under tests/fixtures or evals/fixtures.
+
+# ------------------------------------------------------------
+# Generated artifacts
+# ------------------------------------------------------------
+artifacts/
+generated/
+outputs/
+scratch/
+workspace/
+
+# ------------------------------------------------------------
+# Local datasets / evaluation outputs
+# ------------------------------------------------------------
+data/raw/
+data/private/
+data/local/
+data/cache/
+
+datasets/raw/
+datasets/private/
+datasets/local/
+
+evals/results/
+evals/runs/
+benchmarks/results/
+
+# Never commit private holdout or calibration material.
+holdout/private/
+calibration/private/
+
+# ------------------------------------------------------------
+# ML model weights / checkpoints
+# ------------------------------------------------------------
+checkpoints/
+models/local/
+models/cache/
+
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.gguf
+*.bin.index.json
+
+# ------------------------------------------------------------
+# Hugging Face / model caches
+# ------------------------------------------------------------
+.huggingface/
+hf-cache/
+transformers-cache/
+
+# ------------------------------------------------------------
+# ML experiment tools
+# ------------------------------------------------------------
+mlruns/
+wandb/
+lightning_logs/
+ray_results/
+
+# ------------------------------------------------------------
+# Databases / local persistence
+# ------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+
+postgres-data/
+redis-data/
+nats-data/
+jetstream-data/
+temporal-data/
+
+# ------------------------------------------------------------
+# Containers
+# ------------------------------------------------------------
+docker-data/
+.docker/
+
+# ------------------------------------------------------------
+# Kubernetes / Helm local output
+# ------------------------------------------------------------
+*.rendered.yaml
+helm-output/
+charts/*.tgz
+
+# ------------------------------------------------------------
+# Terraform / infrastructure
+# ------------------------------------------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Keep .terraform.lock.hcl committed.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ------------------------------------------------------------
+# Local cloud / CLI state
+# ------------------------------------------------------------
+.aws/
+.azure/
+.gcloud/
+
+# ------------------------------------------------------------
+# Security / scanning output
+# ------------------------------------------------------------
+security-reports/
+scan-results/
+.snyk-cache/
+.semgrep-cache/
+
+# ------------------------------------------------------------
+# Temporary archives
+# ------------------------------------------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# ------------------------------------------------------------
+# Miscellaneous local files
+# ------------------------------------------------------------
+*.bak
+*.backup
+*.orig
+*.rej
