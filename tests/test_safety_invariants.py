@@ -1,8 +1,10 @@
 import unittest
+from dataclasses import replace
+from time import sleep
 
 from verification_v1.aggregation import ShadowAggregator
 from verification_v1.artifacts import ArtifactStore
-from verification_v1.checklets import BaseCodingChecklet, CheckletContext, CheckletRegistry
+from verification_v1.checklets import MAX_CHECKLET_ARTIFACT_BYTES, BaseCodingChecklet, CheckletContext, CheckletRegistry
 from verification_v1.contracts import (
     CheckletVerdict,
     CounterfactualClass,
@@ -49,6 +51,35 @@ class ExplodingGate:
 
     def evaluate(self, task, artifact):
         raise RuntimeError("fixture gate crash")
+
+
+class ExplodingEventSink:
+    def emit(self, *args, **kwargs):
+        raise OSError("fixture telemetry write failure")
+
+
+class HardVerifierFinishedFailingSink(InMemoryEventSink):
+    def emit(self, event_type, *args, **kwargs):
+        if event_type == "hard_verifier_finished":
+            raise OSError("fixture hard-verifier telemetry write failure")
+        super().emit(event_type, *args, **kwargs)
+
+
+class PersistThenRaiseSink(InMemoryEventSink):
+    def emit(self, event_type, *args, **kwargs):
+        super().emit(event_type, *args, **kwargs)
+        if event_type == "hard_verifier_finished":
+            raise OSError("fixture post-persist telemetry failure")
+
+
+class BlockingChecklet(BaseCodingChecklet):
+    def __init__(self) -> None:
+        super().__init__("blocking", "timeout-fixture", "Blocks until the process deadline.")
+        self.spec = replace(self.spec, timeout_seconds=0.05)
+
+    def evaluate(self, context: CheckletContext):
+        sleep(5)
+        return self.observation(context, CheckletVerdict.CLEAN)
 
 
 class CountingVerifier(StaticHardVerifier):
@@ -125,14 +156,92 @@ class SafetyInvariantTests(unittest.TestCase):
         self.assertEqual(ShadowAction.WOULD_HARD_VERIFY, result.shadow_assessment.shadow_action)
 
     def test_fixture_oracle_rejects_despite_passing_producer_test_evidence(self) -> None:
+        artifact_candidate = candidate("producer-tests-pass-but-reference-rejects")
+        expected_digest = ArtifactStore().register(artifact_candidate, "fixture-reference").artifact_digest
         result = runner_with((FixedChecklet(CheckletVerdict.CLEAN),)).run(
             TaskContract("adversarial-independent-oracle", ()),
-            candidate("producer-tests-pass-but-reference-rejects"),
-            FixtureHardVerifier({"producer-tests-pass-but-reference-rejects": HardVerifierOutcome.REJECTED}),
+            artifact_candidate,
+            FixtureHardVerifier({expected_digest: HardVerifierOutcome.REJECTED}),
         )
 
         self.assertEqual(HardVerifierOutcome.REJECTED, result.final_outcome)
         self.assertEqual("executable_reference_fixture", result.hard_verifier_result.oracle_class)
+
+    def test_telemetry_failure_is_run_level_infrastructure_evidence_but_cannot_skip_hard_verification(self) -> None:
+        verifier = CountingVerifier(HardVerifierOutcome.ACCEPTED)
+        unsafe_runner = VerificationRunner(
+            artifact_store=ArtifactStore(),
+            gate_runner=GateRunner((MetadataShapeGate(),)),
+            checklets=CheckletRegistry((FixedChecklet(CheckletVerdict.CLEAN),)),
+            aggregator=ShadowAggregator(),
+            event_sink=ExplodingEventSink(),
+        )
+
+        result = unsafe_runner.run(TaskContract("telemetry-failure", ()), candidate(), verifier)
+
+        self.assertEqual(1, verifier.calls)
+        self.assertEqual(HardVerifierOutcome.ACCEPTED, result.final_outcome)
+        self.assertGreaterEqual(len(result.telemetry_failures), 1)
+        self.assertEqual("OSError", result.telemetry_failures[0].exception_type)
+
+    def test_timed_out_checklet_is_terminated_before_hard_verification(self) -> None:
+        verifier = CountingVerifier(HardVerifierOutcome.ACCEPTED)
+        result = runner_with((BlockingChecklet(),)).run(TaskContract("timeout-task", ()), candidate(), verifier)
+
+        self.assertEqual(1, verifier.calls)
+        self.assertEqual(CheckletVerdict.ERROR, result.observations[0].verdict)
+        self.assertIn("timeout", result.observations[0].summary)
+
+    def test_late_telemetry_failure_never_overrides_the_hard_decision(self) -> None:
+        sink = HardVerifierFinishedFailingSink()
+        controlled_runner = VerificationRunner(
+            artifact_store=ArtifactStore(),
+            gate_runner=GateRunner((MetadataShapeGate(),)),
+            checklets=CheckletRegistry((FixedChecklet(CheckletVerdict.CLEAN),)),
+            aggregator=ShadowAggregator(),
+            event_sink=sink,
+        )
+
+        result = controlled_runner.run(TaskContract("late-telemetry-failure", ()), candidate(), StaticHardVerifier(HardVerifierOutcome.ACCEPTED))
+        comparisons = [event["comparison"] for event in sink.events if event["event_type"] == "shadow_comparison_created"]
+        completions = [event for event in sink.events if event["event_type"] == "run_completed"]
+
+        self.assertEqual(HardVerifierOutcome.ACCEPTED, result.final_outcome)
+        self.assertEqual(HardVerifierOutcome.ACCEPTED.value, comparisons[-1]["hard_verifier_outcome"])
+        self.assertEqual(HardVerifierOutcome.ACCEPTED.value, completions[-1]["final_outcome"])
+        self.assertEqual("hard_verifier_finished", result.telemetry_failures[0].event_type)
+
+    def test_post_persist_telemetry_failure_keeps_append_only_evidence_consistent_with_result(self) -> None:
+        sink = PersistThenRaiseSink()
+        controlled_runner = VerificationRunner(
+            artifact_store=ArtifactStore(),
+            gate_runner=GateRunner((MetadataShapeGate(),)),
+            checklets=CheckletRegistry((FixedChecklet(CheckletVerdict.CLEAN),)),
+            aggregator=ShadowAggregator(),
+            event_sink=sink,
+        )
+
+        result = controlled_runner.run(TaskContract("post-persist-telemetry-failure", ()), candidate(), StaticHardVerifier(HardVerifierOutcome.ACCEPTED))
+        persisted_hard = [event["hard_verifier_result"] for event in sink.events if event["event_type"] == "hard_verifier_finished"]
+
+        self.assertEqual(HardVerifierOutcome.ACCEPTED, result.final_outcome)
+        self.assertEqual(HardVerifierOutcome.ACCEPTED.value, persisted_hard[-1]["outcome"])
+        self.assertEqual("hard_verifier_finished", result.telemetry_failures[0].event_type)
+
+    def test_oversized_checklet_payload_becomes_typed_error_without_skipping_hard_verification(self) -> None:
+        verifier = CountingVerifier(HardVerifierOutcome.ACCEPTED)
+        oversized = CandidateArtifact(
+            "oversized", "coding_patch", b"x" * (MAX_CHECKLET_ARTIFACT_BYTES + 1),
+            {"changed_paths": ["src/oversized.py"], "allowed_paths": ["src/oversized.py"]},
+        )
+
+        result = runner_with((FixedChecklet(CheckletVerdict.CLEAN),)).run(
+            TaskContract("oversized-payload", ()), oversized, verifier
+        )
+
+        self.assertEqual(1, verifier.calls)
+        self.assertEqual(CheckletVerdict.ERROR, result.observations[0].verdict)
+        self.assertIn("byte limit", result.observations[0].summary)
 
 
 if __name__ == "__main__":

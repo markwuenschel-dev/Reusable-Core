@@ -28,7 +28,7 @@ def jsonable(value: Any) -> Any:
         return {item.name: jsonable(getattr(value, item.name)) for item in fields(value)}
     if isinstance(value, Mapping):
         return {str(key): jsonable(item) for key, item in value.items()}
-    if isinstance(value, (list, tuple, set)):
+    if isinstance(value, (list, tuple, set, frozenset)):
         return [jsonable(item) for item in value]
     return value
 
@@ -112,6 +112,7 @@ class TaskContract:
     metadata: Mapping[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "requirements", tuple(str(item) for item in self.requirements))
         object.__setattr__(self, "metadata", freeze_value(self.metadata))
 
     def to_dict(self) -> dict[str, Any]:
@@ -149,6 +150,10 @@ class GateResult:
     details: Mapping[str, Any] = field(default_factory=dict)
     result_id: str = field(default_factory=lambda: new_id("gate"))
 
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "evidence_refs", tuple(str(item) for item in self.evidence_refs))
+        object.__setattr__(self, "details", freeze_value(self.details))
+
     def to_dict(self) -> dict[str, Any]:
         return jsonable(self)
 
@@ -170,6 +175,8 @@ class CheckletSpec:
     evidence_family_template: str
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "required_artifact_types", tuple(str(item) for item in self.required_artifact_types))
+        object.__setattr__(self, "required_context", tuple(str(item) for item in self.required_context))
         if self.authority_ceiling != "diagnostic":
             raise ValueError("VS-V1 checklets must have diagnostic authority only")
 
@@ -202,6 +209,12 @@ class CheckletObservation:
     latency_ms: float
     estimated_or_actual_cost: Mapping[str, Any]
     metadata: Mapping[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "evidence_refs", tuple(str(item) for item in self.evidence_refs))
+        object.__setattr__(self, "trigger_refs", tuple(str(item) for item in self.trigger_refs))
+        object.__setattr__(self, "estimated_or_actual_cost", freeze_value(self.estimated_or_actual_cost))
+        object.__setattr__(self, "metadata", freeze_value(self.metadata))
 
     def to_dict(self) -> dict[str, Any]:
         return jsonable(self)
@@ -269,6 +282,9 @@ class ShadowRiskAssessment:
     is_authoritative: bool = False
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "reason_codes", tuple(str(item) for item in self.reason_codes))
+        object.__setattr__(self, "observation_ids", tuple(str(item) for item in self.observation_ids))
+        object.__setattr__(self, "gate_result_ids", tuple(str(item) for item in self.gate_result_ids))
         if self.is_authoritative:
             raise ValueError("shadow assessments are never authoritative")
 
@@ -292,6 +308,12 @@ class HardVerifierResult:
     cost: Mapping[str, Any]
     metadata: Mapping[str, Any] = field(default_factory=dict)
 
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "defect_refs", tuple(str(item) for item in self.defect_refs))
+        object.__setattr__(self, "evidence_refs", tuple(str(item) for item in self.evidence_refs))
+        object.__setattr__(self, "cost", freeze_value(self.cost))
+        object.__setattr__(self, "metadata", freeze_value(self.metadata))
+
     def to_dict(self) -> dict[str, Any]:
         return jsonable(self)
 
@@ -303,6 +325,9 @@ class ShadowComparison:
     hard_verifier_outcome: HardVerifierOutcome
     counterfactual_class: CounterfactualClass
     reason_codes: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "reason_codes", tuple(str(item) for item in self.reason_codes))
 
     def to_dict(self) -> dict[str, Any]:
         return jsonable(self)

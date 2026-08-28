@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from dataclasses import dataclass, replace
+from importlib import import_module
+from multiprocessing import get_context
+from queue import Empty
 from time import perf_counter
 from typing import Any, Mapping, Protocol
+from types import MappingProxyType
 
 from .artifacts import RegisteredArtifact
 from .contracts import (
@@ -17,6 +20,7 @@ from .contracts import (
     mutable_copy,
     new_id,
     parse_checklet_observation,
+    jsonable,
     utc_now,
 )
 
@@ -37,6 +41,185 @@ class Checklet(Protocol):
     spec: CheckletSpec
 
     def evaluate(self, context: CheckletContext) -> CheckletObservation | Mapping[str, Any]: ...
+
+
+MAX_CHECKLET_ARTIFACT_BYTES = 512_000
+_MAX_TRANSPORT_ITEMS = 4_096
+_MAX_TRANSPORT_TEXT_CHARS = 65_536
+_MAX_TRANSPORT_BYTES = 1_000_000
+
+
+class _TransportLimitError(ValueError):
+    pass
+
+
+def _charge_transport_budget(budget: list[int], byte_count: int) -> None:
+    budget[0] += 1
+    budget[1] += byte_count
+    if budget[0] > _MAX_TRANSPORT_ITEMS:
+        raise _TransportLimitError("checklet transport item count exceeds the limit")
+    if budget[1] > _MAX_TRANSPORT_BYTES:
+        raise _TransportLimitError("checklet transport byte count exceeds the limit")
+
+
+def _transport_value(
+    value: Any,
+    *,
+    budget: list[int] | None = None,
+    depth: int = 0,
+    allow_mapping_proxy: bool = False,
+) -> Any:
+    """Copy only bounded, inert values before spawning a checklet process."""
+    if depth > 16:
+        raise _TransportLimitError("checklet transport nesting exceeds the limit")
+    budget = budget if budget is not None else [0, 0]
+    if value is None:
+        _charge_transport_budget(budget, 16)
+        return value
+    if type(value) is bool:
+        _charge_transport_budget(budget, 1)
+        return value
+    if type(value) is int:
+        _charge_transport_budget(budget, max(1, (value.bit_length() + 7) // 8))
+        return value
+    if type(value) is float:
+        _charge_transport_budget(budget, 8)
+        return value
+    if type(value) is str:
+        if len(value) > _MAX_TRANSPORT_TEXT_CHARS:
+            raise _TransportLimitError("checklet transport text exceeds the limit")
+        _charge_transport_budget(budget, len(value))
+        return value
+    if type(value) is bytes:
+        if len(value) > MAX_CHECKLET_ARTIFACT_BYTES:
+            raise _TransportLimitError("checklet transport bytes exceed the limit")
+        _charge_transport_budget(budget, len(value))
+        return {"kind": "bytes", "value": value}
+    if type(value) in {CheckletVerdict, Severity}:
+        _charge_transport_budget(budget, len(type(value).__module__) + len(type(value).__qualname__))
+        return {
+            "kind": "enum",
+            "module": type(value).__module__,
+            "qualname": type(value).__qualname__,
+            "value": _transport_value(value.value, budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy),
+        }
+    if type(value) is CheckletSpec:
+        _charge_transport_budget(budget, 16)
+        return {
+            "kind": "checklet_spec",
+            "value": _transport_value(value.to_dict(), budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy),
+        }
+    if type(value) is dict or (allow_mapping_proxy and type(value) is MappingProxyType):
+        _charge_transport_budget(budget, 16)
+        items: list[tuple[str, Any]] = []
+        for key, item in value.items():
+            if type(key) is not str:
+                raise _TransportLimitError("checklet transport mapping keys must be strings")
+            if len(key) > _MAX_TRANSPORT_TEXT_CHARS:
+                raise _TransportLimitError("checklet transport mapping key exceeds the limit")
+            _charge_transport_budget(budget, len(key))
+            items.append((key, _transport_value(item, budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy)))
+        return {"kind": "mapping", "items": items}
+    if type(value) is tuple:
+        _charge_transport_budget(budget, 16)
+        return {"kind": "tuple", "items": [_transport_value(item, budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy) for item in value]}
+    if type(value) is list:
+        _charge_transport_budget(budget, 16)
+        return {"kind": "list", "items": [_transport_value(item, budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy) for item in value]}
+    if type(value) in {set, frozenset}:
+        _charge_transport_budget(budget, 16)
+        return {"kind": "frozenset", "items": [_transport_value(item, budget=budget, depth=depth + 1, allow_mapping_proxy=allow_mapping_proxy) for item in value]}
+    raise _TransportLimitError(f"unsupported checklet transport value: {type(value).__name__}")
+
+
+def _resolve_qualified(module_name: str, qualname: str) -> type[Any]:
+    if "<locals>" in qualname:
+        raise ValueError("locally defined checklets cannot run in isolated processes")
+    value: Any = import_module(module_name)
+    for part in qualname.split("."):
+        value = getattr(value, part)
+    if not isinstance(value, type):
+        raise TypeError("transport value does not resolve to a type")
+    return value
+
+
+def _restore_transport(value: Any) -> Any:
+    if not isinstance(value, Mapping) or "kind" not in value:
+        return value
+    kind = value["kind"]
+    if kind == "bytes":
+        return value["value"]
+    if kind == "mapping":
+        return {key: _restore_transport(item) for key, item in value["items"]}
+    if kind == "tuple":
+        return tuple(_restore_transport(item) for item in value["items"])
+    if kind == "list":
+        return [_restore_transport(item) for item in value["items"]]
+    if kind == "frozenset":
+        return frozenset(_restore_transport(item) for item in value["items"])
+    if kind == "enum":
+        return _resolve_qualified(str(value["module"]), str(value["qualname"]))(_restore_transport(value["value"]))
+    if kind == "checklet_spec":
+        return CheckletSpec(**_restore_transport(value["value"]))
+    raise ValueError("unsupported checklet transport kind")
+
+
+def _checklet_descriptor(checklet: Checklet) -> Any:
+    checklet_type = type(checklet)
+    state = object.__getattribute__(checklet, "__dict__")
+    if not isinstance(state, dict):
+        raise _TransportLimitError("isolated checklets must have a plain instance state dictionary")
+    return _transport_value(
+        {
+            "module": checklet_type.__module__,
+            "qualname": checklet_type.__qualname__,
+            "state": state,
+        }
+    )
+
+
+def _evaluate_in_isolated_process(
+    result_queue: Any,
+    descriptor: Any,
+    task_payload: Any,
+    artifact_payload: Any,
+) -> None:
+    """Evaluate untrusted checklet code in a process that can be terminated at its deadline."""
+    try:
+        from .contracts import ArtifactRef
+
+        descriptor = _restore_transport(descriptor)
+        checklet_type = _resolve_qualified(str(descriptor["module"]), str(descriptor["qualname"]))
+        checklet = checklet_type.__new__(checklet_type)
+        object.__getattribute__(checklet, "__dict__").update(descriptor["state"])
+        task_payload = _restore_transport(task_payload)
+        artifact_payload = _restore_transport(artifact_payload)
+        task = TaskContract(
+            task_id=str(task_payload["task_id"]),
+            requirements=tuple(str(item) for item in task_payload.get("requirements", [])),
+            description=str(task_payload.get("description", "")),
+            version=str(task_payload.get("version", "1.0.0")),
+            metadata=dict(task_payload.get("metadata", {})),
+        )
+        reference = ArtifactRef(
+            artifact_id=str(artifact_payload["artifact_id"]),
+            artifact_digest=str(artifact_payload["artifact_digest"]),
+            artifact_type=str(artifact_payload["artifact_type"]),
+            artifact_version=str(artifact_payload["artifact_version"]),
+            run_id=str(artifact_payload["run_id"]),
+            created_at=str(artifact_payload["created_at"]),
+            metadata=dict(artifact_payload.get("metadata", {})),
+        )
+        context = CheckletContext(task=task, artifact=RegisteredArtifact(reference, artifact_payload["content"]))
+        raw = checklet.evaluate(context)
+        if isinstance(raw, CheckletObservation):
+            result_queue.put(("structured", raw.to_dict()))
+        elif isinstance(raw, Mapping):
+            result_queue.put(("structured", jsonable(raw)))
+        else:
+            result_queue.put(("unsupported", type(raw).__name__))
+    except Exception as exc:
+        result_queue.put(("error", type(exc).__name__))
 
 
 class BaseCodingChecklet:
@@ -235,39 +418,120 @@ class CheckletRegistry:
                     )
                 )
                 continue
-            executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix=f"vs-v1-{checklet.spec.checklet_id}")
+            process = None
+            result_queue = None
             try:
-                future = executor.submit(checklet.evaluate, context)
-                raw = future.result(timeout=checklet.spec.timeout_seconds)
-                if isinstance(raw, Mapping):
-                    raw = parse_checklet_observation(raw, checklet.spec, context.artifact.artifact_digest)
-                if not isinstance(raw, CheckletObservation):
+                if len(context.artifact.content) > MAX_CHECKLET_ARTIFACT_BYTES:
+                    raise _TransportLimitError("artifact content exceeds the isolated-checklet byte limit")
+                descriptor = _checklet_descriptor(checklet)
+                task_payload = _transport_value(
+                    {
+                        "task_id": context.task.task_id,
+                        "requirements": context.task.requirements,
+                        "description": context.task.description,
+                        "version": context.task.version,
+                        "metadata": context.task.metadata,
+                    },
+                    allow_mapping_proxy=True,
+                )
+                artifact_payload = _transport_value(
+                    {
+                        "artifact_id": context.artifact.ref.artifact_id,
+                        "artifact_digest": context.artifact.ref.artifact_digest,
+                        "artifact_type": context.artifact.ref.artifact_type,
+                        "artifact_version": context.artifact.ref.artifact_version,
+                        "run_id": context.artifact.ref.run_id,
+                        "created_at": context.artifact.ref.created_at,
+                        "metadata": context.artifact.ref.metadata,
+                        "content": context.artifact.content,
+                    },
+                    allow_mapping_proxy=True,
+                )
+                remaining = checklet.spec.timeout_seconds - (perf_counter() - timer)
+                if remaining <= 0:
+                    raise TimeoutError("checklet preparation exceeded its deadline")
+                process_context = get_context("spawn")
+                result_queue = process_context.Queue(maxsize=1)
+                process = process_context.Process(
+                    target=_evaluate_in_isolated_process,
+                    args=(result_queue, descriptor, task_payload, artifact_payload),
+                )
+                process.start()
+                remaining = checklet.spec.timeout_seconds - (perf_counter() - timer)
+                process.join(max(0.0, remaining))
+                if process.is_alive():
+                    process.terminate()
+                    process.join()
                     observations.append(
                         error_observation(
-                            checklet.spec, context, "malformed structured checklet output", started_at, (perf_counter() - timer) * 1000
+                            checklet.spec,
+                            context,
+                            f"checklet timeout after {checklet.spec.timeout_seconds:.3f} seconds",
+                            started_at,
+                            (perf_counter() - timer) * 1000,
                         )
                     )
-                elif raw.artifact_digest != context.artifact.artifact_digest:
+                    continue
+                try:
+                    result_kind, raw = result_queue.get(timeout=max(0.0, checklet.spec.timeout_seconds - (perf_counter() - timer)))
+                except Empty:
                     observations.append(
                         error_observation(
-                            checklet.spec, context, "checklet returned a mismatched artifact digest", started_at, (perf_counter() - timer) * 1000
+                            checklet.spec,
+                            context,
+                            "checklet process exited without a structured result",
+                            started_at,
+                            (perf_counter() - timer) * 1000,
                         )
                     )
-                else:
+                    continue
+                if result_kind == "error":
                     observations.append(
-                        replace(
-                            raw,
-                            started_at=started_at,
-                            completed_at=utc_now(),
-                            latency_ms=(perf_counter() - timer) * 1000,
+                        error_observation(
+                            checklet.spec,
+                            context,
+                            f"checklet exception: {raw}",
+                            started_at,
+                            (perf_counter() - timer) * 1000,
                         )
                     )
-            except FutureTimeoutError:
+                    continue
+                if result_kind != "structured" or not isinstance(raw, Mapping):
+                    observations.append(
+                        error_observation(
+                            checklet.spec,
+                            context,
+                            "malformed structured checklet output",
+                            started_at,
+                            (perf_counter() - timer) * 1000,
+                        )
+                    )
+                    continue
+                observation = parse_checklet_observation(raw, checklet.spec, context.artifact.artifact_digest)
+                observations.append(
+                    replace(
+                        observation,
+                        started_at=started_at,
+                        completed_at=utc_now(),
+                        latency_ms=(perf_counter() - timer) * 1000,
+                    )
+                )
+            except TimeoutError:
                 observations.append(
                     error_observation(
                         checklet.spec,
                         context,
                         f"checklet timeout after {checklet.spec.timeout_seconds:.3f} seconds",
+                        started_at,
+                        (perf_counter() - timer) * 1000,
+                    )
+                )
+            except _TransportLimitError as exc:
+                observations.append(
+                    error_observation(
+                        checklet.spec,
+                        context,
+                        f"checklet transport unavailable: {exc}",
                         started_at,
                         (perf_counter() - timer) * 1000,
                     )
@@ -283,8 +547,12 @@ class CheckletRegistry:
                     )
                 )
             finally:
-                # A timed-out checklet has no authority and receives only its private copy of context.
-                executor.shutdown(wait=False, cancel_futures=True)
+                if process is not None and process.is_alive():
+                    process.terminate()
+                    process.join()
+                if result_queue is not None:
+                    result_queue.close()
+                    result_queue.join_thread()
         return tuple(observations)
 
 

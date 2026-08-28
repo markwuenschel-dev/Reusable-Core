@@ -1,9 +1,13 @@
 import json
 import tempfile
 import unittest
+from copy import deepcopy
+from hashlib import sha256
 from pathlib import Path
 
-from verification_v1.evaluation import evaluate_fixture_set, replay_run_record, write_report
+from verification_v1.artifacts import ArtifactStore, CandidateArtifact
+from verification_v1.contracts import HardVerifierOutcome, TaskContract
+from verification_v1.evaluation import _DatasetHardVerifier, evaluate_fixture_set, replay_run_record, write_report
 
 
 class EvaluationAndReplayTests(unittest.TestCase):
@@ -21,6 +25,7 @@ class EvaluationAndReplayTests(unittest.TestCase):
             self.assertGreaterEqual(report.per_checklet[checklet_id]["finding_count"], 1)
         self.assertGreater(report.cost_and_latency["checklets_latency_ms"]["total"], 0.0)
         self.assertGreater(report.cost_and_latency["hard_verifier_latency_ms"]["total"], 0.0)
+        self.assertEqual(4 / 6, report.shadow_metrics["observed_counterfactual_shadow_miss_rate"])
         for record in report.run_records:
             metadata = record["artifact"]["metadata"]
             self.assertNotIn("hard_verifier_outcome", metadata)
@@ -84,6 +89,36 @@ class EvaluationAndReplayTests(unittest.TestCase):
             self.assertTrue(report_paths["json"].exists())
             self.assertTrue(report_paths["markdown"].exists())
             self.assertIn("indeterminate", report_paths["markdown"].read_text(encoding="utf-8"))
+
+    def test_fixture_oracle_rejects_content_with_an_unrecognized_digest_despite_matching_fixture_id(self) -> None:
+        expected = CandidateArtifact.from_text(
+            "expected", "coding_patch", "def value():\n    return 1\n", {"fixture_id": "same-fixture"}
+        )
+        tampered = CandidateArtifact.from_text(
+            "tampered", "coding_patch", "def value():\n    return 2\n", {"fixture_id": "same-fixture"}
+        )
+        store = ArtifactStore()
+        expected_registered = store.register(expected, "expected-run")
+        tampered_registered = store.register(tampered, "tampered-run")
+        verifier = _DatasetHardVerifier({expected_registered.artifact_digest: HardVerifierOutcome.REJECTED})
+
+        result = verifier.verify(TaskContract("fixture-digest-binding", ()), tampered_registered)
+
+        self.assertEqual(HardVerifierOutcome.OUTCOME_UNKNOWN, result.outcome)
+
+    def test_replay_rejects_tampered_hard_digest_and_component_provenance(self) -> None:
+        report = evaluate_fixture_set(Path("evals/verification_v1/engineering_fixture_set.json"))
+        digest_tampered = deepcopy(report.run_records[0])
+        digest_tampered["hard_verifier_result"]["artifact_digest"] = sha256(b"different").hexdigest()
+
+        with self.assertRaisesRegex(ValueError, "hard-verifier result"):
+            replay_run_record(digest_tampered)
+
+        provenance_tampered = deepcopy(report.run_records[0])
+        provenance_tampered["component_versions"]["policy"]["version"] = "different"
+
+        with self.assertRaisesRegex(ValueError, "component provenance"):
+            replay_run_record(provenance_tampered)
 
 
 if __name__ == "__main__":

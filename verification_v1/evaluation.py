@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 import json
 from dataclasses import dataclass
+from hashlib import sha256
 from pathlib import Path
 from statistics import mean
 from time import perf_counter
@@ -76,9 +77,15 @@ def run_to_record(run: VerificationRun) -> dict[str, Any]:
         "hard_verifier_result": run.hard_verifier_result.to_dict(),
         "comparison": run.comparison.to_dict(),
         "final_outcome": run.final_outcome.value,
+        "telemetry_failures": [failure.to_dict() for failure in run.telemetry_failures],
         "component_versions": {
-            "domain_pack": run.task.metadata.get("domain_pack_version", "coding-v1/1.0.0"),
-            "policy": f"{run.shadow_assessment.policy_id}/{run.shadow_assessment.policy_version}",
+            "runner": {"version": VerificationRunner.version},
+            "domain_pack": {"id": run.domain_pack_id, "version": run.domain_pack_version},
+            "policy": {
+                "id": run.shadow_assessment.policy_id,
+                "version": run.shadow_assessment.policy_version,
+            },
+            "gates": {gate.gate_id: gate.gate_version for gate in run.gates},
             "hard_verifier": f"{run.hard_verifier_result.verifier_id}/{run.hard_verifier_result.verifier_version}",
             "checklets": {
                 observation.checklet_id: observation.checklet_version for observation in run.observations
@@ -93,9 +100,12 @@ class RecordedHardVerifier:
     def __init__(self, recorded: Mapping[str, Any]) -> None:
         self.verifier_id = str(recorded["verifier_id"])
         self.version = str(recorded["verifier_version"])
+        self._artifact_digest = str(recorded["artifact_digest"])
         self._recorded = recorded
 
     def verify(self, task: TaskContract, artifact) -> HardVerifierResult:
+        if artifact.artifact_digest != self._artifact_digest:
+            raise ValueError("recorded hard-verifier result binds a different artifact digest")
         started = utc_now()
         return HardVerifierResult(
             verifier_id=self.verifier_id,
@@ -133,15 +143,31 @@ def replay_run_record(record: Mapping[str, Any]) -> VerificationRun:
         content=base64.b64decode(record["artifact_content_b64"]),
         metadata=dict(artifact_data.get("metadata", {})),
     )
+    expected_digest = str(artifact_data["artifact_digest"])
+    actual_frozen_digest = sha256(candidate.content).hexdigest()
+    if actual_frozen_digest != expected_digest:
+        raise ValueError("replay digest mismatch: frozen content no longer identifies the recorded artifact")
+    recorded_hard_result = record["hard_verifier_result"]
+    if str(recorded_hard_result.get("artifact_digest")) != expected_digest:
+        raise ValueError("replay hard-verifier result does not bind the recorded artifact digest")
+    expected_components = record.get("component_versions")
+    if not isinstance(expected_components, Mapping):
+        raise ValueError("replay record lacks semantic component provenance")
     sink = InMemoryEventSink()
     runner = VerificationRunner.default(event_sink=sink)
-    replay = runner.run(task, candidate, RecordedHardVerifier(record["hard_verifier_result"]))
-    if replay.artifact.artifact_digest != artifact_data["artifact_digest"]:
+    replay = runner.run(task, candidate, RecordedHardVerifier(recorded_hard_result))
+    if replay.artifact.artifact_digest != expected_digest:
         raise ValueError("replay digest mismatch: frozen content no longer identifies the recorded artifact")
-    expected_versions = record.get("component_versions", {}).get("checklets", {})
-    actual_versions = {observation.checklet_id: observation.checklet_version for observation in replay.observations}
-    if expected_versions and actual_versions != expected_versions:
-        raise ValueError("replay checklet versions changed; this is not scientifically equivalent replay")
+    actual_components = {
+        "runner": {"version": VerificationRunner.version},
+        "domain_pack": {"id": replay.domain_pack_id, "version": replay.domain_pack_version},
+        "policy": {"id": replay.shadow_assessment.policy_id, "version": replay.shadow_assessment.policy_version},
+        "gates": {gate.gate_id: gate.gate_version for gate in replay.gates},
+        "hard_verifier": f"{replay.hard_verifier_result.verifier_id}/{replay.hard_verifier_result.verifier_version}",
+        "checklets": {observation.checklet_id: observation.checklet_version for observation in replay.observations},
+    }
+    if actual_components != expected_components:
+        raise ValueError("replay component provenance changed; this is not scientifically equivalent replay")
     return replay
 
 
@@ -198,7 +224,7 @@ class _DatasetHardVerifier:
     def verify(self, task: TaskContract, artifact) -> HardVerifierResult:
         timer = perf_counter()
         fixture_id = str(artifact.ref.metadata.get("fixture_id"))
-        outcome = self._outcomes.get(fixture_id, HardVerifierOutcome.OUTCOME_UNKNOWN)
+        outcome = self._outcomes.get(artifact.artifact_digest, HardVerifierOutcome.OUTCOME_UNKNOWN)
         now = utc_now()
         return HardVerifierResult(
             verifier_id=self.verifier_id,
@@ -206,7 +232,7 @@ class _DatasetHardVerifier:
             artifact_digest=artifact.artifact_digest,
             outcome=outcome,
             defect_refs=(),
-            evidence_refs=(f"fixture-reference:{fixture_id}",),
+            evidence_refs=(f"fixture-reference:{fixture_id}:{artifact.artifact_digest}",),
             oracle_class="executable_reference_fixture",
             oracle_applicability="fixture_acceptance",
             started_at=now,
@@ -292,7 +318,13 @@ def _overlap_metrics(runs: Sequence[tuple[Mapping[str, Any], VerificationRun]]) 
 def evaluate_fixture_set(path: Path) -> EvaluationReport:
     payload = json.loads(path.read_text(encoding="utf-8"))
     fixtures = tuple(payload.get("fixtures", []))
-    outcomes = {str(fixture["fixture_id"]): HardVerifierOutcome(fixture["hard_verifier_outcome"]) for fixture in fixtures}
+    outcomes: dict[str, HardVerifierOutcome] = {}
+    for fixture in fixtures:
+        digest = sha256(_build_candidate(fixture).content).hexdigest()
+        outcome = HardVerifierOutcome(fixture["hard_verifier_outcome"])
+        if digest in outcomes and outcomes[digest] != outcome:
+            raise ValueError("fixture oracle assigns conflicting hard outcomes to identical artifact content")
+        outcomes[digest] = outcome
     verifier: HardVerifier = _DatasetHardVerifier(outcomes)
     evaluated: list[tuple[Mapping[str, Any], VerificationRun]] = []
     records: list[dict[str, Any]] = []
@@ -308,8 +340,11 @@ def evaluate_fixture_set(path: Path) -> EvaluationReport:
         records.append(record)
     per_checklet = _per_checklet_metrics(evaluated)
     waiver_runs = [run for _, run in evaluated if run.shadow_assessment.shadow_action.value == "would_waive"]
-    false_waives = sum(run.comparison.counterfactual_class == CounterfactualClass.FALSE_SHADOW_WAIVE for run in waiver_runs)
-    correct_waives = sum(run.comparison.counterfactual_class == CounterfactualClass.CORRECT_SHADOW_WAIVE for run in waiver_runs)
+    determinate_waiver_runs = [
+        run for run in waiver_runs if run.comparison.counterfactual_class != CounterfactualClass.INDETERMINATE
+    ]
+    false_waives = sum(run.comparison.counterfactual_class == CounterfactualClass.FALSE_SHADOW_WAIVE for run in determinate_waiver_runs)
+    correct_waives = sum(run.comparison.counterfactual_class == CounterfactualClass.CORRECT_SHADOW_WAIVE for run in determinate_waiver_runs)
     outcomes_count = {outcome.value: sum(run.final_outcome == outcome for _, run in evaluated) for outcome in HardVerifierOutcome}
     checklet_latencies = [observation.latency_ms for _, run in evaluated for observation in run.observations]
     hard_latencies = [run.hard_verifier_result.latency_ms for _, run in evaluated]
@@ -332,17 +367,18 @@ def evaluate_fixture_set(path: Path) -> EvaluationReport:
         cross_checklet_overlap=_overlap_metrics(evaluated),
         shadow_metrics={
             "shadow_waiver_count": len(waiver_runs),
+            "determinate_shadow_waiver_count": len(determinate_waiver_runs),
             "shadow_verification_count": len(evaluated) - len(waiver_runs),
             "shadow_indeterminate_count": sum(run.shadow_assessment.risk_band.value == "indeterminate" for _, run in evaluated),
             "shadow_waiver_coverage": _ratio(len(waiver_runs), len(evaluated)),
             "false_shadow_waiver_count": false_waives,
             "correct_shadow_waiver_count": correct_waives,
-            "observed_counterfactual_shadow_miss_rate": _ratio(false_waives, len(waiver_runs)),
+            "observed_counterfactual_shadow_miss_rate": _ratio(false_waives, len(determinate_waiver_runs)),
             "unnecessary_shadow_verification_rate": _ratio(
                 sum(run.comparison.counterfactual_class == CounterfactualClass.UNNECESSARY_SHADOW_VERIFY for _, run in evaluated),
                 len(evaluated) - len(waiver_runs),
             ),
-            "observed_miss_interval": _counterfactual_interval(false_waives, len(waiver_runs)),
+            "observed_miss_interval": _counterfactual_interval(false_waives, len(determinate_waiver_runs)),
         },
         cost_and_latency={
             "checklets_latency_ms": _metric_summary(checklet_latencies),

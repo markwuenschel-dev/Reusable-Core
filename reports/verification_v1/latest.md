@@ -1,9 +1,9 @@
 # Verification Slice V1 Evaluation Report
 
 - Dataset: `engineering_fixture_set` v`1.0.0`
-- Generated: 2026-08-28T10:40:21.691267+00:00
+- Generated: 2026-08-28T11:14:14.515140+00:00
 - Tasks: 8; hard-verifier coverage: 7; indeterminate: 1
-- Shadow waiver coverage: 0.875; observed counterfactual shadow miss rate: 0.5714285714285714
+- Shadow waiver coverage: 0.875; observed counterfactual shadow miss rate: 0.6666666666666666
 
 ## Per-checklet results
 

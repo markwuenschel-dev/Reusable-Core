@@ -9,6 +9,8 @@ from verification_v1.artifacts import ArtifactStore
 from verification_v1.checklets import BaseCodingChecklet, CheckletContext, CheckletRegistry
 from verification_v1.contracts import (
     CheckletVerdict,
+    GateResult,
+    GateStatus,
     HardVerifierOutcome,
     Severity,
     ShadowAction,
@@ -17,7 +19,7 @@ from verification_v1.contracts import (
 from verification_v1.gates import GateRunner, MetadataShapeGate
 from verification_v1.hard_verify import CommandHardVerifier, StaticHardVerifier
 from verification_v1.runner import CandidateArtifact, VerificationRunner
-from verification_v1.telemetry import InMemoryEventSink, JsonlEventSink
+from verification_v1.telemetry import InMemoryEventSink, JsonlEventSink, make_event
 
 
 class FixedObservationChecklet(BaseCodingChecklet):
@@ -125,6 +127,54 @@ class ContractsArtifactsAndTelemetryTests(unittest.TestCase):
 
         self.assertEqual(HardVerifierOutcome.ACCEPTED, result.final_outcome)
         self.assertEqual("external_executable_command", result.hard_verifier_result.oracle_class)
+
+    def test_command_hard_verifier_detects_materialized_artifact_tampering(self) -> None:
+        tamper = (
+            "from pathlib import Path; import os, sys; "
+            "path = Path(sys.argv[1]); os.chmod(path, 0o666); path.write_bytes(b'tampered'); sys.exit(0)"
+        )
+        result = runner(FixedObservationChecklet(CheckletVerdict.CLEAN), event_sink=InMemoryEventSink()).run(
+            TaskContract("tamper-command-task", ()), artifact(), CommandHardVerifier((sys.executable, "-c", tamper, "{artifact_path}"))
+        )
+
+        self.assertEqual(HardVerifierOutcome.INFRASTRUCTURE_ERROR, result.final_outcome)
+        self.assertIn("materialized_artifact_digest_mismatch", result.hard_verifier_result.evidence_refs)
+
+    def test_telemetry_payload_cannot_override_identity_envelope(self) -> None:
+        registered = ArtifactStore().register(artifact(), "event-run")
+
+        with self.assertRaises(ValueError):
+            make_event(
+                "test_event",
+                TaskContract("event-task", ()),
+                registered,
+                "test-component",
+                "1.0.0",
+                artifact_digest="not-the-registered-digest",
+            )
+
+    def test_contract_collections_are_deeply_frozen_at_construction(self) -> None:
+        requirements = ["declared-requirement"]
+        details = {"nested": ["evidence"]}
+        task = TaskContract("frozen-task", requirements)
+        gate = GateResult(
+            "frozen-gate", "1.0.0", "digest", GateStatus.PASS, Severity.INFO,
+            "started", "completed", 0.0, details=details,
+        )
+        requirements.append("late-mutation")
+        details["nested"].append("late-mutation")
+
+        self.assertEqual(("declared-requirement",), task.requirements)
+        self.assertEqual(("evidence",), gate.details["nested"])
+        with self.assertRaises(TypeError):
+            gate.details["new"] = "not-allowed"
+
+    def test_frozen_set_metadata_remains_json_serializable(self) -> None:
+        task = TaskContract("set-metadata-task", (), metadata={"tags": {"stable", "diagnostic"}})
+
+        payload = task.to_dict()
+
+        self.assertEqual({"stable", "diagnostic"}, set(payload["metadata"]["tags"]))
 
 
 if __name__ == "__main__":

@@ -29,6 +29,17 @@ if TYPE_CHECKING:
 
 
 @dataclass(frozen=True)
+class TelemetryFailure:
+    """A non-authoritative record that the append-only audit sink was unavailable."""
+
+    event_type: str
+    exception_type: str
+
+    def to_dict(self) -> dict[str, str]:
+        return {"event_type": self.event_type, "exception_type": self.exception_type}
+
+
+@dataclass(frozen=True)
 class VerificationRun:
     run_id: str
     task: TaskContract
@@ -38,6 +49,9 @@ class VerificationRun:
     shadow_assessment: ShadowRiskAssessment
     hard_verifier_result: HardVerifierResult
     comparison: ShadowComparison
+    domain_pack_id: str
+    domain_pack_version: str
+    telemetry_failures: tuple["TelemetryFailure", ...]
 
     @property
     def final_outcome(self) -> HardVerifierOutcome:
@@ -56,6 +70,7 @@ class VerificationRunner:
         aggregator: ShadowAggregator,
         event_sink: EventSink,
         domain_pack_id: str = "custom",
+        domain_pack_version: str = "custom",
     ) -> None:
         self.artifact_store = artifact_store
         self.gate_runner = gate_runner
@@ -63,6 +78,7 @@ class VerificationRunner:
         self.aggregator = aggregator
         self.event_sink = event_sink
         self.domain_pack_id = domain_pack_id
+        self.domain_pack_version = domain_pack_version
 
     @classmethod
     def default(cls, event_sink: EventSink | None = None, artifact_store: ArtifactStore | None = None) -> "VerificationRunner":
@@ -86,33 +102,55 @@ class VerificationRunner:
             aggregator=ShadowAggregator(),
             event_sink=event_sink or InMemoryEventSink(),
             domain_pack_id=domain_pack.pack_id,
+            domain_pack_version=domain_pack.version,
         )
+
+    def _emit_safely(
+        self,
+        failures: list["TelemetryFailure"],
+        event_type: str,
+        task: TaskContract,
+        artifact: RegisteredArtifact,
+        component_id: str,
+        component_version: str,
+        **payload: Any,
+    ) -> None:
+        """Telemetry never gains authority to interrupt the verification sequence."""
+        try:
+            self.event_sink.emit(event_type, task, artifact, component_id, component_version, **payload)
+        except Exception as exc:  # A failing audit sink is explicit infrastructure evidence, not control flow.
+            failures.append(TelemetryFailure(event_type, type(exc).__name__))
 
     def run(self, task: TaskContract, candidate: CandidateArtifact, hard_verifier: HardVerifier) -> VerificationRun:
         run_id = new_id("run")
         artifact = self.artifact_store.register(candidate, run_id)
-        self.event_sink.emit("task_received", task, artifact, "verification_runner", self.version)
-        self.event_sink.emit("artifact_registered", task, artifact, "artifact_store", "1.0.0")
+        telemetry_failures: list[TelemetryFailure] = []
+        self._emit_safely(telemetry_failures, "task_received", task, artifact, "verification_runner", self.version)
+        self._emit_safely(telemetry_failures, "artifact_registered", task, artifact, "artifact_store", "1.0.0")
 
         gates = self.gate_runner.run_all(task, artifact)
         for gate in gates:
-            self.event_sink.emit("objective_gate_started", task, artifact, gate.gate_id, gate.gate_version)
-            self.event_sink.emit("objective_gate_finished", task, artifact, gate.gate_id, gate.gate_version, gate=gate.to_dict())
+            self._emit_safely(telemetry_failures, "objective_gate_started", task, artifact, gate.gate_id, gate.gate_version)
+            self._emit_safely(telemetry_failures, "objective_gate_finished", task, artifact, gate.gate_id, gate.gate_version, gate=gate.to_dict())
 
         context = CheckletContext(task=task, artifact=artifact)
         observations = self.checklets.run_all(context)
         for observation in observations:
-            self.event_sink.emit("checklet_started", task, artifact, observation.checklet_id, observation.checklet_version)
-            self.event_sink.emit(
+            self._emit_safely(
+                telemetry_failures,
+                "checklet_started", task, artifact, observation.checklet_id, observation.checklet_version,
+            )
+            self._emit_safely(
+                telemetry_failures,
                 "checklet_finished", task, artifact, observation.checklet_id, observation.checklet_version,
                 observation=observation.to_dict(),
             )
 
         shadow = self.aggregator.assess(artifact.artifact_digest, gates, observations)
-        self.event_sink.emit("shadow_assessment_created", task, artifact, shadow.policy_id, shadow.policy_version, assessment=shadow.to_dict())
+        self._emit_safely(telemetry_failures, "shadow_assessment_created", task, artifact, shadow.policy_id, shadow.policy_version, assessment=shadow.to_dict())
 
         # This call is structurally unconditional: no shadow action returns from this method before it executes.
-        self.event_sink.emit("hard_verifier_started", task, artifact, hard_verifier.verifier_id, hard_verifier.version)
+        self._emit_safely(telemetry_failures, "hard_verifier_started", task, artifact, hard_verifier.verifier_id, hard_verifier.version)
         try:
             hard_result = hard_verifier.verify(task, artifact)
             if hard_result.artifact_digest != artifact.artifact_digest:
@@ -134,14 +172,18 @@ class VerificationRunner:
                 cost={"kind": "unknown_cost"},
                 metadata={"exception": type(exc).__name__},
             )
-        self.event_sink.emit(
+        self._emit_safely(
+            telemetry_failures,
             "hard_verifier_finished", task, artifact, hard_result.verifier_id, hard_result.verifier_version,
             hard_verifier_result=hard_result.to_dict(),
         )
         comparison = compare_shadow_to_hard_verifier(shadow, hard_result)
-        self.event_sink.emit("shadow_comparison_created", task, artifact, "shadow_comparison", "1.0.0", comparison=comparison.to_dict())
-        self.event_sink.emit("run_completed", task, artifact, "verification_runner", self.version, final_outcome=hard_result.outcome.value)
-        return VerificationRun(run_id, task, artifact, gates, observations, shadow, hard_result, comparison)
+        self._emit_safely(telemetry_failures, "shadow_comparison_created", task, artifact, "shadow_comparison", "1.0.0", comparison=comparison.to_dict())
+        self._emit_safely(telemetry_failures, "run_completed", task, artifact, "verification_runner", self.version, final_outcome=hard_result.outcome.value)
+        return VerificationRun(
+            run_id, task, artifact, gates, observations, shadow, hard_result, comparison,
+            self.domain_pack_id, self.domain_pack_version, tuple(telemetry_failures),
+        )
 
 
 __all__ = ["CandidateArtifact", "VerificationRun", "VerificationRunner"]

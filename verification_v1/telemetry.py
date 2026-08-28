@@ -33,7 +33,7 @@ def make_event(
     component_version: str,
     **payload: Any,
 ) -> dict[str, Any]:
-    return {
+    envelope = {
         "schema_version": EVENT_SCHEMA_VERSION,
         "event_id": new_id("event"),
         "timestamp": utc_now(),
@@ -45,8 +45,11 @@ def make_event(
         "event_type": event_type,
         "component_id": component_id,
         "component_version": component_version,
-        **payload,
     }
+    collision = set(envelope) & set(payload)
+    if collision:
+        raise ValueError(f"telemetry payload cannot replace identity fields: {', '.join(sorted(collision))}")
+    return {**envelope, **payload}
 
 
 class InMemoryEventSink:

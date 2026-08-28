@@ -33,7 +33,7 @@ The core runner receives gates/checklets through `CodingDomainPack`, not through
 - dependency/integration risk;
 - error/boundary handling.
 
-Each checklet has a version, explicit timeout, evidence-family ID, cost record, and `diagnostic` authority ceiling. Checklets receive a disposable copy of artifact metadata and never receive the hard-verifier outcome, fixture label, or another checklet’s result. A timeout, unavailable required context, exception, or malformed output is an explicit typed error; it cannot become clean evidence.
+Each checklet has a version, explicit timeout, evidence-family ID, cost record, and `diagnostic` authority ceiling. Checklets run in a terminable isolated process from a bounded inert descriptor; oversized or untransportable inputs become typed errors. Checklets receive a disposable copy of artifact metadata and never receive the hard-verifier outcome, fixture label, or another checklet’s result. A timeout, unavailable required context, exception, or malformed output is an explicit typed error; it cannot become clean evidence.
 
 To add a checklet, implement the checklet protocol, give it a new versioned `CheckletSpec` with `authority_ceiling="diagnostic"`, register it in the coding domain pack manifest and default factory, add clean/defect fixtures showing its intended narrow criterion, and run the full fixture evaluation. Do not give it any path to accept, reject, rewrite, or skip hard verification.
 
@@ -43,7 +43,7 @@ To add a checklet, implement the checklet protocol, give it a new versioned `Che
 
 Hard verification has explicit adapters:
 
-- `CommandHardVerifier` invokes an independently configured executable against a materialized immutable artifact;
+- `CommandHardVerifier` invokes an independently configured executable against a read-only materialized artifact and rechecks its digest after execution;
 - fixture evaluation uses an independent fixture oracle mapping unavailable to checklets;
 - `StaticHardVerifier` is test-only.
 
@@ -51,11 +51,11 @@ Timeout, missing output, and infrastructure failures are `outcome_unknown` or `i
 
 ## Telemetry, replay, and evaluation
 
-`JsonlEventSink` appends an event envelope containing schema/event/run/task/artifact identity, component ID/version, and event type. Events distinguish gate/checklet evidence from hard-verifier evidence. Use `--event-log` with the CLI to persist an event stream.
+`JsonlEventSink` appends an event envelope containing schema/event/run/task/artifact identity, component ID/version, and event type. Events distinguish gate/checklet evidence from hard-verifier evidence. A sink exception is captured as a typed `VerificationRun.telemetry_failures` record and never gains authority to alter the hard-verifier outcome; this preserves consistency even when a sink persisted an event before reporting its failure. Use `--event-log` with the CLI to persist an event stream.
 
 Evaluation fixtures are labeled after prediction. The checked-in `engineering_fixture_set` is intentionally small and identified as engineering fixtures, not a statistically representative dataset. Reports include per-checklet counts/precision/recall where fixture labels permit, unique catches, Jaccard finding overlap, shadow-waiver coverage, observed counterfactual miss rate, indeterminate cases, cost/latency, hard outcomes, and limitations.
 
-Replay consumes a stored `run_to_record()` JSON object, reconstructs frozen bytes, re-runs deterministic stages, and uses the recorded hard outcome. It rejects digest or checklet-version mismatch rather than calling the run scientifically equivalent.
+Replay consumes a stored `run_to_record()` JSON object, reconstructs frozen bytes, re-runs deterministic stages, and uses the recorded hard outcome. It rejects any artifact/hard-result digest mismatch or runner, domain-pack, policy, gate, or checklet provenance mismatch rather than calling the run scientifically equivalent.
 
 ## Developer commands
 
