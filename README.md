@@ -126,95 +126,109 @@ flowchart TD
     T --> M[Governed Learning / Model Factory]
     M -. candidate improvements .-> R
 ```
-Architectural Layers
-Reusable Control Plane
+
+---
+
+## Architectural Layers
+
+### Reusable Control Plane
 
 The domain-agnostic control plane owns:
 
-task intake
-artifact contracts
-routing
-budgets
-role invocation
-artifact lineage
-handoffs
-verification orchestration
-revision policy
-stopping policy
-escalation
-telemetry
-promotion rules
-Domain Packs
+- task intake
+- artifact contracts
+- routing
+- budgets
+- role invocation
+- artifact lineage
+- handoffs
+- verification orchestration
+- revision policy
+- stopping policy
+- escalation
+- telemetry
+- promotion rules
+
+### Domain Packs
 
 Domain packs specialize the reusable core without changing its constitutional behavior.
 
 A domain pack may define:
 
-artifact schemas
-specialist checklets
-deterministic rules
-executable tests
-source-verification logic
-subjective rubrics
-benchmark tasks
-risk thresholds
-required tools
-human-review triggers
-domain-specific telemetry
+- artifact schemas
+- specialist checklets
+- deterministic rules
+- executable tests
+- source-verification logic
+- subjective rubrics
+- benchmark tasks
+- risk thresholds
+- required tools
+- human-review triggers
+- domain-specific telemetry
 
 Initial target domains include:
 
-software and RAG engineering
-research and grounded synthesis
-UE5 and game-development workflows
-creative writing
-documentation
-Trusted Authority Layer
+- software and RAG engineering
+- research and grounded synthesis
+- UE5 and game-development workflows
+- creative writing
+- documentation
+
+### Trusted Authority Layer
 
 Consequential effects are separated from model execution.
 
 The long-term architecture includes a small trusted authority layer responsible for:
 
-workload identity
-policy composition
-authorization
-effect mediation
-grants
-transactional effect state
-invalidation
-release authority
-certificate state
-audit integrity
+- workload identity
+- policy composition
+- authorization
+- effect mediation
+- grants
+- transactional effect state
+- invalidation
+- release authority
+- certificate state
+- audit integrity
 
 Models, routers, agent frameworks, workflow engines, and verifier models remain outside this authority boundary.
 
-Agent Model
+---
+
+## Agent Model
 
 The system may expose familiar roles such as:
 
-Role	Responsibility
-Orchestrator	Routing, budget, stop/escalation decisions
-Planner	Task decomposition and acceptance criteria
-Architect	Interfaces, structure, dependencies, invariants
-Researcher	External evidence acquisition and source mapping
-Builder	Produces code, prose, assets, research artifacts, or other deliverables
-Critic / Verifier	Localizes defects using grounded evidence
-Documentor	Produces trace-backed user-facing documentation
+| Role | Responsibility |
+|---|---|
+| Orchestrator | Routing, budget, stop/escalation decisions |
+| Planner | Task decomposition and acceptance criteria |
+| Architect | Interfaces, structure, dependencies, invariants |
+| Researcher | External evidence acquisition and source mapping |
+| Builder | Produces code, prose, assets, research artifacts, or other deliverables |
+| Critic / Verifier | Localizes defects using grounded evidence |
+| Documentor | Produces trace-backed user-facing documentation |
 
-These are capability categories, not mandatory pipeline stages.
+These are **capability categories, not mandatory pipeline stages**.
 
 A task may use:
 
+```text
 Builder
+```
 
 or:
 
+```text
 Orchestrator
   -> Builder
   -> Deterministic Verification
+```
 
 or:
 
+```text
 Orchestrator
   -> Planner
   -> Parallel Researchers
@@ -223,125 +237,142 @@ Orchestrator
   -> Hard Verification
   -> Bounded Revision
   -> Finalization
+```
 
 The route is selected according to task requirements and measured marginal value.
 
-Specialized Checklets
+---
+
+## Specialized Checklets
 
 Broad generic criticism is not the target architecture.
 
-The system instead supports narrow, structured evaluators called checklets.
+The system instead supports narrow, structured evaluators called **checklets**.
 
 A checklet should generally:
 
-evaluate one bounded criterion
-emit structured findings
-include confidence and evidence
-abstain when appropriate
-avoid rewriting the entire artifact
-be calibrated against an appropriate reference
-earn continued use through measured value
+- evaluate one bounded criterion
+- emit structured findings
+- include confidence and evidence
+- abstain when appropriate
+- avoid rewriting the entire artifact
+- be calibrated against an appropriate reference
+- earn continued use through measured value
 
 Examples:
 
-Software
-compile-risk check
-test-adequacy check
-security check
-changed-file risk
-dependency risk
-API-contract verification
-Research
-claim-support verification
-citation fidelity
-freshness
-contradiction detection
-source diversity
-Writing
-continuity
-POV / tense
-dialogue voice
-pacing
-imagery
-spatial / combat clarity
-emotional arc
-style drift
-UE5
-missing references
-asset naming
-dependency cycles
-Blueprint compile risk
-map-load validation
-performance-budget checks
+### Software
+
+- compile-risk check
+- test-adequacy check
+- security check
+- changed-file risk
+- dependency risk
+- API-contract verification
+
+### Research
+
+- claim-support verification
+- citation fidelity
+- freshness
+- contradiction detection
+- source diversity
+
+### Writing
+
+- continuity
+- POV / tense
+- dialogue voice
+- pacing
+- imagery
+- spatial / combat clarity
+- emotional arc
+- style drift
+
+### UE5
+
+- missing references
+- asset naming
+- dependency cycles
+- Blueprint compile risk
+- map-load validation
+- performance-budget checks
 
 Many checklets may diagnose.
 
 A bounded builder/reviser owns the actual modification.
 
-Selective Verification
+---
+
+## Selective Verification
 
 One of the primary research goals is to reduce expensive hard verification without increasing serious escaped defects.
 
 The core decision is therefore not:
 
-"Did the model say this is good?"
+> "Did the model say this is good?"
 
 It is:
 
-"Is there enough calibrated evidence to safely waive additional verification?"
+> "Is there enough calibrated evidence to safely waive additional verification?"
 
 Important metrics include:
 
-false-waiver rate
-waiver coverage
-defect escape rate
-false-block rate
-verifier precision and recall
-revision gain
-handoff loss
-route regret
-cost per accepted artifact
-latency
-tool efficiency
+- false-waiver rate
+- waiver coverage
+- defect escape rate
+- false-block rate
+- verifier precision and recall
+- revision gain
+- handoff loss
+- route regret
+- cost per accepted artifact
+- latency
+- tool efficiency
 
 High-risk or poorly calibrated cases fail closed or escalate.
 
-Artifact-First Design
+---
+
+## Artifact-First Design
 
 The architecture treats artifacts as the stable interface between reasoning stages.
 
 Examples include:
 
-TaskBrief
-RouteDecision
-Plan
-ArchitectureSpec
-EvidencePack
-CandidateArtifact
-CheckletObservation
-VerdictPacket
-RevisionDiff
-AuthorityGrant
-Certificate
-FinalRelease
+- `TaskBrief`
+- `RouteDecision`
+- `Plan`
+- `ArchitectureSpec`
+- `EvidencePack`
+- `CandidateArtifact`
+- `CheckletObservation`
+- `VerdictPacket`
+- `RevisionDiff`
+- `AuthorityGrant`
+- `Certificate`
+- `FinalRelease`
 
 Artifacts should be:
 
-typed where possible
-schema validated
-versioned
-content-addressed where appropriate
-traceable to their inputs
-independently verifiable
+- typed where possible
+- schema validated
+- versioned
+- content-addressed where appropriate
+- traceable to their inputs
+- independently verifiable
 
 This reduces lossy free-text handoffs and enables deterministic replay, auditing, and experimentation.
 
-Telemetry and Evaluation
+---
+
+## Telemetry and Evaluation
 
 The system is designed to be measurable from the beginning.
 
 Each run should eventually expose structured trace information for:
 
+```text
 task
 route
 model invocation
@@ -356,98 +387,129 @@ authorization
 external effect
 stop/escalation decision
 final outcome
+```
 
 Evaluation is organized around four dataset roles:
 
-development — workflow and prompt iteration
-calibration — thresholds, judges, routers, and risk models
-regression — frozen historical failures
-holdout — promotion decisions
+- **development** — workflow and prompt iteration
+- **calibration** — thresholds, judges, routers, and risk models
+- **regression** — frozen historical failures
+- **holdout** — promotion decisions
 
 The strong matched single-agent system is the primary baseline.
 
 Multi-agent configurations must beat that baseline under controlled budgets rather than merely consume more compute.
 
-Governed Learning
+---
+
+## Governed Learning
 
 The long-term system includes a self-improving model portfolio.
 
 Production experience may be used to train:
 
-routers
-specialist models
-verifier models
-risk predictors
-handoff-loss detectors
-judge calibrators
-revision-gain predictors
-anomaly detectors
+- routers
+- specialist models
+- verifier models
+- risk predictors
+- handoff-loss detectors
+- judge calibrators
+- revision-gain predictors
+- anomaly detectors
 
 However:
 
-The learning system may produce candidates.
-It may not authorize its own promotion.
+> The learning system may produce candidates.  
+> It may not authorize its own promotion.
 
 Candidate improvements must pass independent evaluation and the same governance and verification requirements as any other production change.
 
-Research Program
+---
+
+## Research Program
 
 Major active research areas include:
 
-dynamic composition
-selective verification
-specialist checklets
-graph-based orchestration
-best-of-N versus iterative revision
-runtime-substrate independence
-capability routing
-swarm admission
-durable execution
-governed memory
-capability containment
-verification-budget-aware scheduling
-federated execution
-compositional certification
-certification durability
-recursive epistemic stability
-model portfolio optimization
+- dynamic composition
+- selective verification
+- specialist checklets
+- graph-based orchestration
+- best-of-N versus iterative revision
+- runtime-substrate independence
+- capability routing
+- swarm admission
+- durable execution
+- governed memory
+- capability containment
+- verification-budget-aware scheduling
+- federated execution
+- compositional certification
+- certification durability
+- recursive epistemic stability
+- model portfolio optimization
 
 A research result does not become architecture merely because it is promising.
 
 Promotion requires empirical evidence.
 
-Current Build Priorities
+---
+
+## Current Build Priorities
 
 Initial implementation should prioritize:
 
-artifact contracts and schemas
-deterministic fail-closed validation
-strong single-agent baseline
-trace and event instrumentation
-evaluation harness
-reduced default execution loop
-specialist checklet interface
-hard-verification interface
-dynamic routing
-calibrated risk aggregation
-authority and effect mediation
-governed learning infrastructure
-Non-Goals
+1. artifact contracts and schemas
+2. deterministic fail-closed validation
+3. strong single-agent baseline
+4. trace and event instrumentation
+5. evaluation harness
+6. reduced default execution loop
+7. specialist checklet interface
+8. hard-verification interface
+9. dynamic routing
+10. calibrated risk aggregation
+11. authority and effect mediation
+12. governed learning infrastructure
+
+---
+
+## Non-Goals
 
 This project is not intended to be:
 
-a fixed seven-agent chain
-an LLM group chat with role names
-a framework that assumes more agents are better
-a system where model confidence grants authority
-an autonomous self-modifying production system without independent promotion
-a replacement for deterministic verification where deterministic verification exists
-a system that treats telemetry as proof
-a system that treats model agreement as truth
-Repository Status
+- a fixed seven-agent chain
+- an LLM group chat with role names
+- a framework that assumes more agents are better
+- a system where model confidence grants authority
+- an autonomous self-modifying production system without independent promotion
+- a replacement for deterministic verification where deterministic verification exists
+- a system that treats telemetry as proof
+- a system that treats model agreement as truth
+
+---
+
+## Repository Status
 
 Interfaces, schemas, package boundaries, and implementation details are expected to evolve rapidly while the initial experimental harness is built.
 
 Until a component is explicitly marked otherwise:
 
-Research proposal does not imply production authority.
+> **Research proposal does not imply production authority.**
+
+---
+
+## License
+
+This repository is proprietary.
+
+No permission is granted to copy, modify, distribute, sublicense, publish, sell, or commercially exploit the software or associated materials except under a separate written agreement with the copyright holder.
+
+See [`LICENSE`](LICENSE).
+
+---
+
+## Disclaimer
+
+This repository contains experimental autonomous-agent, machine-learning, verification, and security architecture work.
+
+No implementation should be treated as production-safe solely because it follows a design described in this repository. Production claims require implementation-specific validation, threat modeling, testing, and certification.
