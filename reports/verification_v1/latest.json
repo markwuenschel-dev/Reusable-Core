@@ -1,0 +1,2530 @@
+{
+  "cost_and_latency": {
+    "checklets_latency_ms": {
+      "mean": 112.42059000005611,
+      "p50": 113.39199999929406,
+      "p95": 124.79529999836814,
+      "total": 4496.823600002244
+    },
+    "counterfactual_savings_note": "Experimental estimate only; VS-V1 always invokes the hard verifier.",
+    "hard_verifier_latency_ms": {
+      "mean": 0.006599999323952943,
+      "p50": 0.006599999323952943,
+      "p95": 0.008799997885944322,
+      "total": 0.052799994591623545
+    },
+    "total_verification_overhead_ms": 4496.876399996836
+  },
+  "cross_checklet_overlap": {
+    "jaccard_finding_overlap": {
+      "change_scope|dependency_integration_risk": 0.0,
+      "change_scope|error_boundary": 0.0,
+      "change_scope|requirement_coverage": 0.0,
+      "change_scope|test_adequacy": 0.0,
+      "dependency_integration_risk|error_boundary": 0.0,
+      "dependency_integration_risk|requirement_coverage": 0.0,
+      "dependency_integration_risk|test_adequacy": 0.0,
+      "error_boundary|requirement_coverage": 0.0,
+      "error_boundary|test_adequacy": 0.0,
+      "requirement_coverage|test_adequacy": 0.0
+    }
+  },
+  "dataset_id": "engineering_fixture_set",
+  "dataset_version": "1.0.0",
+  "fixture_composition": {
+    "known_clean_control": 3,
+    "seeded_defect": 5
+  },
+  "generated_at": "2026-08-28T11:14:14.515140+00:00",
+  "hard_verifier_coverage": 7,
+  "hard_verifier_outcomes": {
+    "accepted": 2,
+    "infrastructure_error": 0,
+    "outcome_unknown": 1,
+    "rejected": 5
+  },
+  "indeterminate_count": 1,
+  "known_limitations": [
+    "engineering_fixture_set is not a statistically representative production dataset",
+    "checklet metrics use seeded fixture expectations and should not be generalized beyond this sample",
+    "would_waive is an experimental counterfactual and never authorizes acceptance"
+  ],
+  "per_checklet": {
+    "change_scope": {
+      "abstention_count": 0,
+      "applicability_count": 8,
+      "clean_count": 7,
+      "clean_predictive_value_for_fixture_label": 0.42857142857142855,
+      "cost": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "total": 0.0
+      },
+      "error_count": 0,
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "finding_count": 1,
+      "latency_ms": {
+        "mean": 111.9105750003655,
+        "p50": 113.24389999936102,
+        "p95": 124.79529999836814,
+        "total": 895.284600002924
+      },
+      "observation_count": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "unique_catch_count": 1,
+      "unique_catch_rate": 1.0
+    },
+    "dependency_integration_risk": {
+      "abstention_count": 0,
+      "applicability_count": 8,
+      "clean_count": 7,
+      "clean_predictive_value_for_fixture_label": 0.42857142857142855,
+      "cost": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "total": 0.0
+      },
+      "error_count": 0,
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "finding_count": 1,
+      "latency_ms": {
+        "mean": 114.85495000079027,
+        "p50": 116.58560000068974,
+        "p95": 137.5990999986243,
+        "total": 918.8396000063221
+      },
+      "observation_count": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "unique_catch_count": 1,
+      "unique_catch_rate": 1.0
+    },
+    "error_boundary": {
+      "abstention_count": 0,
+      "applicability_count": 8,
+      "clean_count": 7,
+      "clean_predictive_value_for_fixture_label": 0.42857142857142855,
+      "cost": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "total": 0.0
+      },
+      "error_count": 0,
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "finding_count": 1,
+      "latency_ms": {
+        "mean": 109.2322124986822,
+        "p50": 110.9348999998474,
+        "p95": 115.23010000018985,
+        "total": 873.8576999894576
+      },
+      "observation_count": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "unique_catch_count": 1,
+      "unique_catch_rate": 1.0
+    },
+    "requirement_coverage": {
+      "abstention_count": 0,
+      "applicability_count": 8,
+      "clean_count": 7,
+      "clean_predictive_value_for_fixture_label": 0.42857142857142855,
+      "cost": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "total": 0.0
+      },
+      "error_count": 0,
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "finding_count": 1,
+      "latency_ms": {
+        "mean": 114.27011249998031,
+        "p50": 115.83030000110739,
+        "p95": 128.5305999990669,
+        "total": 914.1608999998425
+      },
+      "observation_count": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "unique_catch_count": 1,
+      "unique_catch_rate": 1.0
+    },
+    "test_adequacy": {
+      "abstention_count": 0,
+      "applicability_count": 8,
+      "clean_count": 7,
+      "clean_predictive_value_for_fixture_label": 0.42857142857142855,
+      "cost": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "total": 0.0
+      },
+      "error_count": 0,
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "finding_count": 1,
+      "latency_ms": {
+        "mean": 111.83510000046226,
+        "p50": 113.17100000087521,
+        "p95": 119.74179999742773,
+        "total": 894.6808000036981
+      },
+      "observation_count": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "unique_catch_count": 1,
+      "unique_catch_rate": 1.0
+    }
+  },
+  "run_records": [
+    {
+      "artifact": {
+        "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+        "artifact_id": "clean-minimal-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:63098273a7aaa630",
+        "created_at": "2026-08-28T11:14:10.011208+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/math.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/math.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "clean-minimal-patch",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_add"
+          ],
+          "signature_changes": [],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_ba1cdade71a9456992eb4afdb5ad0dae"
+      },
+      "artifact_content_b64": "ZGVmIGFkZChsZWZ0LCByaWdodCk6CiAgICByZXR1cm4gbGVmdCArIHJpZ2h0Cg==",
+      "comparison": {
+        "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+        "counterfactual_class": "correct_shadow_waive",
+        "hard_verifier_outcome": "accepted",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [],
+      "expected_defect_class": null,
+      "final_outcome": "accepted",
+      "fixture_id": "clean-minimal-patch",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "completed_at": "2026-08-28T11:14:10.011277+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0037999998312443495,
+          "result_id": "gate_fba91f9dfb5c4d3fa1a09e1a4aacaa80",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.011273+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+        "completed_at": "2026-08-28T11:14:10.600312+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:clean-minimal-patch:63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476"
+        ],
+        "latency_ms": 0.008799997885944322,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "accepted",
+        "started_at": "2026-08-28T11:14:10.600309+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.139854+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 128.5305999990669,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_643a1a7e476f4548b6ff792cacd7f38e",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.011332+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.259629+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 119.74179999742773,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_f7672c7bad3d4697a3793386cf3d0ed8",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.139895+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.372743+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.08780000035767,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_2ffed218525545bea288299206d1d97e",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.259662+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.490677+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 117.91360000279383,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_8ac7e5b8660046b594a92813ff2f56bc",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.372773+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.599801+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.09909999827505,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_fe51595b5b2e4860b7637fcb5f703f34",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.490711+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:10.600396+00:00",
+      "run_id": "run_ba1cdade71a9456992eb4afdb5ad0dae",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "63098273a7aaa630762d6f145dfcf9c61c8c9b290c6ebeb2a05fea5854ccb476",
+        "assessment_id": "shadow_b6a14e6b8b894a7ea24cf1ebc4d40ed6",
+        "gate_result_ids": [
+          "gate_fba91f9dfb5c4d3fa1a09e1a4aacaa80"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_643a1a7e476f4548b6ff792cacd7f38e",
+          "observation_f7672c7bad3d4697a3793386cf3d0ed8",
+          "observation_2ffed218525545bea288299206d1d97e",
+          "observation_8ac7e5b8660046b594a92813ff2f56bc",
+          "observation_fe51595b5b2e4860b7637fcb5f703f34"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "A deliberately small, valid coding change.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "clean-minimal",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+        "artifact_id": "requirement-omitted-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:67622185f961c255",
+        "created_at": "2026-08-28T11:14:10.600702+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/count.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/count.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "requirement-omitted",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_count"
+          ],
+          "signature_changes": [],
+          "test_cases_by_requirement": {
+            "return-zero-for-empty": [
+              "test_count"
+            ]
+          }
+        },
+        "run_id": "run_2bd40c9731a945af83b0da459dfa2fd2"
+      },
+      "artifact_content_b64": "ZGVmIGNvdW50KGl0ZW1zKToKICAgIHJldHVybiBsZW4oaXRlbXMpCg==",
+      "comparison": {
+        "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+        "counterfactual_class": "false_shadow_waive",
+        "hard_verifier_outcome": "rejected",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [
+        "requirement_coverage"
+      ],
+      "expected_defect_class": "requirement_omitted",
+      "final_outcome": "rejected",
+      "fixture_id": "requirement-omitted",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "completed_at": "2026-08-28T11:14:10.600742+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.004499997885432094,
+          "result_id": "gate_7618edc407a544f88244c997fbca1bb7",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.600738+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+        "completed_at": "2026-08-28T11:14:11.153388+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:requirement-omitted:67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db"
+        ],
+        "latency_ms": 0.007200000254670158,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "rejected",
+        "started_at": "2026-08-28T11:14:11.153386+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.706395+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": "requirement_omitted",
+          "latency_ms": 105.6282999998075,
+          "locus": "task.requirements",
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_fa14bfa946fa4840919bb90f35c1a541",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-08-28T11:14:10.600775+00:00",
+          "summary": "Declared requirements lack coverage: return-zero-for-empty.",
+          "trigger_refs": [
+            "return-zero-for-empty"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.812888+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 106.46800000176881,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_1a880180d70e4dc2a8ee621381fda4e0",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.706427+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:10.922613+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.70630000156234,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_a9a22e680fcf4eb5977788b81f8d003f",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.812917+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.039224+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 116.58560000068974,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_62d6f381f9ea44009ee3ea78f7f4185e",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:10.922646+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.153056+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.80930000086664,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_5fe2913fa3694f9a9b76ace6a3afc4ec",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.039254+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:11.153457+00:00",
+      "run_id": "run_2bd40c9731a945af83b0da459dfa2fd2",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "67622185f961c255b461089cbec92d6cdc56139525b38ad97184ec3ae6e942db",
+        "assessment_id": "shadow_7ed39eaad0af441d81a263eef310987c",
+        "gate_result_ids": [
+          "gate_7618edc407a544f88244c997fbca1bb7"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_fa14bfa946fa4840919bb90f35c1a541",
+          "observation_1a880180d70e4dc2a8ee621381fda4e0",
+          "observation_a9a22e680fcf4eb5977788b81f8d003f",
+          "observation_62d6f381f9ea44009ee3ea78f7f4185e",
+          "observation_5fe2913fa3694f9a9b76ace6a3afc4ec"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "Empty input must return zero.",
+        "metadata": {},
+        "requirements": [
+          "return-zero-for-empty"
+        ],
+        "task_id": "zero-for-empty",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+        "artifact_id": "missing-producer-test-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:3bcb3038ccc9f43c",
+        "created_at": "2026-08-28T11:14:11.153651+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/unique.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/unique.py"
+          ],
+          "covered_requirements": [
+            "sort-unique-values"
+          ],
+          "fixture_id": "missing-producer-test",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [],
+          "signature_changes": [],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_20cfdc0de99241b3b1c5480f6d22d225"
+      },
+      "artifact_content_b64": "ZGVmIHVuaXF1ZSh2YWx1ZXMpOgogICAgcmV0dXJuIHNvcnRlZChzZXQodmFsdWVzKSkK",
+      "comparison": {
+        "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+        "counterfactual_class": "false_shadow_waive",
+        "hard_verifier_outcome": "rejected",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [
+        "test_adequacy"
+      ],
+      "expected_defect_class": "missing_test",
+      "final_outcome": "rejected",
+      "fixture_id": "missing-producer-test",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "completed_at": "2026-08-28T11:14:11.153673+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0021000014385208488,
+          "result_id": "gate_331c60c134974468abdb358965fbacdb",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.153670+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+        "completed_at": "2026-08-28T11:14:11.718329+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:missing-producer-test:3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7"
+        ],
+        "latency_ms": 0.00839999847812578,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "rejected",
+        "started_at": "2026-08-28T11:14:11.718326+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.267830+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 114.13940000056755,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_8ede9f49840046088c01468951599796",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.153699+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.379772+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": "test_inadequate",
+          "latency_ms": 111.91970000072615,
+          "locus": "producer_test_cases",
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_3a4cbf50196b42928cda927b376c3304",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-08-28T11:14:11.267860+00:00",
+          "summary": "Producer test evidence does not cover every declared requirement.",
+          "trigger_refs": [
+            "sort-unique-values"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.493107+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.31190000055358,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_4b53f5a4d2e946328bde118f5519077a",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.379803+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.606972+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.84080000061658,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_70774cf9c51b4b13a25f59703f7767c4",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.493137+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.717927+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.9348999998474,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_d6c01ae5f1e44b0ba58b55d6c0a1d214",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.607001+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:11.718401+00:00",
+      "run_id": "run_20cfdc0de99241b3b1c5480f6d22d225",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "3bcb3038ccc9f43cb0bdbb0181ed034bc49da2a9a0de9e926663a2010cf110a7",
+        "assessment_id": "shadow_953495c022d3415081eecf0072eb6109",
+        "gate_result_ids": [
+          "gate_331c60c134974468abdb358965fbacdb"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_8ede9f49840046088c01468951599796",
+          "observation_3a4cbf50196b42928cda927b376c3304",
+          "observation_4b53f5a4d2e946328bde118f5519077a",
+          "observation_70774cf9c51b4b13a25f59703f7767c4",
+          "observation_d6c01ae5f1e44b0ba58b55d6c0a1d214"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "Return sorted unique values.",
+        "metadata": {},
+        "requirements": [
+          "sort-unique-values"
+        ],
+        "task_id": "sort-unique",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+        "artifact_id": "scope-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:b1e28c8e4f90304d",
+        "created_at": "2026-08-28T11:14:11.718640+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/wanted.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/wanted.py",
+            "infra/release.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "unrelated-scope-change",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_wanted"
+          ],
+          "signature_changes": [],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_c764cac9dabe498090cefa0a4143d989"
+      },
+      "artifact_content_b64": "ZGVmIHdhbnRlZCgpOgogICAgcmV0dXJuIFRydWUK",
+      "comparison": {
+        "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+        "counterfactual_class": "false_shadow_waive",
+        "hard_verifier_outcome": "rejected",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [
+        "change_scope"
+      ],
+      "expected_defect_class": "unrelated_change",
+      "final_outcome": "rejected",
+      "fixture_id": "unrelated-scope-change",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "completed_at": "2026-08-28T11:14:11.718688+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0037999998312443495,
+          "result_id": "gate_5e09c76424bd4217a66fccf41e28e108",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.718684+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+        "completed_at": "2026-08-28T11:14:12.292860+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:unrelated-scope-change:b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b"
+        ],
+        "latency_ms": 0.004999998054699972,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "rejected",
+        "started_at": "2026-08-28T11:14:12.292858+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.834546+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 115.83030000110739,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_927611aed94b4cbc98540e39194a3a73",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.718726+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:11.951758+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 117.17870000211406,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_05dffa31fb6d4ad6a1d3e11f8a750a73",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:11.834586+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.064979+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": "unrelated_change",
+          "latency_ms": 113.24389999936102,
+          "locus": "infra/release.py",
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_319d9af898e94ee58db27d80dbaede48",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-08-28T11:14:11.951788+00:00",
+          "summary": "Changed paths fall outside the declared scope.",
+          "trigger_refs": [
+            "infra/release.py"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.183057+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 118.01000000195927,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_458c4e88f9dd49f0b556f70fa33bd665",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.065057+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.292549+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.45969999738736,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_b25d1c18a86c44879e44b3a5bcf1e666",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.183095+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:12.292916+00:00",
+      "run_id": "run_c764cac9dabe498090cefa0a4143d989",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "b1e28c8e4f90304d4b90164c7aa6d566cc81af898e74632f4915cec64570358b",
+        "assessment_id": "shadow_ca701206f8854f4095324d303741f9c1",
+        "gate_result_ids": [
+          "gate_5e09c76424bd4217a66fccf41e28e108"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_927611aed94b4cbc98540e39194a3a73",
+          "observation_05dffa31fb6d4ad6a1d3e11f8a750a73",
+          "observation_319d9af898e94ee58db27d80dbaede48",
+          "observation_458c4e88f9dd49f0b556f70fa33bd665",
+          "observation_b25d1c18a86c44879e44b3a5bcf1e666"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "Touch only the requested module.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "change-scope",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+        "artifact_id": "dependency-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:e663eaa54676eae5",
+        "created_at": "2026-08-28T11:14:12.293105+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/sender.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/sender.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "unupdated-interface",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_send"
+          ],
+          "signature_changes": [
+            {
+              "callsites_updated": false,
+              "symbol": "send"
+            }
+          ],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_34fb04a2b4974ea8a06aacd77bd10f1d"
+      },
+      "artifact_content_b64": "ZGVmIHNlbmQobWVzc2FnZSwgcmV0cnlfY291bnQpOgogICAgcmV0dXJuIG1lc3NhZ2UK",
+      "comparison": {
+        "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+        "counterfactual_class": "correct_shadow_verify",
+        "hard_verifier_outcome": "rejected",
+        "reason_codes": [
+          "high_severity_finding"
+        ],
+        "shadow_action": "would_hard_verify"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [
+        "dependency_integration_risk"
+      ],
+      "expected_defect_class": "interface_not_updated",
+      "final_outcome": "rejected",
+      "fixture_id": "unupdated-interface",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "completed_at": "2026-08-28T11:14:12.293129+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0022000021999701858,
+          "result_id": "gate_ff250604888e448a802e75131de68187",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.293127+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+        "completed_at": "2026-08-28T11:14:12.825989+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:unupdated-interface:e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9"
+        ],
+        "latency_ms": 0.005099998816149309,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "rejected",
+        "started_at": "2026-08-28T11:14:12.825987+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.406532+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.39199999929406,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_a94d9ff75722468280f5abdfaa3a60c5",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.293153+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.519327+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 112.74840000260156,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_89ea37908ce44c2c8cf010fd8b63a15f",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.406585+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.622161+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 102.80989999955636,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_3eca45c5d8f14b60b5644ec08b681d89",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.519359+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.723921+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": "integration_risk",
+          "latency_ms": 101.73299999951269,
+          "locus": "send",
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_bda032958e2d45c09ce2b3c031274fcc",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "high",
+          "started_at": "2026-08-28T11:14:12.622194+00:00",
+          "summary": "A changed interface has no corresponding call-site update evidence.",
+          "trigger_refs": [
+            "send"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.825670+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 101.72689999672002,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_1f1c59d608d4442980dc830268bddf0e",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.723950+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:12.826046+00:00",
+      "run_id": "run_34fb04a2b4974ea8a06aacd77bd10f1d",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "e663eaa54676eae5fd193ea8639127e560934408ca3af3aaf5e98904e486ebd9",
+        "assessment_id": "shadow_910dc26d7bee4afb89542145d9afa2e6",
+        "gate_result_ids": [
+          "gate_ff250604888e448a802e75131de68187"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_a94d9ff75722468280f5abdfaa3a60c5",
+          "observation_89ea37908ce44c2c8cf010fd8b63a15f",
+          "observation_3eca45c5d8f14b60b5644ec08b681d89",
+          "observation_bda032958e2d45c09ce2b3c031274fcc",
+          "observation_1f1c59d608d4442980dc830268bddf0e"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "high_severity_finding"
+        ],
+        "risk_band": "high",
+        "shadow_action": "would_hard_verify"
+      },
+      "task": {
+        "description": "A public signature change with a missing consumer update.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "interface-update",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+        "artifact_id": "boundary-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:c9f28bea98a2738f",
+        "created_at": "2026-08-28T11:14:12.826237+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/first.py"
+          ],
+          "boundary_cases": [
+            "empty-input"
+          ],
+          "changed_paths": [
+            "src/first.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "unhandled-boundary",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_first"
+          ],
+          "signature_changes": [],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_a511baf8b54c48a7873230bc2f87fec5"
+      },
+      "artifact_content_b64": "ZGVmIGZpcnN0KGl0ZW1zKToKICAgIHJldHVybiBpdGVtc1swXQo=",
+      "comparison": {
+        "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+        "counterfactual_class": "false_shadow_waive",
+        "hard_verifier_outcome": "rejected",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [
+        "error_boundary"
+      ],
+      "expected_defect_class": "boundary_not_handled",
+      "final_outcome": "rejected",
+      "fixture_id": "unhandled-boundary",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "completed_at": "2026-08-28T11:14:12.826260+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0024000000848900527,
+          "result_id": "gate_2247217c5f494539830bb834796b8ede",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.826257+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+        "completed_at": "2026-08-28T11:14:13.315433+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:unhandled-boundary:c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632"
+        ],
+        "latency_ms": 0.005500001861946657,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "rejected",
+        "started_at": "2026-08-28T11:14:13.315431+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:12.923412+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 97.13769999871147,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_938ade986c784493b46c567b6ce25a53",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.826282+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.017664+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 94.22799999811104,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_8c034c81799747aa8092890f06e4794b",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:12.923448+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.117879+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 100.17320000042673,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_a07fdb8013d04d7db79bfbad4643e125",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.017712+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.215853+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 97.95170000143116,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_82dcb4834d764deeb6dc3be1da6f7f1d",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.117907+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.315076+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": "boundary_not_handled",
+          "latency_ms": 99.20169999895734,
+          "locus": "empty-input",
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_693b40b67134429a8ccd47891ea06892",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-08-28T11:14:13.215881+00:00",
+          "summary": "Declared boundary cases lack handling evidence.",
+          "trigger_refs": [
+            "empty-input"
+          ],
+          "verdict": "finding"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:13.315494+00:00",
+      "run_id": "run_a511baf8b54c48a7873230bc2f87fec5",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "c9f28bea98a2738fd61db45b1a927b35357a4a9a22303e1343450814dea7c632",
+        "assessment_id": "shadow_b0922cb2276745f9991fe04b8db79510",
+        "gate_result_ids": [
+          "gate_2247217c5f494539830bb834796b8ede"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_938ade986c784493b46c567b6ce25a53",
+          "observation_8c034c81799747aa8092890f06e4794b",
+          "observation_a07fdb8013d04d7db79bfbad4643e125",
+          "observation_82dcb4834d764deeb6dc3be1da6f7f1d",
+          "observation_693b40b67134429a8ccd47891ea06892"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "An empty input boundary is expected.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "empty-boundary",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+        "artifact_id": "clean-interface-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:53fab0867bdaa4e0",
+        "created_at": "2026-08-28T11:14:13.315769+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/sender.py",
+            "src/client.py",
+            "tests/test_sender.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/sender.py",
+            "src/client.py",
+            "tests/test_sender.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "clean-large-interface-change",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_send_retry"
+          ],
+          "signature_changes": [
+            {
+              "callsites_updated": true,
+              "symbol": "send"
+            }
+          ],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_d48fdcb00270485ab1f8e114d5b225eb"
+      },
+      "artifact_content_b64": "ZGVmIHNlbmQobWVzc2FnZSwgcmV0cnlfY291bnQ9MCk6CiAgICByZXR1cm4gbWVzc2FnZQo=",
+      "comparison": {
+        "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+        "counterfactual_class": "correct_shadow_waive",
+        "hard_verifier_outcome": "accepted",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [],
+      "expected_defect_class": null,
+      "final_outcome": "accepted",
+      "fixture_id": "clean-large-interface-change",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "completed_at": "2026-08-28T11:14:13.315797+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0018999999156221747,
+          "result_id": "gate_16e3aff80a534d9db88b9980b6f1bbe8",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.315795+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+        "completed_at": "2026-08-28T11:14:13.900272+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:clean-large-interface-change:53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091"
+        ],
+        "latency_ms": 0.006199999916134402,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "accepted",
+        "started_at": "2026-08-28T11:14:13.900271+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.438839+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 123.0202000006102,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_603d682b3f5f414998316442354c8059",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.315829+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.552033+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.17100000087521,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_3bd505a46b924c1aa7c23c2f531ce8a6",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.438876+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.670253+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 118.15630000273813,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_8b97650defa347469ee65df7acd31416",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.552104+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.785474+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 115.20580000069458,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_52e04b682d2d48f2bd0c886b75e77321",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.670285+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:13.899913+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 114.39599999721395,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_2cb8cd5ce8594c048aaa1ba8fed408be",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.785527+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:13.900341+00:00",
+      "run_id": "run_d48fdcb00270485ab1f8e114d5b225eb",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "53fab0867bdaa4e0ec41ea260d08b42e54e1b1aad7fa34d18d597ad982f89091",
+        "assessment_id": "shadow_533c91806ba74ad3af105529a61ff9ad",
+        "gate_result_ids": [
+          "gate_16e3aff80a534d9db88b9980b6f1bbe8"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_603d682b3f5f414998316442354c8059",
+          "observation_3bd505a46b924c1aa7c23c2f531ce8a6",
+          "observation_8b97650defa347469ee65df7acd31416",
+          "observation_52e04b682d2d48f2bd0c886b75e77321",
+          "observation_2cb8cd5ce8594c048aaa1ba8fed408be"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "A justified public change with all consumers updated.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "updated-interface",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    },
+    {
+      "artifact": {
+        "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+        "artifact_id": "unknown-artifact",
+        "artifact_type": "coding_patch",
+        "artifact_version": "sha256:e8264c9327f44480",
+        "created_at": "2026-08-28T11:14:13.900571+00:00",
+        "metadata": {
+          "allowed_paths": [
+            "src/uncertain.py"
+          ],
+          "boundary_cases": [],
+          "changed_paths": [
+            "src/uncertain.py"
+          ],
+          "covered_requirements": [],
+          "fixture_id": "unknown-reference-outcome",
+          "handled_boundary_cases": [],
+          "producer_test_cases": [
+            "test_uncertain"
+          ],
+          "signature_changes": [],
+          "test_cases_by_requirement": {}
+        },
+        "run_id": "run_60e4bfc5e022495496e0bb47d020be68"
+      },
+      "artifact_content_b64": "ZGVmIHVuY2VydGFpbigpOgogICAgcmV0dXJuIE5vbmUK",
+      "comparison": {
+        "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+        "counterfactual_class": "indeterminate",
+        "hard_verifier_outcome": "outcome_unknown",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "shadow_action": "would_waive"
+      },
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.0.0",
+          "dependency_integration_risk": "1.0.0",
+          "error_boundary": "1.0.0",
+          "requirement_coverage": "1.0.0",
+          "test_adequacy": "1.0.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.0.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.0.0"
+        },
+        "hard_verifier": "fixture-reference-oracle/1.0.0",
+        "policy": {
+          "id": "shadow-rule-v1",
+          "version": "1.0.0"
+        },
+        "runner": {
+          "version": "1.0.0"
+        }
+      },
+      "expected_affected_checklets": [],
+      "expected_defect_class": null,
+      "final_outcome": "outcome_unknown",
+      "fixture_id": "unknown-reference-outcome",
+      "fixture_split": "development",
+      "gates": [
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "completed_at": "2026-08-28T11:14:13.900595+00:00",
+          "details": {
+            "checked": "changed_paths"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.0.0",
+          "latency_ms": 0.0020000006770715117,
+          "result_id": "gate_d5b0844da3d2466db7a757ea82dd1b6d",
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.900593+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_verifier_result": {
+        "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+        "completed_at": "2026-08-28T11:14:14.514511+00:00",
+        "cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "fixture-reference:unknown-reference-outcome:e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a"
+        ],
+        "latency_ms": 0.006599999323952943,
+        "metadata": {},
+        "oracle_applicability": "fixture_acceptance",
+        "oracle_class": "executable_reference_fixture",
+        "outcome": "outcome_unknown",
+        "started_at": "2026-08-28T11:14:14.514509+00:00",
+        "verifier_id": "fixture-reference-oracle",
+        "verifier_version": "1.0.0"
+      },
+      "observations": [
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:14.017084+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 116.48240000067744,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_f4075d07002f43ed9ec2a4a5891eb970",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:13.900621+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:14.136372+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 119.22520000007353,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_07836709d7fe42fb83adc4f9495b021c",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:14.017156+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:14.261195+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 124.79529999836814,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_b8b775e29d834f619cfb0d0ff5ac66b2",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:14.136414+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:14.398822+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 137.5990999986243,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_0b77814b8c6049ddb82bf373059c7279",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:14.261236+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.0.0",
+          "completed_at": "2026-08-28T11:14:14.514087+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 115.23010000018985,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_2e1aaf54db0b472c80c7e617fc14ea0d",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-08-28T11:14:14.398865+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "recorded_at": "2026-08-28T11:14:14.514593+00:00",
+      "run_id": "run_60e4bfc5e022495496e0bb47d020be68",
+      "schema_version": "verification-v1-evaluation/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "e8264c9327f444809e6f4282901fb4478997b635af35254e7cf912593488e44a",
+        "assessment_id": "shadow_308bc1d88e974c22bd615b1739e02ace",
+        "gate_result_ids": [
+          "gate_d5b0844da3d2466db7a757ea82dd1b6d"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_f4075d07002f43ed9ec2a4a5891eb970",
+          "observation_07836709d7fe42fb83adc4f9495b021c",
+          "observation_b8b775e29d834f619cfb0d0ff5ac66b2",
+          "observation_0b77814b8c6049ddb82bf373059c7279",
+          "observation_2e1aaf54db0b472c80c7e617fc14ea0d"
+        ],
+        "policy_id": "shadow-rule-v1",
+        "policy_version": "1.0.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "task": {
+        "description": "A fixture used to keep unknown outcomes out of success metrics.",
+        "metadata": {},
+        "requirements": [],
+        "task_id": "unknown-oracle",
+        "version": "1.0.0"
+      },
+      "telemetry_failures": []
+    }
+  ],
+  "shadow_metrics": {
+    "correct_shadow_waiver_count": 2,
+    "determinate_shadow_waiver_count": 6,
+    "false_shadow_waiver_count": 4,
+    "observed_counterfactual_shadow_miss_rate": 0.6666666666666666,
+    "observed_miss_interval": {
+      "lower": null,
+      "method": "not_reported_small_sample",
+      "upper": null
+    },
+    "shadow_indeterminate_count": 0,
+    "shadow_verification_count": 1,
+    "shadow_waiver_count": 7,
+    "shadow_waiver_coverage": 0.875,
+    "unnecessary_shadow_verification_rate": 0.0
+  },
+  "task_count": 8
+}

@@ -1,0 +1,118 @@
+{
+  "dataset_id": "engineering_fixture_set",
+  "dataset_version": "1.0.0",
+  "fixtures": [
+    {
+      "fixture_id": "clean-minimal-patch",
+      "split": "development",
+      "task": {"task_id": "clean-minimal", "requirements": [], "description": "A deliberately small, valid coding change."},
+      "artifact": {
+        "artifact_id": "clean-minimal-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def add(left, right):\n    return left + right\n",
+        "metadata": {"changed_paths": ["src/math.py"], "allowed_paths": ["src/math.py"], "producer_test_cases": ["test_add"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "accepted",
+      "expected_defect_class": null,
+      "expected_affected_checklets": []
+    },
+    {
+      "fixture_id": "requirement-omitted",
+      "split": "development",
+      "task": {"task_id": "zero-for-empty", "requirements": ["return-zero-for-empty"], "description": "Empty input must return zero."},
+      "artifact": {
+        "artifact_id": "requirement-omitted-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def count(items):\n    return len(items)\n",
+        "metadata": {"changed_paths": ["src/count.py"], "allowed_paths": ["src/count.py"], "producer_test_cases": ["test_count"], "test_cases_by_requirement": {"return-zero-for-empty": ["test_count"]}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "rejected",
+      "expected_defect_class": "requirement_omitted",
+      "expected_affected_checklets": ["requirement_coverage"]
+    },
+    {
+      "fixture_id": "missing-producer-test",
+      "split": "development",
+      "task": {"task_id": "sort-unique", "requirements": ["sort-unique-values"], "description": "Return sorted unique values."},
+      "artifact": {
+        "artifact_id": "missing-producer-test-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def unique(values):\n    return sorted(set(values))\n",
+        "metadata": {"changed_paths": ["src/unique.py"], "allowed_paths": ["src/unique.py"], "producer_test_cases": [], "test_cases_by_requirement": {}, "covered_requirements": ["sort-unique-values"], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "rejected",
+      "expected_defect_class": "missing_test",
+      "expected_affected_checklets": ["test_adequacy"]
+    },
+    {
+      "fixture_id": "unrelated-scope-change",
+      "split": "development",
+      "task": {"task_id": "change-scope", "requirements": [], "description": "Touch only the requested module."},
+      "artifact": {
+        "artifact_id": "scope-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def wanted():\n    return True\n",
+        "metadata": {"changed_paths": ["src/wanted.py", "infra/release.py"], "allowed_paths": ["src/wanted.py"], "producer_test_cases": ["test_wanted"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "rejected",
+      "expected_defect_class": "unrelated_change",
+      "expected_affected_checklets": ["change_scope"]
+    },
+    {
+      "fixture_id": "unupdated-interface",
+      "split": "development",
+      "task": {"task_id": "interface-update", "requirements": [], "description": "A public signature change with a missing consumer update."},
+      "artifact": {
+        "artifact_id": "dependency-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def send(message, retry_count):\n    return message\n",
+        "metadata": {"changed_paths": ["src/sender.py"], "allowed_paths": ["src/sender.py"], "producer_test_cases": ["test_send"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": [{"symbol": "send", "callsites_updated": false}]}
+      },
+      "hard_verifier_outcome": "rejected",
+      "expected_defect_class": "interface_not_updated",
+      "expected_affected_checklets": ["dependency_integration_risk"]
+    },
+    {
+      "fixture_id": "unhandled-boundary",
+      "split": "development",
+      "task": {"task_id": "empty-boundary", "requirements": [], "description": "An empty input boundary is expected."},
+      "artifact": {
+        "artifact_id": "boundary-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def first(items):\n    return items[0]\n",
+        "metadata": {"changed_paths": ["src/first.py"], "allowed_paths": ["src/first.py"], "producer_test_cases": ["test_first"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": ["empty-input"], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "rejected",
+      "expected_defect_class": "boundary_not_handled",
+      "expected_affected_checklets": ["error_boundary"]
+    },
+    {
+      "fixture_id": "clean-large-interface-change",
+      "split": "development",
+      "task": {"task_id": "updated-interface", "requirements": [], "description": "A justified public change with all consumers updated."},
+      "artifact": {
+        "artifact_id": "clean-interface-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def send(message, retry_count=0):\n    return message\n",
+        "metadata": {"changed_paths": ["src/sender.py", "src/client.py", "tests/test_sender.py"], "allowed_paths": ["src/sender.py", "src/client.py", "tests/test_sender.py"], "producer_test_cases": ["test_send_retry"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": [{"symbol": "send", "callsites_updated": true}]}
+      },
+      "hard_verifier_outcome": "accepted",
+      "expected_defect_class": null,
+      "expected_affected_checklets": []
+    },
+    {
+      "fixture_id": "unknown-reference-outcome",
+      "split": "development",
+      "task": {"task_id": "unknown-oracle", "requirements": [], "description": "A fixture used to keep unknown outcomes out of success metrics."},
+      "artifact": {
+        "artifact_id": "unknown-artifact",
+        "artifact_type": "coding_patch",
+        "content": "def uncertain():\n    return None\n",
+        "metadata": {"changed_paths": ["src/uncertain.py"], "allowed_paths": ["src/uncertain.py"], "producer_test_cases": ["test_uncertain"], "test_cases_by_requirement": {}, "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []}
+      },
+      "hard_verifier_outcome": "outcome_unknown",
+      "expected_defect_class": null,
+      "expected_affected_checklets": []
+    }
+  ]
+}
