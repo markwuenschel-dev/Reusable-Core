@@ -473,6 +473,19 @@ Initial implementation should prioritize:
 
 ---
 
+## Current Experimental Implementation
+
+The initial [Verification Slice V1](docs/verification/v1-shadow-verification.md) implements content-bound coding-artifact verification with deterministic diagnostic checklets, append-only telemetry, replay, fixture evaluation, and a mandatory hard-verifier boundary. Its shadow `would_waive` result is counterfactual evidence only and never authorizes acceptance or a release.
+
+Run the fixture suite with:
+
+```powershell
+python -m unittest discover -s tests -v
+python -m verification_v1 evaluate evals/verification_v1/engineering_fixture_set.json --report-dir reports/verification_v1
+```
+
+---
+
 ## Non-Goals
 
 This project is not intended to be:

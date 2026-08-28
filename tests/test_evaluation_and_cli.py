@@ -1,0 +1,90 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from verification_v1.evaluation import evaluate_fixture_set, replay_run_record, write_report
+
+
+class EvaluationAndReplayTests(unittest.TestCase):
+    def test_checked_in_engineering_fixture_set_covers_each_narrow_checklet_without_label_leakage(self) -> None:
+        source = Path("evals/verification_v1/engineering_fixture_set.json")
+
+        report = evaluate_fixture_set(source)
+
+        self.assertEqual(8, report.task_count)
+        self.assertEqual(7, report.hard_verifier_coverage)
+        self.assertEqual(1, report.indeterminate_count)
+        for checklet_id in (
+            "requirement_coverage", "test_adequacy", "change_scope", "dependency_integration_risk", "error_boundary",
+        ):
+            self.assertGreaterEqual(report.per_checklet[checklet_id]["finding_count"], 1)
+        self.assertGreater(report.cost_and_latency["checklets_latency_ms"]["total"], 0.0)
+        self.assertGreater(report.cost_and_latency["hard_verifier_latency_ms"]["total"], 0.0)
+        for record in report.run_records:
+            metadata = record["artifact"]["metadata"]
+            self.assertNotIn("hard_verifier_outcome", metadata)
+            self.assertNotIn("expected_defect_class", metadata)
+
+    def test_evaluation_reports_fixture_metrics_and_replay_preserves_artifact_identity(self) -> None:
+        dataset = {
+            "dataset_id": "engineering_fixture_set",
+            "dataset_version": "1.0.0",
+            "fixtures": [
+                {
+                    "fixture_id": "clean-control",
+                    "split": "development",
+                    "task": {"task_id": "clean-task", "requirements": []},
+                    "artifact": {
+                        "artifact_id": "clean-artifact",
+                        "artifact_type": "coding_patch",
+                        "content": "def add(a, b):\n    return a + b\n",
+                        "metadata": {
+                            "changed_paths": ["src/add.py"], "allowed_paths": ["src/add.py"],
+                            "producer_test_cases": ["test_add"], "test_cases_by_requirement": {},
+                            "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [],
+                            "signature_changes": []
+                        },
+                    },
+                    "hard_verifier_outcome": "accepted",
+                    "expected_defect_class": None,
+                    "expected_affected_checklets": [],
+                },
+                {
+                    "fixture_id": "missing-requirement",
+                    "split": "development",
+                    "task": {"task_id": "requirement-task", "requirements": ["return-zero-for-empty"]},
+                    "artifact": {
+                        "artifact_id": "missing-artifact", "artifact_type": "coding_patch", "content": "def choose(items):\n    return items[0]\n",
+                        "metadata": {
+                            "changed_paths": ["src/choose.py"], "allowed_paths": ["src/choose.py"],
+                            "producer_test_cases": ["test_choose"], "test_cases_by_requirement": {"return-zero-for-empty": ["test_choose"]},
+                            "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []
+                        },
+                    },
+                    "hard_verifier_outcome": "rejected",
+                    "expected_defect_class": "requirement_omitted",
+                    "expected_affected_checklets": ["requirement_coverage"],
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "fixtures.json"
+            source.write_text(json.dumps(dataset), encoding="utf-8")
+
+            report = evaluate_fixture_set(source)
+            report_paths = write_report(report, root / "reports")
+            replay = replay_run_record(report.run_records[0])
+
+            self.assertEqual(2, report.task_count)
+            self.assertEqual(2, report.hard_verifier_coverage)
+            self.assertIn("requirement_coverage", report.per_checklet)
+            self.assertEqual(report.run_records[0]["artifact"]["artifact_digest"], replay.artifact.artifact_digest)
+            self.assertTrue(report_paths["json"].exists())
+            self.assertTrue(report_paths["markdown"].exists())
+            self.assertIn("indeterminate", report_paths["markdown"].read_text(encoding="utf-8"))
+
+
+if __name__ == "__main__":
+    unittest.main()
