@@ -1,6 +1,19 @@
-# Multi-Agent Autonomous System
+<h1 align="center">Reusable Core</h1>
 
-> A verification-first, dynamically composed, domain-agnostic agent runtime in which every agent, model call, verifier, handoff, and autonomous action must earn its keep.
+<p align="center">
+  <strong>Verification-first infrastructure for dynamically composed autonomous systems.</strong>
+</p>
+
+<p align="center">
+  <a href="pyproject.toml"><img alt="Python 3.11+" src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&amp;logo=python&amp;logoColor=white"></a>
+  <a href="docs/verification/v1-shadow-verification.md"><img alt="Verification VS-V1" src="https://img.shields.io/badge/Verification-VS--V1-2E8B57?style=for-the-badge"></a>
+  <a href="#status"><img alt="Status: Experimental" src="https://img.shields.io/badge/Status-Experimental-E5A00D?style=for-the-badge"></a>
+  <a href="#trusted-authority-layer"><img alt="Authority: Fail-Closed" src="https://img.shields.io/badge/Authority-Fail--Closed-8B0000?style=for-the-badge"></a>
+  <a href="https://github.com/markwuenschel-dev/Reusable-Core/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/markwuenschel-dev/Reusable-Core/main?style=for-the-badge&amp;logo=github&amp;logoColor=white"></a>
+  <a href="LICENSE.md"><img alt="License: Proprietary" src="https://img.shields.io/badge/License-Proprietary-6E5494?style=for-the-badge"></a>
+</p>
+
+> A dynamically composed, domain-agnostic agent runtime in which every agent, model call, verifier, handoff, and autonomous action must earn its keep.
 
 ## Status
 
@@ -517,7 +530,7 @@ This repository is proprietary.
 
 No permission is granted to copy, modify, distribute, sublicense, publish, sell, or commercially exploit the software or associated materials except under a separate written agreement with the copyright holder.
 
-See [`LICENSE`](LICENSE).
+See [`LICENSE.md`](LICENSE.md).
 
 ---
 
