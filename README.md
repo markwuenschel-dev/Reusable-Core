@@ -19,6 +19,8 @@
 
 **Early-stage research and implementation.**
 
+VS-V1.1 is the frozen shadow-verification runtime. VS-V1.2 is the real-task evidence program that measures those checklets without waiving hard verification. Operator commands live in [`docs/verification/v1.2-real-task-evidence.md`](docs/verification/v1.2-real-task-evidence.md).
+
 This repository is building a reusable autonomous-agent architecture rather than a fixed multi-agent workflow.
 
 The project is based on the **Reusable Core** research program and its central design rule:
@@ -488,7 +490,7 @@ Initial implementation should prioritize:
 
 ## Current Experimental Implementation
 
-The initial [Verification Slice V1](docs/verification/v1-shadow-verification.md) implements content-bound coding-artifact verification with deterministic diagnostic checklets, append-only telemetry, replay, fixture evaluation, and a mandatory hard-verifier boundary. Its shadow `would_waive` result is counterfactual evidence only and never authorizes acceptance or a release.
+The initial [Verification Slice V1](docs/verification/v1-shadow-verification.md) implements content-bound coding-artifact verification with deterministic diagnostic checklets, append-only telemetry, replay, fixture evaluation, and a mandatory hard-verifier boundary. VS-V1.1 closes evidence integrity: checklets inspect the patched repository, evaluation runs `CommandHardVerifier` against independent reference tests, and the shadow policy treats any medium-or-higher finding as `would_hard_verify`. Its shadow `would_waive` result is counterfactual evidence only and never authorizes acceptance or a release.
 
 Run the fixture suite with:
 

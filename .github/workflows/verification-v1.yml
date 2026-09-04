@@ -1,0 +1,35 @@
+name: verification-v1
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Evaluate engineering fixtures
+        run: python -m verification_v1 evaluate evals/verification_v1/engineering_fixture_set.json --report-dir reports/verification_v1
+      - name: Validate V1.1 baseline freeze
+        run: python -m verification_v1 validate-baseline
+      - name: Validate V1.2 metric-integrity dataset
+        run: python -m verification_v1 validate-dataset evals/verification_v1/v12/metric_integrity_dataset.json
+      - name: Validate V1.2 engineering-fixture pilot dataset
+        run: python -m verification_v1 validate-dataset evals/verification_v1/v12/pilot_dataset.json
+      - name: Analyze V1.2 metric-integrity dataset
+        run: python -m verification_v1 analyze-v12 evals/verification_v1/v12/metric_integrity_dataset.json --report-dir reports/verification_v1
+      - name: Isolation repeat smoke
+        run: python -m verification_v1 stress-isolation --iterations 3
