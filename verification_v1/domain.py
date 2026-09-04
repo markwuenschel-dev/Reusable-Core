@@ -26,7 +26,7 @@ class DomainPack(Protocol):
 @dataclass(frozen=True)
 class CodingDomainPack:
     pack_id: str = "coding-v1"
-    version: str = "1.0.0"
+    version: str = "1.1.0"
     artifact_types: tuple[str, ...] = ("coding_patch",)
     objective_gate_ids: tuple[str, ...] = ("coding_metadata_shape",)
     checklet_ids: tuple[str, ...] = (
@@ -37,7 +37,7 @@ class CodingDomainPack:
         "error_boundary",
     )
     hard_verifier_id: str = "configured-hard-verifier"
-    required_context: tuple[str, ...] = ("changed_paths", "allowed_paths")
+    required_context: tuple[str, ...] = ()
     known_defect_classes: tuple[str, ...] = (
         "requirement_omitted",
         "missing_test",

@@ -25,7 +25,8 @@ class EvaluationAndReplayTests(unittest.TestCase):
             self.assertGreaterEqual(report.per_checklet[checklet_id]["finding_count"], 1)
         self.assertGreater(report.cost_and_latency["checklets_latency_ms"]["total"], 0.0)
         self.assertGreater(report.cost_and_latency["hard_verifier_latency_ms"]["total"], 0.0)
-        self.assertEqual(4 / 6, report.shadow_metrics["observed_counterfactual_shadow_miss_rate"])
+        self.assertEqual(0, report.shadow_metrics["false_shadow_waiver_count"])
+        self.assertEqual(0.0, report.shadow_metrics["observed_counterfactual_shadow_miss_rate"])
         for record in report.run_records:
             metadata = record["artifact"]["metadata"]
             self.assertNotIn("hard_verifier_outcome", metadata)
@@ -51,6 +52,7 @@ class EvaluationAndReplayTests(unittest.TestCase):
                             "signature_changes": []
                         },
                     },
+                    "hard_command": ["{python}", "-c", "raise SystemExit(0)"],
                     "hard_verifier_outcome": "accepted",
                     "expected_defect_class": None,
                     "expected_affected_checklets": [],
@@ -67,6 +69,7 @@ class EvaluationAndReplayTests(unittest.TestCase):
                             "covered_requirements": [], "boundary_cases": [], "handled_boundary_cases": [], "signature_changes": []
                         },
                     },
+                    "hard_command": ["{python}", "-c", "raise SystemExit(1)"],
                     "hard_verifier_outcome": "rejected",
                     "expected_defect_class": "requirement_omitted",
                     "expected_affected_checklets": ["requirement_coverage"],

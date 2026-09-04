@@ -11,6 +11,15 @@ from typing import Any, Mapping, Protocol
 from types import MappingProxyType
 
 from .artifacts import RegisteredArtifact
+from .bundle import (
+    boundary_handled,
+    call_argument_counts,
+    is_test_path,
+    parse_coding_bundle,
+    public_functions,
+    requirement_evidence_present,
+    tests_covering_requirement,
+)
 from .contracts import (
     CheckletObservation,
     CheckletSpec,
@@ -186,8 +195,14 @@ def _evaluate_in_isolated_process(
 ) -> None:
     """Evaluate untrusted checklet code in a process that can be terminated at its deadline."""
     try:
+        import sys
+        from os import getcwd
+
         from .contracts import ArtifactRef
 
+        cwd = getcwd()
+        if cwd not in sys.path:
+            sys.path.insert(0, cwd)
         descriptor = _restore_transport(descriptor)
         checklet_type = _resolve_qualified(str(descriptor["module"]), str(descriptor["qualname"]))
         checklet = checklet_type.__new__(checklet_type)
@@ -226,16 +241,16 @@ class BaseCodingChecklet:
     def __init__(self, checklet_id: str, criterion_id: str, description: str) -> None:
         self.spec = CheckletSpec(
             checklet_id=checklet_id,
-            version="1.0.0",
+            version="1.1.0",
             domain_pack="coding-v1",
             criterion_id=criterion_id,
             description=description,
             required_artifact_types=("coding_patch",),
-            required_context=("changed_paths",),
+            required_context=(),
             implementation_type="deterministic",
             authority_ceiling="diagnostic",
             estimated_cost_class="negligible",
-            timeout_seconds=1.0,
+            timeout_seconds=10.0,
             required_or_optional="required",
             evidence_family_template=f"deterministic:vs-v1:{checklet_id}",
         )
@@ -249,6 +264,7 @@ class BaseCodingChecklet:
         locus: str | None = None,
         summary: str = "No defect found for this criterion.",
         trigger_refs: tuple[str, ...] = (),
+        metadata: Mapping[str, Any] | None = None,
     ) -> CheckletObservation:
         now = utc_now()
         return CheckletObservation(
@@ -274,88 +290,247 @@ class BaseCodingChecklet:
             completed_at=now,
             latency_ms=0.0,
             estimated_or_actual_cost={"kind": "actual_cost", "amount": 0.0, "currency": "USD"},
-            metadata={},
+            metadata=metadata or {},
         )
+
+
+def _inspect_bundle(context: CheckletContext):
+    return parse_coding_bundle(context.artifact.content, context.metadata)
+
+
+def _sequence_claim(value: Any) -> tuple[str, ...]:
+    if isinstance(value, (list, tuple)):
+        return tuple(str(item) for item in value)
+    return ()
+
+
+def _allowed_paths(context: CheckletContext) -> set[str] | None:
+    for source in (context.task.metadata, context.metadata):
+        raw = source.get("allowed_paths")
+        if isinstance(raw, (list, tuple)):
+            return {str(item).replace("\\", "/") for item in raw}
+    return None
+
+
+def _expected_boundary_cases(context: CheckletContext) -> tuple[str, ...]:
+    for source in (context.task.metadata, context.metadata):
+        raw = source.get("boundary_cases")
+        if isinstance(raw, (list, tuple)):
+            return tuple(str(item) for item in raw)
+    return ()
+
+
+def _test_files(bundle) -> dict[str, str]:
+    files: dict[str, str] = {}
+    for path, content in bundle.patched_files.items():
+        if is_test_path(path):
+            files[path] = content
+    return files
+
+
+def _production_text(bundle) -> str:
+    return "\n".join(
+        content
+        for path, content in bundle.patched_files.items()
+        if not is_test_path(path)
+    )
+
+
+def _stale_call_site_files(symbol: str, bundle, defining_path: str, changed: set[str]) -> tuple[str, ...]:
+    stale: list[str] = []
+    for path, content in bundle.patched_files.items():
+        if path == defining_path or is_test_path(path) or not path.endswith(".py"):
+            continue
+        try:
+            counts = call_argument_counts(content, symbol)
+        except SyntaxError:
+            continue
+        if counts and path not in changed:
+            stale.append(path)
+    return tuple(stale)
 
 
 class RequirementCoverageChecklet(BaseCodingChecklet):
     def __init__(self) -> None:
-        super().__init__("requirement_coverage", "requirements-covered", "Checks declared task requirements for explicit coverage.")
-
-    def evaluate(self, context: CheckletContext) -> CheckletObservation:
-        covered = set(context.metadata.get("covered_requirements", []))
-        missing = [requirement for requirement in context.task.requirements if requirement not in covered]
-        if missing:
-            return self.observation(
-                context, CheckletVerdict.FINDING, Severity.MEDIUM, "requirement_omitted", "task.requirements",
-                f"Declared requirements lack coverage: {', '.join(missing)}.", tuple(missing),
-            )
-        return self.observation(context, CheckletVerdict.CLEAN)
-
-
-class TestAdequacyChecklet(BaseCodingChecklet):
-    def __init__(self) -> None:
-        super().__init__("test_adequacy", "producer-test-adequacy", "Checks whether producer test evidence covers changed requirements.")
+        super().__init__("requirement_coverage", "requirements-covered", "Checks declared task requirements against the actual patched production files.")
 
     def evaluate(self, context: CheckletContext) -> CheckletObservation:
         if not context.task.requirements:
             return self.observation(context, CheckletVerdict.CLEAN)
-        tests = context.metadata.get("producer_test_cases", [])
-        mapping = context.metadata.get("test_cases_by_requirement", {})
-        missing = [requirement for requirement in context.task.requirements if not mapping.get(requirement)]
-        if not tests or missing:
+        bundle = _inspect_bundle(context)
+        production = "\n".join(
+            bundle.patched_files[path]
+            for path in bundle.changed_paths()
+            if path in bundle.patched_files and not is_test_path(path)
+        )
+        patterns = context.task.metadata.get("requirement_evidence_patterns", {})
+        missing = []
+        for requirement in context.task.requirements:
+            extra = patterns.get(requirement) if isinstance(patterns, Mapping) else None
+            extra_patterns = extra if isinstance(extra, (list, tuple)) else None
+            if not requirement_evidence_present(requirement, production, extra_patterns):
+                missing.append(requirement)
+        evidence = {
+            "derived_changed_paths": list(bundle.changed_paths()),
+            "producer_claimed_covered_requirements": list(_sequence_claim(context.metadata.get("covered_requirements"))),
+        }
+        if missing:
             return self.observation(
-                context, CheckletVerdict.FINDING, Severity.MEDIUM, "test_inadequate", "producer_test_cases",
-                "Producer test evidence does not cover every declared requirement.", tuple(missing or context.task.requirements),
+                context, CheckletVerdict.FINDING, Severity.MEDIUM, "requirement_omitted", "task.requirements",
+                f"Declared requirements lack coverage in the patched production files: {', '.join(missing)}.",
+                tuple(missing),
+                metadata=evidence,
             )
-        return self.observation(context, CheckletVerdict.CLEAN)
+        return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
+
+
+class TestAdequacyChecklet(BaseCodingChecklet):
+    def __init__(self) -> None:
+        super().__init__("test_adequacy", "producer-test-adequacy", "Checks whether tests present in the patched repository cover declared requirements.")
+
+    def evaluate(self, context: CheckletContext) -> CheckletObservation:
+        if not context.task.requirements:
+            return self.observation(context, CheckletVerdict.CLEAN)
+        bundle = _inspect_bundle(context)
+        test_files = _test_files(bundle)
+        missing = [
+            requirement
+            for requirement in context.task.requirements
+            if not tests_covering_requirement(requirement, test_files)
+        ]
+        evidence = {
+            "derived_test_paths": sorted(test_files),
+            "producer_claimed_test_cases": list(_sequence_claim(context.metadata.get("producer_test_cases"))),
+        }
+        if not test_files or missing:
+            return self.observation(
+                context, CheckletVerdict.FINDING, Severity.MEDIUM, "test_inadequate", "tests",
+                "Patched repository tests do not cover every declared requirement.",
+                tuple(missing or context.task.requirements),
+                metadata=evidence,
+            )
+        return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
 
 
 class ChangeScopeChecklet(BaseCodingChecklet):
     def __init__(self) -> None:
-        super().__init__("change_scope", "declared-change-scope", "Checks changed paths against the declared task scope.")
+        super().__init__("change_scope", "declared-change-scope", "Checks derived diff paths against the task-contract scope.")
 
     def evaluate(self, context: CheckletContext) -> CheckletObservation:
-        changed = set(context.metadata.get("changed_paths", []))
-        allowed = set(context.metadata.get("allowed_paths", []))
-        unrelated = sorted(changed - allowed)
+        bundle = _inspect_bundle(context)
+        derived = bundle.changed_paths()
+        allowed = _allowed_paths(context)
+        evidence = {
+            "derived_changed_paths": list(derived),
+            "producer_claimed_changed_paths": list(_sequence_claim(context.metadata.get("changed_paths"))),
+        }
+        if allowed is None:
+            if derived:
+                return self.observation(
+                    context, CheckletVerdict.ABSTAIN, Severity.MEDIUM, "scope_unspecified", None,
+                    "Changed paths were derived but the task contract does not declare an allowed scope.",
+                    derived,
+                    metadata=evidence,
+                )
+            return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
+        unrelated = tuple(path for path in derived if path not in allowed)
         if unrelated:
             return self.observation(
                 context, CheckletVerdict.FINDING, Severity.MEDIUM, "unrelated_change", ", ".join(unrelated),
-                "Changed paths fall outside the declared scope.", tuple(unrelated),
+                "Changed paths fall outside the declared task scope.", unrelated,
+                metadata=evidence,
             )
-        return self.observation(context, CheckletVerdict.CLEAN)
+        return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
 
 
 class DependencyRiskChecklet(BaseCodingChecklet):
     def __init__(self) -> None:
-        super().__init__("dependency_integration_risk", "interface-dependency-risk", "Checks changed interfaces for declared downstream updates.")
+        super().__init__("dependency_integration_risk", "interface-dependency-risk", "Checks changed public interfaces against real call sites in the patched repository.")
 
     def evaluate(self, context: CheckletContext) -> CheckletObservation:
-        risky = [change for change in context.metadata.get("signature_changes", []) if not change.get("callsites_updated", False)]
+        bundle = _inspect_bundle(context)
+        changed = set(bundle.changed_paths())
+        risky: list[str] = []
+        stale_files: list[str] = []
+        inspected_paths = sorted(set(bundle.base_files) | set(bundle.patched_files))
+        for path in inspected_paths:
+            if is_test_path(path) or not path.endswith(".py"):
+                continue
+            before = bundle.base_files.get(path, "")
+            after = bundle.patched_files.get(path)
+            if after is None or before == after:
+                if after is None and before:
+                    try:
+                        for symbol in public_functions(before):
+                            stale = _stale_call_site_files(symbol, bundle, path, changed)
+                            if stale:
+                                risky.append(symbol)
+                                stale_files.extend(stale)
+                    except SyntaxError:
+                        continue
+                continue
+            try:
+                old_sigs = public_functions(before) if before else {}
+                new_sigs = public_functions(after)
+            except SyntaxError:
+                continue
+            for symbol, old in old_sigs.items():
+                new = new_sigs.get(symbol)
+                if new is None or new.required != old.required:
+                    stale = _stale_call_site_files(symbol, bundle, path, changed)
+                    if stale:
+                        risky.append(symbol)
+                        stale_files.extend(stale)
+                        continue
+                    if new is not None and not new.has_varargs:
+                        for other_path, content in bundle.patched_files.items():
+                            if other_path == path or is_test_path(other_path) or not other_path.endswith(".py"):
+                                continue
+                            try:
+                                counts = call_argument_counts(content, symbol)
+                            except SyntaxError:
+                                continue
+                            if any(count < new.required or count > new.max_positional for count in counts):
+                                risky.append(symbol)
+                                stale_files.append(other_path)
+        evidence = {
+            "derived_changed_paths": sorted(changed),
+            "producer_claimed_signature_changes": list(context.metadata.get("signature_changes", []) or []),
+        }
         if risky:
-            loci = tuple(str(change.get("symbol", "unknown_interface")) for change in risky)
+            loci = tuple(dict.fromkeys(risky))
             return self.observation(
                 context, CheckletVerdict.FINDING, Severity.HIGH, "integration_risk", ", ".join(loci),
-                "A changed interface has no corresponding call-site update evidence.", loci,
+                "A changed public interface has un-updated or incompatible call sites.",
+                tuple(dict.fromkeys(stale_files)) or loci,
+                metadata=evidence,
             )
-        return self.observation(context, CheckletVerdict.CLEAN)
+        return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
 
 
 class ErrorBoundaryChecklet(BaseCodingChecklet):
     def __init__(self) -> None:
-        super().__init__("error_boundary", "failure-boundaries", "Checks declared boundary cases for handling evidence.")
+        super().__init__("error_boundary", "failure-boundaries", "Checks declared boundary cases against handling evidence in patched production files.")
 
     def evaluate(self, context: CheckletContext) -> CheckletObservation:
-        expected = set(context.metadata.get("boundary_cases", []))
-        handled = set(context.metadata.get("handled_boundary_cases", []))
-        missing = sorted(expected - handled)
+        expected = _expected_boundary_cases(context)
+        if not expected:
+            return self.observation(context, CheckletVerdict.CLEAN)
+        bundle = _inspect_bundle(context)
+        production = _production_text(bundle)
+        missing = tuple(case for case in expected if not boundary_handled(case, production))
+        evidence = {
+            "derived_changed_paths": list(bundle.changed_paths()),
+            "producer_claimed_handled_boundary_cases": list(_sequence_claim(context.metadata.get("handled_boundary_cases"))),
+        }
         if missing:
             return self.observation(
                 context, CheckletVerdict.FINDING, Severity.MEDIUM, "boundary_not_handled", ", ".join(missing),
-                "Declared boundary cases lack handling evidence.", tuple(missing),
+                "Declared boundary cases lack handling evidence in the patched production files.",
+                missing,
+                metadata=evidence,
             )
-        return self.observation(context, CheckletVerdict.CLEAN)
+        return self.observation(context, CheckletVerdict.CLEAN, metadata=evidence)
 
 
 def error_observation(
@@ -547,12 +722,34 @@ class CheckletRegistry:
                     )
                 )
             finally:
-                if process is not None and process.is_alive():
-                    process.terminate()
-                    process.join()
+                if process is not None:
+                    try:
+                        if process.is_alive():
+                            process.terminate()
+                            process.join(1.0)
+                        if process.is_alive():
+                            process.kill()
+                            process.join(1.0)
+                    except Exception:
+                        pass
+                    try:
+                        process.close()
+                    except Exception:
+                        pass
                 if result_queue is not None:
-                    result_queue.close()
-                    result_queue.join_thread()
+                    try:
+                        while True:
+                            result_queue.get_nowait()
+                    except Exception:
+                        pass
+                    try:
+                        result_queue.close()
+                    except Exception:
+                        pass
+                    try:
+                        result_queue.join_thread()
+                    except Exception:
+                        pass
         return tuple(observations)
 
 
