@@ -19,9 +19,8 @@ from .contracts import (
 
 @dataclass(frozen=True)
 class ShadowPolicy:
-    policy_id: str = "shadow-rule-v1"
-    version: str = "1.0.0"
-    distinct_medium_finding_threshold: int = 2
+    policy_id: str = "shadow-rule-v1.1"
+    version: str = "1.1.0"
 
 
 class ShadowAggregator:
@@ -48,18 +47,15 @@ class ShadowAggregator:
         ):
             risk, action = RiskBand.HIGH, ShadowAction.WOULD_HARD_VERIFY
             reason_codes.append("high_severity_finding")
+        elif any(
+            observation.verdict == CheckletVerdict.FINDING and observation.severity == Severity.MEDIUM
+            for observation in observations
+        ):
+            risk, action = RiskBand.ELEVATED, ShadowAction.WOULD_HARD_VERIFY
+            reason_codes.append("medium_finding")
         else:
-            medium_families = {
-                observation.evidence_family_id
-                for observation in observations
-                if observation.verdict == CheckletVerdict.FINDING and observation.severity == Severity.MEDIUM
-            }
-            if len(medium_families) >= self.policy.distinct_medium_finding_threshold:
-                risk, action = RiskBand.ELEVATED, ShadowAction.WOULD_HARD_VERIFY
-                reason_codes.append("multiple_distinct_medium_findings")
-            else:
-                risk, action = RiskBand.LOW, ShadowAction.WOULD_WAIVE
-                reason_codes.append("no_shadow_escalation_rule_triggered")
+            risk, action = RiskBand.LOW, ShadowAction.WOULD_WAIVE
+            reason_codes.append("no_shadow_escalation_rule_triggered")
         return ShadowRiskAssessment(
             assessment_id=new_id("shadow"),
             artifact_digest=artifact_digest,

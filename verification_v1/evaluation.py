@@ -21,7 +21,7 @@ from .contracts import (
     jsonable,
     utc_now,
 )
-from .hard_verify import HardVerifier
+from .hard_verify import CommandHardVerifier, HardVerifier, UnavailableHardVerifier
 from .runner import VerificationRun, VerificationRunner
 from .telemetry import InMemoryEventSink
 
@@ -315,22 +315,36 @@ def _overlap_metrics(runs: Sequence[tuple[Mapping[str, Any], VerificationRun]]) 
     return {"jaccard_finding_overlap": matrix}
 
 
+def _hard_verifier_for_fixture(fixture: Mapping[str, Any]) -> HardVerifier:
+    if fixture.get("oracle_unavailable"):
+        return UnavailableHardVerifier()
+    command = fixture.get("hard_command")
+    if not command:
+        raise ValueError(f"fixture {fixture.get('fixture_id')} is missing hard_command")
+    extra_files = {
+        str(path): str(content)
+        for path, content in dict(fixture.get("reference_files") or {}).items()
+    }
+    return CommandHardVerifier(
+        tuple(str(part) for part in command),
+        timeout_seconds=float(fixture.get("hard_timeout_seconds", 30.0)),
+        extra_files=extra_files,
+    )
+
+
 def evaluate_fixture_set(path: Path) -> EvaluationReport:
     payload = json.loads(path.read_text(encoding="utf-8"))
     fixtures = tuple(payload.get("fixtures", []))
-    outcomes: dict[str, HardVerifierOutcome] = {}
-    for fixture in fixtures:
-        digest = sha256(_build_candidate(fixture).content).hexdigest()
-        outcome = HardVerifierOutcome(fixture["hard_verifier_outcome"])
-        if digest in outcomes and outcomes[digest] != outcome:
-            raise ValueError("fixture oracle assigns conflicting hard outcomes to identical artifact content")
-        outcomes[digest] = outcome
-    verifier: HardVerifier = _DatasetHardVerifier(outcomes)
     evaluated: list[tuple[Mapping[str, Any], VerificationRun]] = []
     records: list[dict[str, Any]] = []
     for fixture in fixtures:
-        # Checklets get only the task and candidate artifact; oracle labels stay in the verifier mapping.
-        run = VerificationRunner.default(event_sink=InMemoryEventSink()).run(_build_task(fixture["task"]), _build_candidate(fixture), verifier)
+        # Checklets get only the task and candidate artifact. Independent reference
+        # tests are injected by CommandHardVerifier and never enter checklet context.
+        run = VerificationRunner.default(event_sink=InMemoryEventSink()).run(
+            _build_task(fixture["task"]),
+            _build_candidate(fixture),
+            _hard_verifier_for_fixture(fixture),
+        )
         evaluated.append((fixture, run))
         record = run_to_record(run)
         record["fixture_id"] = fixture["fixture_id"]
@@ -392,6 +406,9 @@ def evaluate_fixture_set(path: Path) -> EvaluationReport:
             "engineering_fixture_set is not a statistically representative production dataset",
             "checklet metrics use seeded fixture expectations and should not be generalized beyond this sample",
             "would_waive is an experimental counterfactual and never authorizes acceptance",
+            "VS-V1.1 uses a conservative shadow policy: any medium-or-higher finding forces would_hard_verify",
+            "hard outcomes for executable fixtures come from CommandHardVerifier, not producer metadata",
+            "per-checklet precision is against hard-verifier rejection; a seeded-defect catch can have precision 0 if independent reference tests still pass",
         ),
     )
 

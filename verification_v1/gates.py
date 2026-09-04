@@ -6,6 +6,7 @@ from time import perf_counter
 from typing import Protocol
 
 from .artifacts import RegisteredArtifact
+from .bundle import BundleParseError, parse_coding_bundle
 from .contracts import GateResult, GateStatus, Severity, TaskContract, utc_now
 
 
@@ -18,16 +19,27 @@ class ObjectiveGate(Protocol):
 
 class MetadataShapeGate:
     gate_id = "coding_metadata_shape"
-    version = "1.0.0"
+    version = "1.1.0"
 
     def evaluate(self, task: TaskContract, artifact: RegisteredArtifact) -> GateResult:
         started = utc_now()
         timer = perf_counter()
         changed_paths = artifact.ref.metadata.get("changed_paths")
-        if not isinstance(changed_paths, (list, tuple)):
-            status, severity, details = GateStatus.ERROR, Severity.HIGH, {"reason": "changed_paths must be a sequence"}
-        else:
+        try:
+            parse_coding_bundle(artifact.content, artifact.ref.metadata)
+            inspectable = True
+        except (BundleParseError, UnicodeDecodeError):
+            inspectable = False
+        if inspectable:
+            status, severity, details = GateStatus.PASS, Severity.INFO, {"checked": "coding_bundle"}
+        elif isinstance(changed_paths, (list, tuple)):
             status, severity, details = GateStatus.PASS, Severity.INFO, {"checked": "changed_paths"}
+        else:
+            status, severity, details = (
+                GateStatus.ERROR,
+                Severity.HIGH,
+                {"reason": "artifact must be an inspectable coding bundle or declare changed_paths"},
+            )
         return GateResult(
             gate_id=self.gate_id,
             gate_version=self.version,
