@@ -13,6 +13,7 @@ class CliTests(unittest.TestCase):
             capture_output=True,
             text=True,
             check=False,
+            timeout=60,
         )
         self.assertEqual(0, listed.returncode, listed.stderr)
         self.assertGreaterEqual(len(json.loads(listed.stdout)["checklets"]), 4)
@@ -40,10 +41,47 @@ class CliTests(unittest.TestCase):
                 capture_output=True,
                 text=True,
                 check=False,
+                timeout=60,
             )
 
         self.assertEqual(0, run.returncode, run.stderr)
         self.assertEqual("accepted", json.loads(run.stdout)["final_outcome"])
+
+    def test_v12_baseline_and_metric_report_commands(self) -> None:
+        baseline = subprocess.run(
+            [sys.executable, "-m", "verification_v1", "validate-baseline"],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=30,
+        )
+        payload = json.loads(baseline.stdout)
+        self.assertTrue(payload.get("content_match"), baseline.stderr)
+        if payload.get("ok"):
+            self.assertEqual(0, baseline.returncode, baseline.stderr)
+        else:
+            self.assertEqual(1, baseline.returncode, baseline.stderr)
+            self.assertFalse(payload.get("snapshot_tracked"))
+        with tempfile.TemporaryDirectory() as directory:
+            analyzed = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "verification_v1",
+                    "analyze-v12",
+                    "evals/verification_v1/v12/metric_integrity_dataset.json",
+                    "--report-dir",
+                    directory,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+        self.assertEqual(0, analyzed.returncode, analyzed.stderr)
+        payload = json.loads(analyzed.stdout)
+        self.assertEqual("COLLECT_MORE_V1_2_DATA", payload["decision"])
+        self.assertTrue(Path(payload["artifacts"]["json"]).name == "v12_latest.json")
 
 
 if __name__ == "__main__":

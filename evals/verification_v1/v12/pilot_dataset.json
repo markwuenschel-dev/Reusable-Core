@@ -1,0 +1,4526 @@
+{
+  "changelog": [
+    {
+      "action": "append",
+      "added": [
+        "v12_35abbac4ec7b3545185ab281c5a13376",
+        "v12_1ed32d7d901cea06a3d79e9edb58ab64",
+        "v12_b9f055157f1d40de48cd8aa8a9347639",
+        "v12_88af391060e5743ca2f602e1458e3f81",
+        "v12_7c2ed2d97a954c305797cb9c30ccc8ef",
+        "v12_7a4da5e9f4b0fa862e04bee6f454b695",
+        "v12_46e151dfa5395940896c14ab2c89f645",
+        "v12_9cb31ddb6e6f6563fb871193012e49e4"
+      ],
+      "at": "2026-09-03T10:51:30.113855+00:00",
+      "note": "ingest evals/verification_v1/engineering_fixture_set.json"
+    },
+    {
+      "action": "freeze",
+      "at": "2026-09-03T10:51:30.113872+00:00"
+    }
+  ],
+  "cohort_id": "v1.2-c01-v11-frozen",
+  "created_at": "2026-09-03T10:51:24.327995+00:00",
+  "dataset_id": "vs-v1.2-real-task-evidence",
+  "dataset_version": "1.2.0",
+  "experiment_baseline_id": "vs-v1.1-baseline-001",
+  "experiment_id": "vs-v1.2-exp-001",
+  "frozen": true,
+  "records": [
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsibWF0aF9saWIucHkiOiJkZWYgYWRkKGxlZnQsIHJpZ2h0KTpcbiAgICByZXR1cm4gbGVmdCArIHJpZ2h0XG4iLCJ0ZXN0X21hdGhfbGliLnB5IjoiZnJvbSBtYXRoX2xpYiBpbXBvcnQgYWRkXG5cbmRlZiB0ZXN0X2FkZCgpOlxuICAgIGFzc2VydCBhZGQoMSwgMikgPT0gM1xuIn19",
+      "candidate_id": "clean-minimal-artifact",
+      "candidate_lineage_id": "clean-minimal-patch",
+      "candidate_patch_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+      "candidate_workspace_digest": "31fbe35c8abcdf3d3e7e0b14a804a30c36f919a11dbc5848be4ca7e9e7a8d2fe",
+      "change_surface_class": "public_interface",
+      "changed_file_count": 2,
+      "checklet_observations": [
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:24.443693+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 115.16139999730512,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_8ed0708747774d35a879b32aae29bc81",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.328538+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:24.552656+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 108.88939996948466,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_a2add6bef7a6441b96ebd8ac02fc5efa",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.443776+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:24.664896+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 112.16049996437505,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "math_lib.py",
+              "test_math_lib.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "math_lib.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_cebe1c1f72b14a7d85f49de194a4e015",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.552745+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:24.777757+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 112.78679996030405,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "math_lib.py",
+              "test_math_lib.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_6cc497d0bc1f4e7eb5814429133c41c4",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.664981+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:24.891049+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 113.21829998632893,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_9af52d87d83f4a1da82bc3e9fa9b183e",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.777840+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:24.977512+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:24.976973+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:24.976973+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:24.976973+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:24.976973+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:24.976973+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:24.977104+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:24.977104+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:24.977104+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:24.977104+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "clean-minimal"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:24.977104+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "clean-minimal"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "completed_at": "2026-09-03T10:51:24.328473+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.02400000812485814,
+          "result_id": "gate_405fb511a4f349e3803f0cf78aedbf36",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.328448+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "accepted",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+        "completed_at": "2026-09-03T10:51:24.976758+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:0"
+        ],
+        "latency_ms": 85.35940002184361,
+        "metadata": {
+          "materialized_artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+          "returncode": 0,
+          "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-8zre7vga\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "accepted",
+        "started_at": "2026-09-03T10:51:24.891408+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 85.35940002184361,
+        "objective_gate_latency_ms": [
+          0.02400000812485814
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 112.16049996437505,
+          "dependency_integration_risk": 112.78679996030405,
+          "error_boundary": 113.21829998632893,
+          "requirement_coverage": 115.16139999730512,
+          "test_adequacy": 108.88939996948466
+        },
+        "total_checklet_bundle_latency_ms": 562.2163998777978,
+        "total_verification_latency_ms": 647.5997999077663
+      },
+      "lines_added": 6,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "31fbe35c8abcdf3d3e7e0b14a804a30c36f919a11dbc5848be4ca7e9e7a8d2fe",
+      "metadata": {
+        "fixture_id": "clean-minimal-patch",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "7a765359ad95f76b6663806c4e2b85b92fd33821872b0de05fc9e853837ee0d7",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom math_lib import add\n\nclass ReferenceTests(unittest.TestCase):\n    def test_reference_add(self):\n        self.assertEqual(add(2, 3), 5)\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "calibration_reserved",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_32922c74e39b4670aa72caeeb97a294f",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_35abbac4ec7b3545185ab281c5a13376",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_32922c74e39b4670aa72caeeb97a294f",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:24.328016+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "43cd1bda67c93bda617b1a906c06207f848a697e6509853ff5ad464d7a9f413f",
+        "assessment_id": "shadow_0af59953da5447c28c3c67a1f5179825",
+        "gate_result_ids": [
+          "gate_405fb511a4f349e3803f0cf78aedbf36"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_8ed0708747774d35a879b32aae29bc81",
+          "observation_a2add6bef7a6441b96ebd8ac02fc5efa",
+          "observation_cebe1c1f72b14a7d85f49de194a4e015",
+          "observation_6cc497d0bc1f4e7eb5814429133c41c4",
+          "observation_9af52d87d83f4a1da82bc3e9fa9b183e"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "A deliberately small, valid coding change.",
+        "metadata": {
+          "allowed_paths": [
+            "math_lib.py",
+            "test_math_lib.py"
+          ]
+        },
+        "requirements": [],
+        "task_id": "clean-minimal",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "372a9a0bd94ff2f798cc89372c5dd76615817fdd99cb3e87e947685c10eb57d4",
+      "task_family_id": "clean-minimal",
+      "task_id": "clean-minimal",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "f2f1074c0e3935509beb2e82bf0d0db44544b63491d0ad0755e224acac18346d"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsic3RhdHMucHkiOiJkZWYgdG90YWwoaXRlbXMpOlxuICAgIHJldHVybiBpdGVtc1swXSArIHN1bShpdGVtc1sxOl0pXG4iLCJ0ZXN0X3N0YXRzLnB5IjoiZnJvbSBzdGF0cyBpbXBvcnQgdG90YWxcblxuZGVmIHRlc3RfcmV0dXJuX3plcm9fZm9yX2VtcHR5KCk6XG4gICAgYXNzZXJ0IHRvdGFsKFsxLCAyXSkgPT0gM1xuIn19",
+      "candidate_id": "requirement-omitted-artifact",
+      "candidate_lineage_id": "requirement-omitted",
+      "candidate_patch_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+      "candidate_workspace_digest": "2c8c1834f058291e38522ae14905982dcb06330795e68524385bdb9994a75d5e",
+      "change_surface_class": "public_interface",
+      "changed_file_count": 2,
+      "checklet_observations": [
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.087288+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": "requirement_omitted",
+          "latency_ms": 109.3883000430651,
+          "locus": "task.requirements",
+          "metadata": {
+            "derived_changed_paths": [
+              "stats.py",
+              "test_stats.py"
+            ],
+            "producer_claimed_covered_requirements": [
+              "return-zero-for-empty"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_528eedc1048d407ca44e7ffb2e0a787d",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-09-03T10:51:24.977911+00:00",
+          "summary": "Declared requirements lack coverage in the patched production files: return-zero-for-empty.",
+          "trigger_refs": [
+            "return-zero-for-empty"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.197913+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.55199999827892,
+          "locus": null,
+          "metadata": {
+            "derived_test_paths": [
+              "test_stats.py"
+            ],
+            "producer_claimed_test_cases": [
+              "test_return_zero_for_empty"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_179824a8acd04a9ca5d22a473d1d6c85",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.087373+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.309868+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 111.87590000918135,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "stats.py",
+              "test_stats.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "stats.py",
+              "test_stats.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_a59e4ad5aed1417cb6d18eed48ce231f",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.198003+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.420007+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.06199999246746,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "stats.py",
+              "test_stats.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_0733b9cc3c064c8aa14ba39606fde4a8",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.309954+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.528868+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 108.78720000619069,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_db6d0f6c39114b1eaef807c385231dbd",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.420091+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:25.612835+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:25.612090+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_true",
+          "reason": "required behaviors lack evidence in patched production files: return-zero-for-empty",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:25.612090+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_false",
+          "reason": "candidate-visible tests exercise the declared required behaviors",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:25.612090+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:25.612090+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:25.612090+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:25.612306+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_true",
+          "reason": "AST identifiers/function names lack required behaviors: return-zero-for-empty",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:25.612306+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_false",
+          "reason": "test_* names mention the declared required behaviors",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:25.612306+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:25.612306+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "zero-for-empty"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:25.612306+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "zero-for-empty"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "completed_at": "2026-09-03T10:51:24.977878+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.012500036973506212,
+          "result_id": "gate_4de4462cadb74ab1bb96299114830ec2",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:24.977865+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "rejected",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+        "completed_at": "2026-09-03T10:51:25.611919+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:1"
+        ],
+        "latency_ms": 82.75350002804771,
+        "metadata": {
+          "materialized_artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+          "returncode": 1,
+          "stderr": "E\n======================================================================\nERROR: test_empty_returns_zero (test_oracle.ReferenceTests.test_empty_returns_zero)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-qzn3rch8\\workspace\\test_oracle.py\", line 6, in test_empty_returns_zero\n    self.assertEqual(total([]), 0)\n                     ~~~~~^^^^\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-qzn3rch8\\workspace\\stats.py\", line 2, in total\n    return items[0] + sum(items[1:])\n           ~~~~~^^^\nIndexError: list index out of range\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (errors=1)\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-qzn3rch8\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "rejected",
+        "started_at": "2026-09-03T10:51:25.529174+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 82.75350002804771,
+        "objective_gate_latency_ms": [
+          0.012500036973506212
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 111.87590000918135,
+          "dependency_integration_risk": 110.06199999246746,
+          "error_boundary": 108.78720000619069,
+          "requirement_coverage": 109.3883000430651,
+          "test_adequacy": 110.55199999827892
+        },
+        "total_checklet_bundle_latency_ms": 550.6654000491835,
+        "total_verification_latency_ms": 633.4314001142047
+      },
+      "lines_added": 6,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "2c8c1834f058291e38522ae14905982dcb06330795e68524385bdb9994a75d5e",
+      "metadata": {
+        "fixture_id": "requirement-omitted",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "704b0da345d31edff714743cb0e13fe5baec284c35332d9c90a42862e2de826f",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom stats import total\n\nclass ReferenceTests(unittest.TestCase):\n    def test_empty_returns_zero(self):\n        self.assertEqual(total([]), 0)\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "holdout",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_055fc0a20a734bc09bb657f691d7a154",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_1ed32d7d901cea06a3d79e9edb58ab64",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_055fc0a20a734bc09bb657f691d7a154",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:24.977620+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "dfbb26f3c996e91be7401e5b8bf83a13532b13ecfc97f2be0b38e1cc9b483531",
+        "assessment_id": "shadow_aa974cb1a40348d482a13d9bde89a7fd",
+        "gate_result_ids": [
+          "gate_4de4462cadb74ab1bb96299114830ec2"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_528eedc1048d407ca44e7ffb2e0a787d",
+          "observation_179824a8acd04a9ca5d22a473d1d6c85",
+          "observation_a59e4ad5aed1417cb6d18eed48ce231f",
+          "observation_0733b9cc3c064c8aa14ba39606fde4a8",
+          "observation_db6d0f6c39114b1eaef807c385231dbd"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "medium_finding"
+        ],
+        "risk_band": "elevated",
+        "shadow_action": "would_hard_verify"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "Empty input must return zero.",
+        "metadata": {
+          "allowed_paths": [
+            "stats.py",
+            "test_stats.py"
+          ]
+        },
+        "requirements": [
+          "return-zero-for-empty"
+        ],
+        "task_id": "zero-for-empty",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "c646e75dfd378fd267897b95a1060a4e91f67f8e90aca76d0b9db72ccb6a5959",
+      "task_family_id": "zero-for-empty",
+      "task_id": "zero-for-empty",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "54c55d1ccacde08b0f160735784c6c3480b8b1623d7aa955b0998741b9b94d6f"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsidW5pcXVlLnB5IjoiZGVmIHVuaXF1ZSh2YWx1ZXMpOlxuICAgIHJldHVybiBzb3J0ZWQoc2V0KHZhbHVlcykpXG4ifX0=",
+      "candidate_id": "missing-producer-test-artifact",
+      "candidate_lineage_id": "missing-producer-test",
+      "candidate_patch_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+      "candidate_workspace_digest": "f25a565a8af61b9f35e100df4211c91890925bfaac472eee7b5f1190a2609694",
+      "change_surface_class": "public_interface",
+      "changed_file_count": 1,
+      "checklet_observations": [
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.725981+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 112.61860001832247,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "unique.py"
+            ],
+            "producer_claimed_covered_requirements": [
+              "sort-unique-values"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_51a981a3b20e43e195620e07fdc2795b",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.613377+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.836089+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": "test_inadequate",
+          "latency_ms": 110.03019998315722,
+          "locus": "tests",
+          "metadata": {
+            "derived_test_paths": [],
+            "producer_claimed_test_cases": [
+              "test_unique"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_537d182e93c8453eb99146f598af91b7",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-09-03T10:51:25.726069+00:00",
+          "summary": "Patched repository tests do not cover every declared requirement.",
+          "trigger_refs": [
+            "sort-unique-values"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:25.946310+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.14519998570904,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "unique.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "unique.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_3c8b89fe109a49b9b0ed005a1674ffda",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.836172+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.056199+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.8292000242509,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "unique.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_56a6b3ea692a48f8ba81d9851884aa30",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.946380+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.166676+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.4056999902241,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_816e88836a824f4cb8e47074c124f9e8",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.056280+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:26.249396+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:26.248848+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_false",
+          "reason": "patched production files contain evidence for every declared requirement",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:26.248848+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_true",
+          "reason": "candidate-visible tests do not exercise every declared required behavior",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:26.248848+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:26.248848+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:26.248848+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:26.248966+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_true",
+          "reason": "AST identifiers/function names lack required behaviors: sort-unique-values",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:26.248966+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_true",
+          "reason": "no candidate-visible test_* functions",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:26.248966+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:26.248966+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "sort-unique"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:26.248966+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "sort-unique"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "completed_at": "2026-09-03T10:51:25.613349+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.012000033166259527,
+          "result_id": "gate_ee100d5345b94f0cb1e5341387d515be",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:25.613336+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "accepted",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+        "completed_at": "2026-09-03T10:51:26.248690+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:0"
+        ],
+        "latency_ms": 81.71599998604506,
+        "metadata": {
+          "materialized_artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+          "returncode": 0,
+          "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-8v__f595\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "accepted",
+        "started_at": "2026-09-03T10:51:26.166983+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 81.71599998604506,
+        "objective_gate_latency_ms": [
+          0.012000033166259527
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 110.14519998570904,
+          "dependency_integration_risk": 109.8292000242509,
+          "error_boundary": 110.4056999902241,
+          "requirement_coverage": 112.61860001832247,
+          "test_adequacy": 110.03019998315722
+        },
+        "total_checklet_bundle_latency_ms": 553.0289000016637,
+        "total_verification_latency_ms": 634.756900020875
+      },
+      "lines_added": 2,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "f25a565a8af61b9f35e100df4211c91890925bfaac472eee7b5f1190a2609694",
+      "metadata": {
+        "fixture_id": "missing-producer-test",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "5515121eff939fe7f69bdbe446c07cf1f31e7e8db4d8774119a833790b235d23",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom unique import unique\n\nclass ReferenceTests(unittest.TestCase):\n    def test_reference_unique(self):\n        self.assertEqual(unique([2, 1, 2]), [1, 2])\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "calibration_reserved",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_5c200d252ba1463a8ef2b08d167d6fcb",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_b9f055157f1d40de48cd8aa8a9347639",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_5c200d252ba1463a8ef2b08d167d6fcb",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:25.613117+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "83859c9c5439cc36e092460de694d63b958ac6fd53f321ad007466a8b82649ae",
+        "assessment_id": "shadow_01bf458160c34534b534352f947f9e78",
+        "gate_result_ids": [
+          "gate_ee100d5345b94f0cb1e5341387d515be"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_51a981a3b20e43e195620e07fdc2795b",
+          "observation_537d182e93c8453eb99146f598af91b7",
+          "observation_3c8b89fe109a49b9b0ed005a1674ffda",
+          "observation_56a6b3ea692a48f8ba81d9851884aa30",
+          "observation_816e88836a824f4cb8e47074c124f9e8"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "medium_finding"
+        ],
+        "risk_band": "elevated",
+        "shadow_action": "would_hard_verify"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "Return sorted unique values.",
+        "metadata": {
+          "allowed_paths": [
+            "unique.py",
+            "test_unique.py"
+          ]
+        },
+        "requirements": [
+          "sort-unique-values"
+        ],
+        "task_id": "sort-unique",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "154127ee9302c19279f074763c8974272d25d358b5e8c7167bd110faa8dd6c85",
+      "task_family_id": "sort-unique",
+      "task_id": "sort-unique",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "d1b50d067f3256c8d9f67c31a8b13fa44b78422c58755104b2bb973b0fe4aebb"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsiaW5mcmEvcmVsZWFzZS5weSI6ImRlZiByZWxlYXNlKCk6XG4gICAgcmV0dXJuICdzaGlwIGl0J1xuIiwid2FudGVkLnB5IjoiZGVmIHdhbnRlZCgpOlxuICAgIHJldHVybiBUcnVlXG4ifX0=",
+      "candidate_id": "scope-artifact",
+      "candidate_lineage_id": "unrelated-scope-change",
+      "candidate_patch_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+      "candidate_workspace_digest": "f57342bf902a4e7f133d6c55413a1449562518b6e6adec48e5162447317a52e3",
+      "change_surface_class": "integration_boundary",
+      "changed_file_count": 2,
+      "checklet_observations": [
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.361208+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 111.47850000998005,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_80244761b08a40baa3211645b2f572a4",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.249740+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.471663+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.38359999656677,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_474ce766e23047a29a8a71dce6eb6fa7",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.361290+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.579257+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": "unrelated_change",
+          "latency_ms": 107.52630000934005,
+          "locus": "infra/release.py",
+          "metadata": {
+            "derived_changed_paths": [
+              "infra/release.py",
+              "wanted.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "wanted.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_0e9700b697194ded941ea490641cfa44",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-09-03T10:51:26.471740+00:00",
+          "summary": "Changed paths fall outside the declared task scope.",
+          "trigger_refs": [
+            "infra/release.py"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.688930+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.60219998378307,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "infra/release.py",
+              "wanted.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_7916b61d8594475f910890eec287ed00",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.579338+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.796359+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 107.35300002852455,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_c1bc59d4cbb94d99bc8ef6bf7c830143",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.689015+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:26.878749+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:26.878277+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:26.878277+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:26.878277+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_true",
+          "reason": "derived diff leaves justified task scope: infra/release.py",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:26.878277+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:26.878277+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:26.878383+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:26.878383+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:26.878383+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_true",
+          "reason": "derived diff leaves justified task scope: infra/release.py",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:26.878383+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "change-scope"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:26.878383+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "change-scope"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "completed_at": "2026-09-03T10:51:26.249714+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.011199968867003918,
+          "result_id": "gate_b205913592e4439eb690ebebfc011efd",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.249702+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "accepted",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+        "completed_at": "2026-09-03T10:51:26.878111+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:0"
+        ],
+        "latency_ms": 81.46810001926497,
+        "metadata": {
+          "materialized_artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+          "returncode": 0,
+          "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-xeem1ru9\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "accepted",
+        "started_at": "2026-09-03T10:51:26.796652+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 81.46810001926497,
+        "objective_gate_latency_ms": [
+          0.011199968867003918
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 107.52630000934005,
+          "dependency_integration_risk": 109.60219998378307,
+          "error_boundary": 107.35300002852455,
+          "requirement_coverage": 111.47850000998005,
+          "test_adequacy": 110.38359999656677
+        },
+        "total_checklet_bundle_latency_ms": 546.3436000281945,
+        "total_verification_latency_ms": 627.8229000163265
+      },
+      "lines_added": 4,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "f57342bf902a4e7f133d6c55413a1449562518b6e6adec48e5162447317a52e3",
+      "metadata": {
+        "fixture_id": "unrelated-scope-change",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "4da455e93d81abe63d9125a6c747ca1beb27bc7f1791d0350f8de8b7b59bb16b",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom wanted import wanted\n\nclass ReferenceTests(unittest.TestCase):\n    def test_wanted(self):\n        self.assertTrue(wanted())\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "calibration_reserved",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_38f6ace891464715a67834cea859b032",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_88af391060e5743ca2f602e1458e3f81",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_38f6ace891464715a67834cea859b032",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:26.249502+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "4f5007e4d072b20062140a788f3dfb79809ad6f9c9ba67b6d63801af30b6a028",
+        "assessment_id": "shadow_1ca82ca2a70141ea9af6e64cd5a63e58",
+        "gate_result_ids": [
+          "gate_b205913592e4439eb690ebebfc011efd"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_80244761b08a40baa3211645b2f572a4",
+          "observation_474ce766e23047a29a8a71dce6eb6fa7",
+          "observation_0e9700b697194ded941ea490641cfa44",
+          "observation_7916b61d8594475f910890eec287ed00",
+          "observation_c1bc59d4cbb94d99bc8ef6bf7c830143"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "medium_finding"
+        ],
+        "risk_band": "elevated",
+        "shadow_action": "would_hard_verify"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "Touch only the requested module.",
+        "metadata": {
+          "allowed_paths": [
+            "wanted.py"
+          ]
+        },
+        "requirements": [],
+        "task_id": "change-scope",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "87d2cceca18a69caee168447fd8680a5b3286addd26afc782d4b779fa6a7ca31",
+      "task_family_id": "change-scope",
+      "task_id": "change-scope",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "8a87d3b752a20da76a66b7258086b0a869f0a23b92a83d4e284d7e328cb33ff3"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "e9089b15d2a8f5e799dcd8a50e2603d9d869f9fcb52eb1aa78711461bed55273",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7ImNsaWVudC5weSI6ImZyb20gc2VuZGVyIGltcG9ydCBzZW5kXG5cbmRlZiBkZWxpdmVyKG1lc3NhZ2UpOlxuICAgIHJldHVybiBzZW5kKG1lc3NhZ2UpXG4iLCJzZW5kZXIucHkiOiJkZWYgc2VuZChtZXNzYWdlKTpcbiAgICByZXR1cm4gbWVzc2FnZVxuIn0sImZvcm1hdCI6ImNvZGluZ19idW5kbGUvMS4wLjAiLCJvdmVybGF5Ijp7InNlbmRlci5weSI6ImRlZiBzZW5kKG1lc3NhZ2UsIHJldHJ5X2NvdW50KTpcbiAgICByZXR1cm4gbWVzc2FnZVxuIn19",
+      "candidate_id": "dependency-artifact",
+      "candidate_lineage_id": "unupdated-interface",
+      "candidate_patch_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+      "candidate_workspace_digest": "854d20d1e8d88e7cee34bff9cacdf75bddfd76d2d4f913d0946b170cd9288b28",
+      "change_surface_class": "integration_boundary",
+      "changed_file_count": 1,
+      "checklet_observations": [
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:26.990634+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 111.46230000304058,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_63a9716c7efc4e48a53059402055e4b6",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.879182+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.100320+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.61240000324324,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_5e08340bf4eb4c7bb32994378c4f11f0",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.990717+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.208574+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 108.18219999782741,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "sender.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "sender.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_d67cedbeb45b49b4a5748491fd6494af",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.100402+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.317270+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": "integration_risk",
+          "latency_ms": 108.62399998586625,
+          "locus": "send",
+          "metadata": {
+            "derived_changed_paths": [
+              "sender.py"
+            ],
+            "producer_claimed_signature_changes": [
+              {
+                "callsites_updated": true,
+                "symbol": "send"
+              }
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_134020b1eb954818a917b7b8f4def8dc",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "high",
+          "started_at": "2026-09-03T10:51:27.208655+00:00",
+          "summary": "A changed public interface has un-updated or incompatible call sites.",
+          "trigger_refs": [
+            "client.py"
+          ],
+          "verdict": "finding"
+        },
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.426884+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.53720001270995,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_14fa2bea2c54464da44037b5a6c42720",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.317356+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:27.511762+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:27.511199+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:27.511199+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:27.511199+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:27.511199+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_true",
+          "reason": "changed public interfaces have unaccounted call sites: send@client.py",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:27.511199+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:27.511359+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:27.511359+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:27.511359+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:27.511359+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_true",
+          "reason": "changed public arities have unaccounted call sites: send@client.py",
+          "task_id": "interface-update"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:27.511359+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "interface-update"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "completed_at": "2026-09-03T10:51:26.879153+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.014599994756281376,
+          "result_id": "gate_646371b49e6a406da02510be471c9efd",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:26.879138+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "rejected",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+        "completed_at": "2026-09-03T10:51:27.511031+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:1"
+        ],
+        "latency_ms": 83.86689994949847,
+        "metadata": {
+          "materialized_artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+          "returncode": 1,
+          "stderr": "E\n======================================================================\nERROR: test_deliver (test_oracle.ReferenceTests.test_deliver)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-c63_ej_k\\workspace\\test_oracle.py\", line 6, in test_deliver\n    self.assertEqual(deliver('hi'), 'hi')\n                     ~~~~~~~^^^^^^\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-c63_ej_k\\workspace\\client.py\", line 4, in deliver\n    return send(message)\nTypeError: send() missing 1 required positional argument: 'retry_count'\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (errors=1)\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-c63_ej_k\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "rejected",
+        "started_at": "2026-09-03T10:51:27.427174+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 83.86689994949847,
+        "objective_gate_latency_ms": [
+          0.014599994756281376
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 108.18219999782741,
+          "dependency_integration_risk": 108.62399998586625,
+          "error_boundary": 109.53720001270995,
+          "requirement_coverage": 111.46230000304058,
+          "test_adequacy": 109.61240000324324
+        },
+        "total_checklet_bundle_latency_ms": 547.4181000026874,
+        "total_verification_latency_ms": 631.2995999469422
+      },
+      "lines_added": 1,
+      "lines_deleted": 1,
+      "materialized_workspace_digest": "854d20d1e8d88e7cee34bff9cacdf75bddfd76d2d4f913d0946b170cd9288b28",
+      "metadata": {
+        "fixture_id": "unupdated-interface",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "989a57cb53e56487ef8b3cf206a44509b802761d44afd8305e34d52645bb80ef",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom client import deliver\n\nclass ReferenceTests(unittest.TestCase):\n    def test_deliver(self):\n        self.assertEqual(deliver('hi'), 'hi')\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "holdout",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_ad4bfb7083b641b392ebdab3c5abb860",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_7c2ed2d97a954c305797cb9c30ccc8ef",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_ad4bfb7083b641b392ebdab3c5abb860",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:26.878846+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "1a871f588b2c0644a67dcb7579cef0c6f8d976ddce24651392ec588621c51643",
+        "assessment_id": "shadow_fe1c438a748d4158bf9fc021fe8c6bbb",
+        "gate_result_ids": [
+          "gate_646371b49e6a406da02510be471c9efd"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_63a9716c7efc4e48a53059402055e4b6",
+          "observation_5e08340bf4eb4c7bb32994378c4f11f0",
+          "observation_d67cedbeb45b49b4a5748491fd6494af",
+          "observation_134020b1eb954818a917b7b8f4def8dc",
+          "observation_14fa2bea2c54464da44037b5a6c42720"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "high_severity_finding"
+        ],
+        "risk_band": "high",
+        "shadow_action": "would_hard_verify"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "A public signature change with a missing consumer update.",
+        "metadata": {
+          "allowed_paths": [
+            "sender.py",
+            "client.py"
+          ]
+        },
+        "requirements": [],
+        "task_id": "interface-update",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "a80f8f401c7a92f7784682852f61984e7fa19388728ab44b4cd5188056ecd4d8",
+      "task_family_id": "interface-update",
+      "task_id": "interface-update",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "022403566391a821fee37adb2ad8a85173c4e0962c976269d84054f4b7994f98"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsiZmlyc3QucHkiOiJkZWYgZmlyc3QoaXRlbXMpOlxuICAgIHJldHVybiBpdGVtc1swXVxuIn19",
+      "candidate_id": "boundary-artifact",
+      "candidate_lineage_id": "unhandled-boundary",
+      "candidate_patch_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+      "candidate_workspace_digest": "bafce4b8e970ef59c1be02bc1e53cedc35f03e07fb55262c85f671c9697f9dfc",
+      "change_surface_class": "public_interface",
+      "changed_file_count": 1,
+      "checklet_observations": [
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.621673+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.58520002895966,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_6064b6161eb34bbf88d64a9445a2a494",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.512098+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.731838+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.09099998045713,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_fbc72243da644d458e138e4ef096f0d6",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.621757+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.839594+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 107.68479999387637,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "first.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "first.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_e7a09fa62685482f912df8f3d3c91ebc",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.731918+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:27.947706+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 108.04119997192174,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "first.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_7d56de6171954f888cf8cb2ce8a11fe8",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.839675+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.056312+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": "boundary_not_handled",
+          "latency_ms": 108.53480000514537,
+          "locus": "empty-input",
+          "metadata": {
+            "derived_changed_paths": [
+              "first.py"
+            ],
+            "producer_claimed_handled_boundary_cases": [
+              "empty-input"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_823341607eb24c1aaee93393ae555dd0",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "medium",
+          "started_at": "2026-09-03T10:51:27.947787+00:00",
+          "summary": "Declared boundary cases lack handling evidence in the patched production files.",
+          "trigger_refs": [
+            "empty-input"
+          ],
+          "verdict": "finding"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:28.139875+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:28.139354+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:28.139354+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:28.139354+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:28.139354+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:28.139354+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_true",
+          "reason": "declared boundary cases lack handling evidence: empty-input",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:28.139468+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:28.139468+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:28.139468+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:28.139468+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "empty-boundary"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:28.139468+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_true",
+          "reason": "AST control-flow lacks handling for declared boundary cases: empty-input",
+          "task_id": "empty-boundary"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "completed_at": "2026-09-03T10:51:27.512070+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.010100018698722124,
+          "result_id": "gate_ff0aa65508684550b49d8d8bf1bfb09e",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:27.512060+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "rejected",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+        "completed_at": "2026-09-03T10:51:28.139192+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:1"
+        ],
+        "latency_ms": 82.58679998107255,
+        "metadata": {
+          "materialized_artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+          "returncode": 1,
+          "stderr": "E\n======================================================================\nERROR: test_empty_is_safe (test_oracle.ReferenceTests.test_empty_is_safe)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-xeu5ej4m\\workspace\\test_oracle.py\", line 6, in test_empty_is_safe\n    self.assertIsNone(first([]))\n                      ~~~~~^^^^\n  File \"C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-xeu5ej4m\\workspace\\first.py\", line 2, in first\n    return items[0]\n           ~~~~~^^^\nIndexError: list index out of range\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (errors=1)\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-xeu5ej4m\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "rejected",
+        "started_at": "2026-09-03T10:51:28.056614+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 82.58679998107255,
+        "objective_gate_latency_ms": [
+          0.010100018698722124
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 107.68479999387637,
+          "dependency_integration_risk": 108.04119997192174,
+          "error_boundary": 108.53480000514537,
+          "requirement_coverage": 109.58520002895966,
+          "test_adequacy": 110.09099998045713
+        },
+        "total_checklet_bundle_latency_ms": 543.9369999803603,
+        "total_verification_latency_ms": 626.5338999801315
+      },
+      "lines_added": 2,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "bafce4b8e970ef59c1be02bc1e53cedc35f03e07fb55262c85f671c9697f9dfc",
+      "metadata": {
+        "fixture_id": "unhandled-boundary",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "60f11b4254221985c92de2f79dd647243938551696b9b7a95ba09dd44a3fd989",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom first import first\n\nclass ReferenceTests(unittest.TestCase):\n    def test_empty_is_safe(self):\n        self.assertIsNone(first([]))\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "development",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_67c715af111d48ffbeb0470f2e88a861",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_7a4da5e9f4b0fa862e04bee6f454b695",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_67c715af111d48ffbeb0470f2e88a861",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:27.511866+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "ae01be87cb613c7e663013d39d9c68770eeaa4e43bd0075998cbbdbe0904e730",
+        "assessment_id": "shadow_9aa1a979aed548cc8250a03b7836fe15",
+        "gate_result_ids": [
+          "gate_ff0aa65508684550b49d8d8bf1bfb09e"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_6064b6161eb34bbf88d64a9445a2a494",
+          "observation_fbc72243da644d458e138e4ef096f0d6",
+          "observation_e7a09fa62685482f912df8f3d3c91ebc",
+          "observation_7d56de6171954f888cf8cb2ce8a11fe8",
+          "observation_823341607eb24c1aaee93393ae555dd0"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "medium_finding"
+        ],
+        "risk_band": "elevated",
+        "shadow_action": "would_hard_verify"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "An empty input boundary is expected.",
+        "metadata": {
+          "allowed_paths": [
+            "first.py"
+          ],
+          "boundary_cases": [
+            "empty-input"
+          ]
+        },
+        "requirements": [],
+        "task_id": "empty-boundary",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "971d7b5d14997fcda706ae4bba62b5405d78e0fe2eaa4eb3f8b9394033664871",
+      "task_family_id": "empty-boundary",
+      "task_id": "empty-boundary",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "6c05911bbb933af882c00b7aa11dfcb24ff0659346ec9eddd64bd6f3c63fae8d"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "20d6a8edbc779440a4719466c6d6f990544fe166128d91a9d88f521eeba05d48",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7ImNsaWVudC5weSI6ImZyb20gc2VuZGVyIGltcG9ydCBzZW5kXG5cbmRlZiBkZWxpdmVyKG1lc3NhZ2UpOlxuICAgIHJldHVybiBzZW5kKG1lc3NhZ2UpXG4iLCJzZW5kZXIucHkiOiJkZWYgc2VuZChtZXNzYWdlKTpcbiAgICByZXR1cm4gbWVzc2FnZVxuIiwidGVzdF9zZW5kZXIucHkiOiJmcm9tIHNlbmRlciBpbXBvcnQgc2VuZFxuXG5kZWYgdGVzdF9zZW5kKCk6XG4gICAgYXNzZXJ0IHNlbmQoJ29rJykgPT0gJ29rJ1xuIn0sImZvcm1hdCI6ImNvZGluZ19idW5kbGUvMS4wLjAiLCJvdmVybGF5Ijp7ImNsaWVudC5weSI6ImZyb20gc2VuZGVyIGltcG9ydCBzZW5kXG5cbmRlZiBkZWxpdmVyKG1lc3NhZ2UpOlxuICAgIHJldHVybiBzZW5kKG1lc3NhZ2UsIHJldHJ5X2NvdW50PTEpXG4iLCJzZW5kZXIucHkiOiJkZWYgc2VuZChtZXNzYWdlLCByZXRyeV9jb3VudD0wKTpcbiAgICByZXR1cm4gbWVzc2FnZVxuIiwidGVzdF9zZW5kZXIucHkiOiJmcm9tIHNlbmRlciBpbXBvcnQgc2VuZFxuXG5kZWYgdGVzdF9zZW5kX3JldHJ5KCk6XG4gICAgYXNzZXJ0IHNlbmQoJ29rJywgcmV0cnlfY291bnQ9MSkgPT0gJ29rJ1xuIn19",
+      "candidate_id": "clean-interface-artifact",
+      "candidate_lineage_id": "clean-large-interface-change",
+      "candidate_patch_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+      "candidate_workspace_digest": "2261df8a8de7a276a47eb7f42fb4f6174b4e6ac0e49b6bd058f78b2cfa62f900",
+      "change_surface_class": "integration_boundary",
+      "changed_file_count": 3,
+      "checklet_observations": [
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.250068+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.76029996527359,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_6fe2c71302b94357ad84ad4492263c24",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.140318+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.359860+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.72609999589622,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_816ddf116f2d4b5c829f628c0eb77f43",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.250145+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.468517+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 108.58190001454204,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "client.py",
+              "sender.py",
+              "test_sender.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "sender.py",
+              "client.py",
+              "test_sender.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_880444cb517448ec9dd986e19f2a5301",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.359944+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.578049+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.45990000618622,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "client.py",
+              "sender.py",
+              "test_sender.py"
+            ],
+            "producer_claimed_signature_changes": [
+              {
+                "callsites_updated": false,
+                "symbol": "send"
+              }
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_ed51df22104146cd847f7d4313634529",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.468599+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.688187+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.06579996319488,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_d39afe1180094652999d624389bffa83",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.578131+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "command-hard-verifier/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:28.776005+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:28.775428+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:28.775428+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:28.775428+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:28.775428+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:28.775428+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:28.775589+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:28.775589+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:28.775589+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:28.775589+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "updated-interface"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:28.775589+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "updated-interface"
+        }
+      ],
+      "data_quality_flags": [],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "completed_at": "2026-09-03T10:51:28.140291+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.014199991710484028,
+          "result_id": "gate_d84043ba18fb488b91ec35fb7d5e4e2d",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.140277+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "accepted",
+      "hard_verifier_id": "command-hard-verifier",
+      "hard_verifier_result": {
+        "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+        "completed_at": "2026-09-03T10:51:28.775242+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "command_exit:0"
+        ],
+        "latency_ms": 86.76499995635822,
+        "metadata": {
+          "materialized_artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+          "returncode": 0,
+          "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "stdout": "",
+          "workspace": "C:\\Users\\Nalakram\\AppData\\Local\\Temp\\verification-v1-0s3zkrpv\\workspace"
+        },
+        "oracle_applicability": "configured_task_acceptance",
+        "oracle_class": "external_executable_command",
+        "outcome": "accepted",
+        "started_at": "2026-09-03T10:51:28.688487+00:00",
+        "verifier_id": "command-hard-verifier",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 86.76499995635822,
+        "objective_gate_latency_ms": [
+          0.014199991710484028
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 108.58190001454204,
+          "dependency_integration_risk": 109.45990000618622,
+          "error_boundary": 110.06579996319488,
+          "requirement_coverage": 109.76029996527359,
+          "test_adequacy": 109.72609999589622
+        },
+        "total_checklet_bundle_latency_ms": 547.593999945093,
+        "total_verification_latency_ms": 634.3731998931617
+      },
+      "lines_added": 4,
+      "lines_deleted": 4,
+      "materialized_workspace_digest": "2261df8a8de7a276a47eb7f42fb4f6174b4e6ac0e49b6bd058f78b2cfa62f900",
+      "metadata": {
+        "fixture_id": "clean-large-interface-change",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "3450cdaf6c848c5befecbd797a44d53e076b842574be78dc3fb43beca72e5bda",
+      "oracle_files": {
+        "test_oracle.py": "import unittest\nfrom client import deliver\nfrom sender import send\n\nclass ReferenceTests(unittest.TestCase):\n    def test_updated_callers(self):\n        self.assertEqual(deliver('hi'), 'hi')\n        self.assertEqual(send('hi', retry_count=2), 'hi')\n"
+      },
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "calibration_reserved",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_62eb9081b5434b4e9664f8583ad4d9e7",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_46e151dfa5395940896c14ab2c89f645",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_62eb9081b5434b4e9664f8583ad4d9e7",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:28.139984+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "af9784d0db7cbac3865bfc68f39f3c17c2e3e01b08edabe32473e382c8d34c35",
+        "assessment_id": "shadow_6fbbdb9b42ee46bdba4240072934c137",
+        "gate_result_ids": [
+          "gate_d84043ba18fb488b91ec35fb7d5e4e2d"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_6fe2c71302b94357ad84ad4492263c24",
+          "observation_816ddf116f2d4b5c829f628c0eb77f43",
+          "observation_880444cb517448ec9dd986e19f2a5301",
+          "observation_ed51df22104146cd847f7d4313634529",
+          "observation_d39afe1180094652999d624389bffa83"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "A justified public change with all consumers updated.",
+        "metadata": {
+          "allowed_paths": [
+            "sender.py",
+            "client.py",
+            "test_sender.py"
+          ]
+        },
+        "requirements": [],
+        "task_id": "updated-interface",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "25028b05759ab7601f9098c8383a060a9fde4ad1b2a6db3557f84df867cda275",
+      "task_family_id": "updated-interface",
+      "task_id": "updated-interface",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "ebc31480be2f2cd8ea3557b7f19d48117c9dff8cf263852591a5e63e952d6efc"
+    },
+    {
+      "base_revision": "bundle-base",
+      "base_tree_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "candidate_bytes_b64": "eyJiYXNlX2ZpbGVzIjp7fSwiZm9ybWF0IjoiY29kaW5nX2J1bmRsZS8xLjAuMCIsIm92ZXJsYXkiOnsidW5jZXJ0YWluLnB5IjoiZGVmIHVuY2VydGFpbigpOlxuICAgIHJldHVybiBOb25lXG4ifX0=",
+      "candidate_id": "unknown-artifact",
+      "candidate_lineage_id": "unknown-reference-outcome",
+      "candidate_patch_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+      "candidate_workspace_digest": "8f94cd6ab7f037979421298abfd59e43ba39f3ae1fd96bc7ddf4dd24af1378a8",
+      "change_surface_class": "public_interface",
+      "changed_file_count": 1,
+      "checklet_observations": [
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "requirement_coverage",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.887742+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "requirements-covered",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 111.42949998611584,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_4d5b15ffedf9495bb38196b9ad063231",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.776323+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "test_adequacy",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:28.997411+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "producer-test-adequacy",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.59529998945072,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_76ddc10fe92a4352a833671d7db574fc",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.887826+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "change_scope",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:29.104340+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "declared-change-scope",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:change_scope",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 106.85629997169599,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "uncertain.py"
+            ],
+            "producer_claimed_changed_paths": [
+              "uncertain.py"
+            ]
+          },
+          "model_provider": null,
+          "observation_id": "observation_a476bd63c27f448ab7bb881bcf2fb130",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.997493+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "dependency_integration_risk",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:29.215181+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "interface-dependency-risk",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 110.76949996640906,
+          "locus": null,
+          "metadata": {
+            "derived_changed_paths": [
+              "uncertain.py"
+            ],
+            "producer_claimed_signature_changes": []
+          },
+          "model_provider": null,
+          "observation_id": "observation_c60db593ca074fae8edb0718d260b12f",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:29.104422+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        },
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "error_boundary",
+          "checklet_version": "1.1.0",
+          "completed_at": "2026-09-03T10:51:29.325227+00:00",
+          "confidence": 1.0,
+          "confidence_semantics": "heuristic confidence",
+          "criterion_id": "failure-boundaries",
+          "estimated_or_actual_cost": {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          "evidence_family_id": "deterministic:vs-v1:error_boundary",
+          "evidence_refs": [],
+          "finding_type": null,
+          "latency_ms": 109.97190000489354,
+          "locus": null,
+          "metadata": {},
+          "model_provider": null,
+          "observation_id": "observation_ded3d6d9b518474aa2129b348ee85055",
+          "prompt_template_hash": null,
+          "resolved_model_id": null,
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:29.215265+00:00",
+          "summary": "No defect found for this criterion.",
+          "trigger_refs": [],
+          "verdict": "clean"
+        }
+      ],
+      "cohort_id": "v1.2-c01-v11-frozen",
+      "component_versions": {
+        "checklets": {
+          "change_scope": "1.1.0",
+          "dependency_integration_risk": "1.1.0",
+          "error_boundary": "1.1.0",
+          "requirement_coverage": "1.1.0",
+          "test_adequacy": "1.1.0"
+        },
+        "domain_pack": {
+          "id": "coding-v1",
+          "version": "1.1.0"
+        },
+        "gates": {
+          "coding_metadata_shape": "1.1.0"
+        },
+        "hard_verifier": "unavailable-reference-oracle/1.1.0",
+        "policy": {
+          "id": "shadow-rule-v1.1",
+          "version": "1.1.0"
+        },
+        "runner": {
+          "version": "1.1.0"
+        }
+      },
+      "cost_summary": {
+        "checklet_costs": [
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          },
+          {
+            "amount": 0.0,
+            "currency": "USD",
+            "kind": "actual_cost"
+          }
+        ],
+        "counterfactual_expected_cost": {
+          "label": "NOT REALIZED / NOT AUTHORIZED",
+          "note": "selective verification is off; this is a hypothetical accounting field only"
+        },
+        "hard_verifier_cost": {
+          "kind": "unknown_cost"
+        },
+        "objective_gate_cost": {
+          "amount": 0.0,
+          "currency": "USD",
+          "kind": "actual_cost"
+        }
+      },
+      "created_at": "2026-09-03T10:51:29.326074+00:00",
+      "criterion_adjudications": [
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:29.325617+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "criterion:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:29.325617+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "criterion:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:29.325617+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "criterion:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:29.325617+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "criterion:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public signature changes were present",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-rule/1.0.0",
+          "adjudicator_id": "independent-criterion-inspector",
+          "adjudicator_type": "independent_rule",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:29.325617+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "criterion:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "requirement_coverage",
+          "created_at": "2026-09-03T10:51:29.325716+00:00",
+          "criterion_id": "requirements-covered",
+          "evidence_refs": [
+            "independent-ast:requirement_coverage"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no explicit required behaviors in the task contract",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "test_adequacy",
+          "created_at": "2026-09-03T10:51:29.325716+00:00",
+          "criterion_id": "producer-test-adequacy",
+          "evidence_refs": [
+            "independent-ast:test_adequacy"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no required behaviors for tests to exercise",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "change_scope",
+          "created_at": "2026-09-03T10:51:29.325716+00:00",
+          "criterion_id": "declared-change-scope",
+          "evidence_refs": [
+            "independent-ast:change_scope"
+          ],
+          "label": "criterion_false",
+          "reason": "derived diff stays within the declared task scope",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "dependency_integration_risk",
+          "created_at": "2026-09-03T10:51:29.325716+00:00",
+          "criterion_id": "interface-dependency-risk",
+          "evidence_refs": [
+            "independent-ast:dependency_integration_risk"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no public arity changes were present",
+          "task_id": "unknown-oracle"
+        },
+        {
+          "adjudication_mode": "blind",
+          "adjudication_version": "independent-ast/1.0.0",
+          "adjudicator_id": "independent-ast-inspector",
+          "adjudicator_type": "independent_static_analysis",
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "checklet_id": "error_boundary",
+          "created_at": "2026-09-03T10:51:29.325716+00:00",
+          "criterion_id": "failure-boundaries",
+          "evidence_refs": [
+            "independent-ast:error_boundary"
+          ],
+          "label": "criterion_not_applicable",
+          "reason": "no task-relevant failure/boundary cases were declared",
+          "task_id": "unknown-oracle"
+        }
+      ],
+      "data_quality_flags": [
+        "ORACLE_UNAVAILABLE",
+        "HARD_VERIFY_UNKNOWN"
+      ],
+      "experiment_baseline_id": "vs-v1.1-baseline-001",
+      "experiment_id": "vs-v1.2-exp-001",
+      "framework": "unittest",
+      "gate_results": [
+        {
+          "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+          "completed_at": "2026-09-03T10:51:28.776295+00:00",
+          "details": {
+            "checked": "coding_bundle"
+          },
+          "evidence_refs": [],
+          "gate_id": "coding_metadata_shape",
+          "gate_version": "1.1.0",
+          "latency_ms": 0.011400028597563505,
+          "result_id": "gate_7a40c89d5b3445409674251da9e23e6d",
+          "severity": "info",
+          "started_at": "2026-09-03T10:51:28.776283+00:00",
+          "status": "pass"
+        }
+      ],
+      "hard_outcome": "outcome_unknown",
+      "hard_verifier_id": "unavailable-reference-oracle",
+      "hard_verifier_result": {
+        "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+        "completed_at": "2026-09-03T10:51:29.325525+00:00",
+        "cost": {
+          "kind": "unknown_cost"
+        },
+        "defect_refs": [],
+        "evidence_refs": [
+          "oracle_unavailable"
+        ],
+        "latency_ms": 0.0,
+        "metadata": {},
+        "oracle_applicability": "unavailable",
+        "oracle_class": "unavailable_reference",
+        "outcome": "outcome_unknown",
+        "started_at": "2026-09-03T10:51:29.325525+00:00",
+        "verifier_id": "unavailable-reference-oracle",
+        "verifier_version": "1.1.0"
+      },
+      "hard_verifier_version": "1.1.0",
+      "invalidated": false,
+      "invalidation_reason": "",
+      "language": "python",
+      "latency_summary": {
+        "hard_verifier_latency_ms": 0.0,
+        "objective_gate_latency_ms": [
+          0.011400028597563505
+        ],
+        "per_checklet_latency_ms": {
+          "change_scope": 106.85629997169599,
+          "dependency_integration_risk": 110.76949996640906,
+          "error_boundary": 109.97190000489354,
+          "requirement_coverage": 111.42949998611584,
+          "test_adequacy": 109.59529998945072
+        },
+        "total_checklet_bundle_latency_ms": 548.6224999185652,
+        "total_verification_latency_ms": 548.6338999471627
+      },
+      "lines_added": 2,
+      "lines_deleted": 0,
+      "materialized_workspace_digest": "8f94cd6ab7f037979421298abfd59e43ba39f3ae1fd96bc7ddf4dd24af1378a8",
+      "metadata": {
+        "fixture_id": "unknown-reference-outcome",
+        "ingestion_version": "v1.2-ingest/1.0.0",
+        "v1_run_schema": "verification-v1-evaluation/1.0.0"
+      },
+      "missing_evidence_links": [],
+      "oracle_bundle_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle_files": {},
+      "oracle_limitations": "engineering-fixture reference tests; not a universal correctness proof",
+      "oracle_scope": "unit_reference_tests",
+      "partition": "holdout",
+      "patch_size_bucket": "small",
+      "producer": {
+        "candidate_source": "engineering_fixture",
+        "producer_attempt_number": 1,
+        "producer_executor_id": "engineering-fixture-generator",
+        "producer_model_id": "none",
+        "producer_scaffold_version": "v1.1-fixtures",
+        "producer_tool_profile": "deterministic-fixture"
+      },
+      "provenance_refs": [
+        "run:run_6f1acc76a523472aaeddd79ff74209ba",
+        "ingest:v1.2-ingest/1.0.0"
+      ],
+      "record_id": "v12_9cb31ddb6e6f6563fb871193012e49e4",
+      "repository_group": "engineering",
+      "repository_id": "engineering://verification_v1",
+      "run_id": "run_6f1acc76a523472aaeddd79ff74209ba",
+      "sampling": {
+        "dataset_kind": "challenge_set",
+        "sampling_rule": "checked-in VS-V1.1 engineering fixtures",
+        "sampling_source": "evals/verification_v1/engineering_fixture_set.json",
+        "selection_reason": "engineering_control",
+        "selection_timestamp": "2026-09-03T10:51:28.776106+00:00"
+      },
+      "schema_version": "verification-v1.2-evidence/1.0.0",
+      "shadow_assessment": {
+        "artifact_digest": "cdb955ce237a91e42700a3ff51df8fdb1c9f6ef78b6d44395434ebaff68b82f2",
+        "assessment_id": "shadow_f96241be046044f888e450c7a3507cef",
+        "gate_result_ids": [
+          "gate_7a40c89d5b3445409674251da9e23e6d"
+        ],
+        "is_authoritative": false,
+        "observation_ids": [
+          "observation_4d5b15ffedf9495bb38196b9ad063231",
+          "observation_76ddc10fe92a4352a833671d7db574fc",
+          "observation_a476bd63c27f448ab7bb881bcf2fb130",
+          "observation_c60db593ca074fae8edb0718d260b12f",
+          "observation_ded3d6d9b518474aa2129b348ee85055"
+        ],
+        "policy_id": "shadow-rule-v1.1",
+        "policy_version": "1.1.0",
+        "reason_codes": [
+          "no_shadow_escalation_rule_triggered"
+        ],
+        "risk_band": "low",
+        "shadow_action": "would_waive"
+      },
+      "shadow_policy_id": "shadow-rule-v1.1",
+      "shadow_policy_version": "1.1.0",
+      "split_algorithm_version": "grouped-sha256-v1",
+      "split_seed": "vs-v1.2-split-seed-001",
+      "successor_record_id": "",
+      "task_complexity": "small",
+      "task_contract": {
+        "description": "A fixture used to keep unknown outcomes out of success metrics.",
+        "metadata": {
+          "allowed_paths": [
+            "uncertain.py"
+          ]
+        },
+        "requirements": [],
+        "task_id": "unknown-oracle",
+        "version": "1.0.0"
+      },
+      "task_contract_digest": "67c40fef1135a8e6c18ef42fe8d0a9a9af744e423264104a1f11b1bb14ce228e",
+      "task_family_id": "unknown-oracle",
+      "task_id": "unknown-oracle",
+      "task_origin": "engineering_fixture",
+      "task_type": "engineering_fixture",
+      "verifier_workspace_digest": "8f94cd6ab7f037979421298abfd59e43ba39f3ae1fd96bc7ddf4dd24af1378a8"
+    }
+  ],
+  "schema_version": "verification-v1.2-dataset/1.0.0",
+  "split_algorithm_version": "grouped-sha256-v1",
+  "split_seed": "vs-v1.2-split-seed-001"
+}

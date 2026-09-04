@@ -1,0 +1,1259 @@
+{
+  "analysis": {
+    "adjudication_disagreement_count": 0,
+    "adjudication_modes": {
+      "expert_assisted": "bounded-expert-review/assisted",
+      "expert_blind": "bounded-expert-review",
+      "independent_deterministic": "independent-ast-inspector",
+      "shared_deterministic": "deterministic-shared"
+    },
+    "analysis_config": {
+      "analysis_scope": "operational",
+      "interval": "wilson_95",
+      "minimum_descriptive_n": 10
+    },
+    "analysis_scope": "operational",
+    "calibration_state": "sealed",
+    "combinations": [
+      {
+        "combination": "all_applicable_clean",
+        "descriptive_only": true,
+        "display": "1 / 2",
+        "interval": {
+          "display": "1 / 2",
+          "lower": 0.09452865480086614,
+          "method": "wilson_95",
+          "n": 2,
+          "rate": 0.5,
+          "successes": 1,
+          "upper": 0.9054713451991339
+        },
+        "n": 2,
+        "rate": 0.5,
+        "rejects": 1
+      },
+      {
+        "combination": "one_medium_finding",
+        "descriptive_only": true,
+        "display": "2 / 5",
+        "interval": {
+          "display": "2 / 5",
+          "lower": 0.1176182311592533,
+          "method": "wilson_95",
+          "n": 5,
+          "rate": 0.4,
+          "successes": 2,
+          "upper": 0.769280067791163
+        },
+        "n": 5,
+        "rate": 0.4,
+        "rejects": 2
+      },
+      {
+        "combination": "gates_pass_all_clean",
+        "descriptive_only": true,
+        "display": "1 / 2",
+        "interval": {
+          "display": "1 / 2",
+          "lower": 0.09452865480086614,
+          "method": "wilson_95",
+          "n": 2,
+          "rate": 0.5,
+          "successes": 1,
+          "upper": 0.9054713451991339
+        },
+        "n": 2,
+        "rate": 0.5,
+        "rejects": 1
+      }
+    ],
+    "cost_and_latency": {
+      "counterfactual_expected_cost": {
+        "authorization": "NOT AUTHORIZED",
+        "note": "All five applicable checklets still run; selective verification remains off.",
+        "status": "NOT REALIZED"
+      },
+      "hard_verifier_latency_ms": {
+        "mean": 2.0,
+        "p50": 2.0,
+        "p95": 2.0,
+        "total": 16.0
+      },
+      "objective_gate_latency_ms": {
+        "mean": 0.5,
+        "p50": 0.5,
+        "p95": 0.5,
+        "total": 4.0
+      },
+      "per_checklet_cost": {
+        "change_scope": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "total": 0.0
+        },
+        "dependency_integration_risk": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "total": 0.0
+        },
+        "error_boundary": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "total": 0.0
+        },
+        "requirement_coverage": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "total": 0.0
+        },
+        "test_adequacy": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "total": 0.0
+        }
+      },
+      "per_checklet_latency_ms": {
+        "change_scope": {
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "total": 8.0
+        },
+        "dependency_integration_risk": {
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "total": 8.0
+        },
+        "error_boundary": {
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "total": 8.0
+        },
+        "requirement_coverage": {
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "total": 8.0
+        },
+        "test_adequacy": {
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "total": 8.0
+        }
+      },
+      "total_checklet_bundle_latency_ms": {
+        "mean": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "total": 40.0
+      },
+      "total_verification_latency_ms": {
+        "mean": 5.0,
+        "p50": 5.0,
+        "p95": 5.0,
+        "total": 40.0
+      }
+    },
+    "criterion_quality": {
+      "change_scope": {
+        "adjudicator_ids": [
+          "bounded-expert-review",
+          "independent-ast-inspector"
+        ],
+        "checklet_id": "change_scope",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "dependency_integration_risk": {
+        "adjudicator_ids": [
+          "bounded-expert-review",
+          "independent-ast-inspector"
+        ],
+        "checklet_id": "dependency_integration_risk",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "error_boundary": {
+        "adjudicator_ids": [
+          "bounded-expert-review",
+          "independent-ast-inspector"
+        ],
+        "checklet_id": "error_boundary",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "requirement_coverage": {
+        "adjudicator_ids": [
+          "bounded-expert-review",
+          "independent-ast-inspector"
+        ],
+        "checklet_id": "requirement_coverage",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "test_adequacy": {
+        "adjudicator_ids": [
+          "bounded-expert-review",
+          "independent-ast-inspector"
+        ],
+        "checklet_id": "test_adequacy",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      }
+    },
+    "criterion_quality_secondary": {
+      "change_scope": {
+        "adjudicator_ids": [
+          "deterministic-shared"
+        ],
+        "checklet_id": "change_scope",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "dependency_integration_risk": {
+        "adjudicator_ids": [
+          "deterministic-shared"
+        ],
+        "checklet_id": "dependency_integration_risk",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "error_boundary": {
+        "adjudicator_ids": [
+          "deterministic-shared"
+        ],
+        "checklet_id": "error_boundary",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "requirement_coverage": {
+        "adjudicator_ids": [
+          "deterministic-shared"
+        ],
+        "checklet_id": "requirement_coverage",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      },
+      "test_adequacy": {
+        "adjudicator_ids": [
+          "deterministic-shared"
+        ],
+        "checklet_id": "test_adequacy",
+        "counts": {
+          "abstain": 0,
+          "error": 0,
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 0
+        },
+        "criterion_abstention_rate": 0.0,
+        "criterion_false_negative_rate": null,
+        "criterion_false_positive_rate": null,
+        "criterion_indeterminate_rate": 0.5,
+        "criterion_precision": null,
+        "criterion_recall": null,
+        "criterion_specificity": null,
+        "descriptive_only": true,
+        "false_negative": 0,
+        "false_positive": 0,
+        "n_adjudicated": 0,
+        "n_applicable": 8,
+        "n_indeterminate": 8,
+        "n_not_applicable": 0,
+        "precision_by_severity": {},
+        "recall_by_severity": {},
+        "true_negative": 0,
+        "true_positive": 0,
+        "unique_criterion_catches": 0
+      }
+    },
+    "cross_checklet_dependence": {
+      "co_finding_matrix": {
+        "change_scope|dependency_integration_risk": null,
+        "change_scope|error_boundary": null,
+        "dependency_integration_risk|error_boundary": null,
+        "requirement_coverage|change_scope": 0.0,
+        "requirement_coverage|dependency_integration_risk": 0.0,
+        "requirement_coverage|error_boundary": 0.0,
+        "requirement_coverage|test_adequacy": 0.0,
+        "test_adequacy|change_scope": 0.0,
+        "test_adequacy|dependency_integration_risk": 0.0,
+        "test_adequacy|error_boundary": 0.0
+      },
+      "conditional_finding_rates": {
+        "change_scope|dependency_integration_risk": null,
+        "change_scope|error_boundary": null,
+        "change_scope|requirement_coverage": 0.0,
+        "change_scope|test_adequacy": 0.0,
+        "dependency_integration_risk|change_scope": null,
+        "dependency_integration_risk|error_boundary": null,
+        "dependency_integration_risk|requirement_coverage": 0.0,
+        "dependency_integration_risk|test_adequacy": 0.0,
+        "error_boundary|change_scope": null,
+        "error_boundary|dependency_integration_risk": null,
+        "error_boundary|requirement_coverage": 0.0,
+        "error_boundary|test_adequacy": 0.0,
+        "requirement_coverage|change_scope": null,
+        "requirement_coverage|dependency_integration_risk": null,
+        "requirement_coverage|error_boundary": null,
+        "requirement_coverage|test_adequacy": 0.0,
+        "test_adequacy|change_scope": null,
+        "test_adequacy|dependency_integration_risk": null,
+        "test_adequacy|error_boundary": null,
+        "test_adequacy|requirement_coverage": 0.0
+      },
+      "evidence_family_ids": {
+        "change_scope": "deterministic:vs-v1:change_scope",
+        "dependency_integration_risk": "deterministic:vs-v1:dependency_integration_risk",
+        "error_boundary": "deterministic:vs-v1:error_boundary",
+        "requirement_coverage": "deterministic:vs-v1:requirement_coverage",
+        "test_adequacy": "deterministic:vs-v1:test_adequacy"
+      },
+      "jaccard_overlap": {
+        "change_scope|dependency_integration_risk": null,
+        "change_scope|error_boundary": null,
+        "dependency_integration_risk|error_boundary": null,
+        "requirement_coverage|change_scope": 0.0,
+        "requirement_coverage|dependency_integration_risk": 0.0,
+        "requirement_coverage|error_boundary": 0.0,
+        "requirement_coverage|test_adequacy": 0.0,
+        "test_adequacy|change_scope": 0.0,
+        "test_adequacy|dependency_integration_risk": 0.0,
+        "test_adequacy|error_boundary": 0.0
+      },
+      "note": "checklets are not assumed independent",
+      "phi_correlation": {
+        "change_scope|dependency_integration_risk": null,
+        "change_scope|error_boundary": null,
+        "dependency_integration_risk|error_boundary": null,
+        "requirement_coverage|change_scope": null,
+        "requirement_coverage|dependency_integration_risk": null,
+        "requirement_coverage|error_boundary": null,
+        "requirement_coverage|test_adequacy": -0.3779644730092272,
+        "test_adequacy|change_scope": null,
+        "test_adequacy|dependency_integration_risk": null,
+        "test_adequacy|error_boundary": null
+      }
+    },
+    "data_quality": {
+      "blocking": [],
+      "n_records": 8,
+      "n_valid": 8,
+      "near_duplicates": [],
+      "ok": true,
+      "quality": [
+        {
+          "codes": [
+            "HARD_VERIFY_UNKNOWN"
+          ],
+          "record_id": "v12_92c3e9c5f4b55c01b3d4d8336d741d4b"
+        }
+      ]
+    },
+    "dataset_composition": {
+      "languages": [
+        "python"
+      ],
+      "n_accepted": 4,
+      "n_controlled_or_synthetic": 8,
+      "n_determinate": 7,
+      "n_infrastructure_error": 0,
+      "n_real": 0,
+      "n_real_determinate": 0,
+      "n_real_infrastructure_error": 0,
+      "n_real_unknown": 0,
+      "n_rejected": 3,
+      "n_synthetic": 8,
+      "n_synthetic_determinate": 7,
+      "n_total": 8,
+      "n_unknown": 1,
+      "oracle_types": [
+        "unit_reference_tests"
+      ],
+      "origins": {
+        "engineering_fixture": 8
+      },
+      "partition_sizes": {
+        "development": 8
+      },
+      "patch_size_distribution": {
+        "small": 8
+      },
+      "producer_families": [
+        "executor-a"
+      ],
+      "real_determinate_diversity": {
+        "n_patch_sizes": 0,
+        "n_producers": 0,
+        "n_repositories": 0,
+        "n_task_families": 0,
+        "sufficient": false
+      },
+      "repositories": [
+        "repo-a"
+      ],
+      "task_families": [
+        "task-fn-reject",
+        "task-fp-accept",
+        "task-fp-reject",
+        "task-tn-accept",
+        "task-tp-accept",
+        "task-tp-reject",
+        "task-unknown-waive",
+        "task-unnecessary-verify"
+      ]
+    },
+    "hard_verifier_outcomes": {
+      "accepted": 4,
+      "infrastructure_error": 0,
+      "outcome_unknown": 1,
+      "rejected": 3
+    },
+    "holdout_state": "sealed",
+    "limitations": [
+      "V1.2 is observational/selective-prediction evidence; predictive lift is not causality",
+      "engineering fixtures and controlled mutations are not a substitute for 50-200 real tasks",
+      "unknown and infrastructure-error outcomes are excluded from miss-rate denominators",
+      "would_waive never authorizes acceptance; selective verification remains off",
+      "small-N strata are descriptive only",
+      "V2 criterion metrics use evaluation-grade labels only; shared-primitive inspection is secondary",
+      "default analysis excludes calibration_reserved and holdout until finalize-holdout"
+    ],
+    "low_risk_region": {
+      "coverage": 0.2857142857142857,
+      "definition": "objective gates pass + no required checklet abstain/error + no medium/high/critical findings",
+      "descriptive_only": true,
+      "generalization_note": "low-risk region not demonstrated to generalize",
+      "generalizes": false,
+      "interval": {
+        "display": "1 / 2",
+        "lower": 0.09452865480086614,
+        "method": "wilson_95",
+        "n": 2,
+        "rate": 0.5,
+        "successes": 1,
+        "upper": 0.9054713451991339
+      },
+      "n": 2,
+      "patch_size_distribution": {
+        "small": 2
+      },
+      "producer_distribution": {
+        "executor-a": 2
+      },
+      "reject_count": 1,
+      "reject_display": "1 / 2",
+      "reject_rate": 0.5,
+      "repository_distribution": {
+        "repo-a": 2
+      },
+      "task_type_distribution": {
+        "bug_fix": 2
+      }
+    },
+    "n_records_analyzed": 8,
+    "n_records_in_dataset": 8,
+    "objective_gate_baseline": {
+      "after_gates_pass_and_all_checklets_clean": {
+        "descriptive_only": true,
+        "display": "1 / 2",
+        "interval": {
+          "display": "1 / 2",
+          "lower": 0.09452865480086614,
+          "method": "wilson_95",
+          "n": 2,
+          "rate": 0.5,
+          "successes": 1,
+          "upper": 0.9054713451991339
+        },
+        "label": "hard rejection after gates pass + all checklets clean",
+        "n": 2,
+        "rate": 0.5,
+        "rejects": 1
+      },
+      "after_objective_gates_pass": {
+        "descriptive_only": true,
+        "display": "3 / 7",
+        "interval": {
+          "display": "3 / 7",
+          "lower": 0.15821692226262685,
+          "method": "wilson_95",
+          "n": 7,
+          "rate": 0.42857142857142855,
+          "successes": 3,
+          "upper": 0.7495457695909742
+        },
+        "label": "hard rejection after objective gates pass",
+        "n": 7,
+        "rate": 0.42857142857142855,
+        "rejects": 3
+      },
+      "low_risk_region": {
+        "descriptive_only": true,
+        "display": "1 / 2",
+        "interval": {
+          "display": "1 / 2",
+          "lower": 0.09452865480086614,
+          "method": "wilson_95",
+          "n": 2,
+          "rate": 0.5,
+          "successes": 1,
+          "upper": 0.9054713451991339
+        },
+        "label": "V1.1 low-risk region",
+        "n": 2,
+        "rate": 0.5,
+        "rejects": 1
+      }
+    },
+    "predictive_utility": {
+      "change_scope": {
+        "absolute_rejection_rate_difference": null,
+        "association_not_causality": true,
+        "checklet_id": "change_scope",
+        "hard_reject_unique_signal": 0,
+        "n_determinate": 7,
+        "p_hard_reject_given_abstain": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_clean": {
+          "descriptive_only": true,
+          "display": "3 / 7",
+          "interval": {
+            "display": "3 / 7",
+            "lower": 0.15821692226262685,
+            "method": "wilson_95",
+            "n": 7,
+            "rate": 0.42857142857142855,
+            "successes": 3,
+            "upper": 0.7495457695909742
+          },
+          "n": 7,
+          "rate": 0.42857142857142855,
+          "rejects": 3
+        },
+        "p_hard_reject_given_error": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_finding": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "relative_lift": null
+      },
+      "dependency_integration_risk": {
+        "absolute_rejection_rate_difference": null,
+        "association_not_causality": true,
+        "checklet_id": "dependency_integration_risk",
+        "hard_reject_unique_signal": 0,
+        "n_determinate": 7,
+        "p_hard_reject_given_abstain": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_clean": {
+          "descriptive_only": true,
+          "display": "3 / 7",
+          "interval": {
+            "display": "3 / 7",
+            "lower": 0.15821692226262685,
+            "method": "wilson_95",
+            "n": 7,
+            "rate": 0.42857142857142855,
+            "successes": 3,
+            "upper": 0.7495457695909742
+          },
+          "n": 7,
+          "rate": 0.42857142857142855,
+          "rejects": 3
+        },
+        "p_hard_reject_given_error": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_finding": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "relative_lift": null
+      },
+      "error_boundary": {
+        "absolute_rejection_rate_difference": null,
+        "association_not_causality": true,
+        "checklet_id": "error_boundary",
+        "hard_reject_unique_signal": 0,
+        "n_determinate": 7,
+        "p_hard_reject_given_abstain": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_clean": {
+          "descriptive_only": true,
+          "display": "3 / 7",
+          "interval": {
+            "display": "3 / 7",
+            "lower": 0.15821692226262685,
+            "method": "wilson_95",
+            "n": 7,
+            "rate": 0.42857142857142855,
+            "successes": 3,
+            "upper": 0.7495457695909742
+          },
+          "n": 7,
+          "rate": 0.42857142857142855,
+          "rejects": 3
+        },
+        "p_hard_reject_given_error": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_finding": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "relative_lift": null
+      },
+      "requirement_coverage": {
+        "absolute_rejection_rate_difference": 0.16666666666666669,
+        "association_not_causality": true,
+        "checklet_id": "requirement_coverage",
+        "hard_reject_unique_signal": 2,
+        "n_determinate": 7,
+        "p_hard_reject_given_abstain": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_clean": {
+          "descriptive_only": true,
+          "display": "1 / 3",
+          "interval": {
+            "display": "1 / 3",
+            "lower": 0.0614903152761605,
+            "method": "wilson_95",
+            "n": 3,
+            "rate": 0.3333333333333333,
+            "successes": 1,
+            "upper": 0.7923450448735121
+          },
+          "n": 3,
+          "rate": 0.3333333333333333,
+          "rejects": 1
+        },
+        "p_hard_reject_given_error": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_finding": {
+          "descriptive_only": true,
+          "display": "2 / 4",
+          "interval": {
+            "display": "2 / 4",
+            "lower": 0.15003570882017148,
+            "method": "wilson_95",
+            "n": 4,
+            "rate": 0.5,
+            "successes": 2,
+            "upper": 0.8499642911798285
+          },
+          "n": 4,
+          "rate": 0.5,
+          "rejects": 2
+        },
+        "relative_lift": 1.5
+      },
+      "test_adequacy": {
+        "absolute_rejection_rate_difference": -0.5,
+        "association_not_causality": true,
+        "checklet_id": "test_adequacy",
+        "hard_reject_unique_signal": 0,
+        "n_determinate": 7,
+        "p_hard_reject_given_abstain": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_clean": {
+          "descriptive_only": true,
+          "display": "3 / 6",
+          "interval": {
+            "display": "3 / 6",
+            "lower": 0.18761280689940868,
+            "method": "wilson_95",
+            "n": 6,
+            "rate": 0.5,
+            "successes": 3,
+            "upper": 0.8123871931005913
+          },
+          "n": 6,
+          "rate": 0.5,
+          "rejects": 3
+        },
+        "p_hard_reject_given_error": {
+          "descriptive_only": true,
+          "display": "0 / 0",
+          "interval": {
+            "lower": null,
+            "method": "wilson_95",
+            "n": 0,
+            "rate": null,
+            "successes": 0,
+            "upper": null
+          },
+          "n": 0,
+          "rate": null,
+          "rejects": 0
+        },
+        "p_hard_reject_given_finding": {
+          "descriptive_only": true,
+          "display": "0 / 1",
+          "interval": {
+            "display": "0 / 1",
+            "lower": 0.0,
+            "method": "wilson_95",
+            "n": 1,
+            "rate": 0.0,
+            "successes": 0,
+            "upper": 0.7934567085261071
+          },
+          "n": 1,
+          "rate": 0.0,
+          "rejects": 0
+        },
+        "relative_lift": 0.0
+      }
+    },
+    "protected_partition_status": {
+      "calibration_reserved": "sealed",
+      "development": "visible",
+      "holdout": "sealed",
+      "policy_selection": "visible"
+    },
+    "schema_version": "verification-v1.2-analysis/1.1.0",
+    "sealed_partition_counts": {
+      "calibration_reserved": 0,
+      "holdout": 0
+    },
+    "shadow_metrics": {
+      "descriptive_only": true,
+      "false_shadow_waive_display": "1 / 2",
+      "infrastructure_error_rate": 0.0,
+      "n_correct_shadow_waives": 1,
+      "n_determinate": 7,
+      "n_determinate_would_waive": 2,
+      "n_false_shadow_waives": 1,
+      "n_infrastructure_error": 0,
+      "n_total": 8,
+      "n_unknown": 1,
+      "n_unnecessary_shadow_verifies": 3,
+      "n_would_hard_verify": 5,
+      "n_would_waive": 3,
+      "observed_miss_interval": {
+        "display": "1 / 2",
+        "lower": 0.09452865480086614,
+        "method": "wilson_95",
+        "n": 2,
+        "rate": 0.5,
+        "successes": 1,
+        "upper": 0.9054713451991339
+      },
+      "observed_miss_rate": 0.5,
+      "shadow_waiver_coverage": 0.375,
+      "unknown_outcome_rate": 0.125,
+      "unnecessary_verify_display": "3 / 5",
+      "unnecessary_verify_rate": 0.6
+    },
+    "stratified_results": {
+      "oracle_type": [
+        {
+          "display": "3 / 7",
+          "n": 7,
+          "note": "descriptive only",
+          "rate": null,
+          "rejects": 3,
+          "stratum": "oracle_type",
+          "value": "unit_reference_tests"
+        }
+      ],
+      "patch_size_bucket": [
+        {
+          "display": "3 / 7",
+          "n": 7,
+          "note": "descriptive only",
+          "rate": null,
+          "rejects": 3,
+          "stratum": "patch_size_bucket",
+          "value": "small"
+        }
+      ],
+      "producer": [
+        {
+          "display": "3 / 7",
+          "n": 7,
+          "note": "descriptive only",
+          "rate": null,
+          "rejects": 3,
+          "stratum": "producer",
+          "value": "executor-a"
+        }
+      ],
+      "repository": [
+        {
+          "display": "3 / 7",
+          "n": 7,
+          "note": "descriptive only",
+          "rate": null,
+          "rejects": 3,
+          "stratum": "repository",
+          "value": "repo-a"
+        }
+      ],
+      "task_type": [
+        {
+          "display": "3 / 7",
+          "n": 7,
+          "note": "descriptive only",
+          "rate": null,
+          "rejects": 3,
+          "stratum": "task_type",
+          "value": "bug_fix"
+        }
+      ]
+    },
+    "v2_decision": {
+      "blocking_gates": [
+        "real_determinate_sample",
+        "diversity"
+      ],
+      "decision": "COLLECT_MORE_V1_2_DATA",
+      "decision_gate_id": "v12-decision-gate-1.1",
+      "decision_gate_kind": "research heuristic",
+      "gates": {
+        "criterion_validity": {
+          "n_useful": 0,
+          "name": "criterion_validity",
+          "passed": false
+        },
+        "diversity": {
+          "name": "diversity",
+          "observed": {
+            "n_patch_sizes": 0,
+            "n_repositories": 0,
+            "n_task_families": 0
+          },
+          "passed": false,
+          "required": {
+            "n_patch_sizes": 2,
+            "n_repositories": 2,
+            "n_task_families": 2
+          }
+        },
+        "integrity": {
+          "name": "integrity",
+          "passed": true
+        },
+        "low_risk_signal": {
+          "baseline_gate_rate": 0.42857142857142855,
+          "name": "low_risk_signal",
+          "observed": 0.5,
+          "passed": false
+        },
+        "predictive_utility": {
+          "n_useful": 0,
+          "name": "predictive_utility",
+          "passed": false
+        },
+        "real_determinate_sample": {
+          "name": "real_determinate_sample",
+          "observed": 0,
+          "passed": false,
+          "required": 50
+        }
+      },
+      "passing_gates": [
+        "integrity"
+      ],
+      "reasons": [
+        "real determinate tasks: 0 / 50 minimum"
+      ]
+    }
+  },
+  "analysis_code_version": "sha256:4fbbdb0a0636594c",
+  "analysis_schema_version": "verification-v1.2-analysis/1.1.0",
+  "baseline_content_address": "19ab491a0e0b852362f74c69329e455b23bbd663d4adf4f42e5636501f7014b6",
+  "baseline_id": "vs-v1.1-baseline-001",
+  "cohort_id": "v1.2-c01-v11-frozen",
+  "dataset_id": "vs-v1.2-metric-integrity",
+  "dataset_version": "1.2.0",
+  "experiment_id": "vs-v1.2-exp-001",
+  "generated_at": "2026-09-04T10:22:19.757848+00:00",
+  "git_revision": "1a0359e193d9678a21c7be33487abe3384e5361c",
+  "schema_version": "verification-v1.2-report/1.0.0",
+  "split_version": "grouped-sha256-v1/vs-v1.2-split-seed-001"
+}
