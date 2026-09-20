@@ -221,15 +221,21 @@ def criterion_metrics(
         "criterion_specificity": _ratio(tn, tn + fp),
         "criterion_false_positive_rate": _ratio(fp, fp + tn),
         "criterion_false_negative_rate": _ratio(fn, fn + tp),
-        "criterion_abstention_rate": _ratio(abstain, len(applicable)),
-        "criterion_indeterminate_rate": _ratio(indeterminate, len(applicable) + not_applicable + indeterminate),
+        # `applicable` is appended to before the indeterminate `continue` above, so it
+        # already contains the indeterminate records. Adding `indeterminate` again
+        # doubled the denominator; `not_applicable` was never in it to begin with.
+        "criterion_abstention_rate": _ratio(abstain, n_adj),
+        "criterion_indeterminate_rate": _ratio(indeterminate, len(applicable)),
         "unique_criterion_catches": unique_catches,
         "precision_by_severity": {
             severity: _ratio(counts["tp"], counts["tp"] + counts["fp"]) for severity, counts in severity_rows.items()
         },
-        "recall_by_severity": {
-            severity: _ratio(counts["tp"], counts["tp"] + counts["fn"]) for severity, counts in severity_rows.items()
-        },
+        # Severity is a property of a reported finding. A false negative is the
+        # absence of one, so it has no bucket to be attributed to and the buckets'
+        # "fn" could never leave zero -- which published a perfect 1.0 for every
+        # severity whenever tp > 0. Per-severity recall is undefined by
+        # construction; say so rather than claiming a score.
+        "recall_by_severity": {severity: None for severity in severity_rows},
         "descriptive_only": _descriptive(n_adj),
         "counts": {"tp": tp, "fp": fp, "tn": tn, "fn": fn, "abstain": abstain, "error": error},
         "adjudicator_ids": sorted(adjudicator_ids) if adjudicator_ids is not None else None,
@@ -310,8 +316,12 @@ def shadow_metrics(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, Any]:
         record.hard_outcome == HardVerifierOutcome.ACCEPTED for record in determinate_waive
     )
     would_verify = [record for record in records if record.shadow_assessment.get("shadow_action") != ShadowAction.WOULD_WAIVE.value]
+    # `unnecessary` counts determinate records only, mirroring determinate_waive
+    # above, so the rate's denominator must be the determinate subset too --
+    # not every would_verify record including the ones with no known outcome.
+    determinate_verify = [record for record in would_verify if record.determinate]
     unnecessary = sum(
-        record.determinate and record.hard_outcome == HardVerifierOutcome.ACCEPTED for record in would_verify
+        record.hard_outcome == HardVerifierOutcome.ACCEPTED for record in determinate_verify
     )
     miss_n = len(determinate_waive)
     return {
@@ -329,8 +339,9 @@ def shadow_metrics(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, Any]:
         "observed_miss_interval": wilson_interval(false_waives, miss_n),
         "n_would_hard_verify": len(would_verify),
         "n_unnecessary_shadow_verifies": unnecessary,
-        "unnecessary_verify_rate": _ratio(unnecessary, len(would_verify)),
-        "unnecessary_verify_display": f"{unnecessary} / {len(would_verify)}",
+        "n_determinate_would_hard_verify": len(determinate_verify),
+        "unnecessary_verify_rate": _ratio(unnecessary, len(determinate_verify)),
+        "unnecessary_verify_display": f"{unnecessary} / {len(determinate_verify)}",
         "unknown_outcome_rate": _ratio(n_unknown, n_total),
         "infrastructure_error_rate": _ratio(n_infra, n_total),
         "descriptive_only": _descriptive(n_determinate),
@@ -411,6 +422,7 @@ def dependence_metrics(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, A
             if _is_finding(observation):
                 finding_sets[checklet_id].add(record.record_id)
     jaccard: dict[str, float | None] = {}
+    co_finding: dict[str, int] = {}
     phi: dict[str, float | None] = {}
     conditional: dict[str, float | None] = {}
     ids = [record.record_id for record in records]
@@ -421,6 +433,7 @@ def dependence_metrics(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, A
             union = a | b
             key = f"{left}|{right}"
             jaccard[key] = _ratio(len(a & b), len(union))
+            co_finding[key] = len(a & b)
             n11 = len(a & b)
             n10 = len(a - b)
             n01 = len(b - a)
@@ -430,7 +443,9 @@ def dependence_metrics(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, A
             conditional[f"{left}|{right}"] = _ratio(n11, len(b))
     return {
         "evidence_family_ids": families,
-        "co_finding_matrix": jaccard,
+        # These were the same object, so the report showed one metric twice.
+        # The matrix is the raw co-occurrence count; the overlap is the ratio.
+        "co_finding_matrix": co_finding,
         "jaccard_overlap": jaccard,
         "phi_correlation": phi,
         "conditional_finding_rates": conditional,
@@ -458,15 +473,23 @@ def combination_analysis(records: Sequence[RealTaskEvidenceRecord]) -> list[dict
         error = any(item.get("verdict") == CheckletVerdict.ERROR.value for item in record.checklet_observations)
         gates_pass = _gates_pass(record)
         gate_warning = any(item.get("status") != "pass" for item in record.gate_results)
-        if findings and all(item.get("verdict") == CheckletVerdict.CLEAN.value for item in record.checklet_observations if item not in findings):
-            pass
+        # This predicate was computed and then dropped on the floor. It is the
+        # exclusion the finding-bearing bins need: every observation that is not
+        # itself a finding must be CLEAN, so an abstaining or erroring checklet
+        # does not get silently counted as a clean "one low finding" record --
+        # the same standard all_applicable_clean already applies below.
+        others_clean = bool(findings) and all(
+            item.get("verdict") == CheckletVerdict.CLEAN.value
+            for item in record.checklet_observations
+            if item not in findings
+        )
         if not findings and not abstain and not error:
             combos["all_applicable_clean"].append(record)
-        if len(low) == 1 and len(findings) == 1:
+        if others_clean and len(low) == 1 and len(findings) == 1:
             combos["one_low_finding"].append(record)
-        if len(medium) == 1 and len(findings) == 1:
+        if others_clean and len(medium) == 1 and len(findings) == 1:
             combos["one_medium_finding"].append(record)
-        if len(findings) >= 2:
+        if others_clean and len(findings) >= 2:
             combos["two_plus_independent_findings"].append(record)
         if abstain:
             combos["required_abstain"].append(record)
@@ -537,13 +560,21 @@ def cost_latency(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, Any]:
     gate_latencies = [float(item.get("latency_ms", 0.0)) for record in records for item in record.gate_results]
     per_checklet: dict[str, list[float]] = {checklet_id: [] for checklet_id in CHECKLET_IDS}
     per_checklet_cost: dict[str, list[float]] = {checklet_id: [] for checklet_id in CHECKLET_IDS}
+    # Accumulated per record. A record missing an observation shortens that
+    # checklet's list, so indexing the per-checklet lists by record position
+    # borrowed a different record's latency for every record after the gap.
+    per_record_totals: list[float] = []
     for record in records:
+        record_total = 0.0
         for item in record.checklet_observations:
             checklet_id = str(item.get("checklet_id"))
             if checklet_id in per_checklet:
-                per_checklet[checklet_id].append(float(item.get("latency_ms", 0.0)))
+                latency = float(item.get("latency_ms", 0.0))
+                per_checklet[checklet_id].append(latency)
+                record_total += latency
                 cost = item.get("estimated_or_actual_cost") or {}
                 per_checklet_cost[checklet_id].append(float(cost.get("amount", 0.0) or 0.0))
+        per_record_totals.append(record_total)
 
     def _summary(values: Sequence[float]) -> dict[str, float | None]:
         return {
@@ -559,11 +590,7 @@ def cost_latency(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, Any]:
         "per_checklet_cost": {key: _summary(values) for key, values in per_checklet_cost.items()},
         "total_checklet_bundle_latency_ms": _summary(checklet_latencies),
         "hard_verifier_latency_ms": _summary(hard_latencies),
-        "total_verification_latency_ms": _summary(
-            [sum(per_checklet[checklet_id][index] for checklet_id in CHECKLET_IDS if index < len(per_checklet[checklet_id])) for index in range(len(records))]
-            if records
-            else []
-        ),
+        "total_verification_latency_ms": _summary(per_record_totals),
         "counterfactual_expected_cost": {
             "status": "NOT REALIZED",
             "authorization": "NOT AUTHORIZED",

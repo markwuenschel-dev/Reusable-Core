@@ -118,8 +118,17 @@ def validate_record(record: RealTaskEvidenceRecord, *, live_baseline: Mapping[st
     oracle_paths = {str(path).replace("\\", "/") for path in dict(record.oracle_files)}
     if oracle_paths & {path.replace("\\", "/") for path in candidate_paths}:
         errors.append(FailureCode.ORACLE_LEAK)
-    if oracle_paths & set(record.task_contract.get("metadata", {}) if isinstance(record.task_contract.get("metadata"), Mapping) else []):
-        errors.append(FailureCode.ORACLE_LEAK)
+    # set() over a Mapping yields its keys, so this compared oracle file paths
+    # against metadata key names and could essentially never fire. An oracle path
+    # leaks through the task contract as a metadata *value*, so check both.
+    task_metadata = record.task_contract.get("metadata")
+    if isinstance(task_metadata, Mapping):
+        metadata_surface = {str(key).replace("\\", "/") for key in task_metadata}
+        metadata_surface.update(
+            str(value).replace("\\", "/") for value in task_metadata.values()
+        )
+        if oracle_paths & metadata_surface:
+            errors.append(FailureCode.ORACLE_LEAK)
     checklet_versions = {
         str(item.get("checklet_id")): str(item.get("checklet_version"))
         for item in record.checklet_observations

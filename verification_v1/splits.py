@@ -105,7 +105,13 @@ def assert_partition_allowed(
     elif purpose == "v12_analysis":
         allowed_set = set(allowed or OPERATIONAL_PARTITIONS)
     else:
-        return
+        # Fail closed. Returning here granted every partition, including the
+        # sealed holdout, to any purpose string the vocabulary does not know --
+        # a typo such as "threshold_tuning" for "threshold_selection" was enough.
+        raise HoldoutAccessError(
+            f"{FailureCode.HOLDOUT_ACCESS.value}: unrecognised purpose {purpose!r}; "
+            f"known purposes are {sorted(HOLDOUT_TUNING_PURPOSES | {'v12_analysis'})}"
+        )
     blocked = [record.record_id for record in records if record.partition not in allowed_set]
     if blocked:
         raise HoldoutAccessError(
