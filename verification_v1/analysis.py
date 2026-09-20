@@ -221,15 +221,21 @@ def criterion_metrics(
         "criterion_specificity": _ratio(tn, tn + fp),
         "criterion_false_positive_rate": _ratio(fp, fp + tn),
         "criterion_false_negative_rate": _ratio(fn, fn + tp),
-        "criterion_abstention_rate": _ratio(abstain, len(applicable)),
-        "criterion_indeterminate_rate": _ratio(indeterminate, len(applicable) + not_applicable + indeterminate),
+        # `applicable` is appended to before the indeterminate `continue` above, so it
+        # already contains the indeterminate records. Adding `indeterminate` again
+        # doubled the denominator; `not_applicable` was never in it to begin with.
+        "criterion_abstention_rate": _ratio(abstain, n_adj),
+        "criterion_indeterminate_rate": _ratio(indeterminate, len(applicable)),
         "unique_criterion_catches": unique_catches,
         "precision_by_severity": {
             severity: _ratio(counts["tp"], counts["tp"] + counts["fp"]) for severity, counts in severity_rows.items()
         },
-        "recall_by_severity": {
-            severity: _ratio(counts["tp"], counts["tp"] + counts["fn"]) for severity, counts in severity_rows.items()
-        },
+        # Severity is a property of a reported finding. A false negative is the
+        # absence of one, so it has no bucket to be attributed to and the buckets'
+        # "fn" could never leave zero -- which published a perfect 1.0 for every
+        # severity whenever tp > 0. Per-severity recall is undefined by
+        # construction; say so rather than claiming a score.
+        "recall_by_severity": {severity: None for severity in severity_rows},
         "descriptive_only": _descriptive(n_adj),
         "counts": {"tp": tp, "fp": fp, "tn": tn, "fn": fn, "abstain": abstain, "error": error},
         "adjudicator_ids": sorted(adjudicator_ids) if adjudicator_ids is not None else None,

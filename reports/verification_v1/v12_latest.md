@@ -28,8 +28,8 @@
 - Baseline reconstructability: see validate-baseline (`content_match` / `source_reconstructable` / `git_commit_match`)
 - Adjudication modes: {'shared_deterministic': 'deterministic-shared', 'independent_deterministic': 'independent-ast-inspector', 'expert_blind': 'bounded-expert-review', 'expert_assisted': 'bounded-expert-review/assisted'}
 - Isolation: sequential fixture evaluation must leave no child workers; hosted Linux semaphore warnings remain environment-specific
-- Git revision: `1a0359e193d9678a21c7be33487abe3384e5361c`
-- Analysis code: `sha256:4fbbdb0a0636594c`
+- Git revision: `46768d8ac3ea980127adfb957574ba303c3a2841`
+- Analysis code: `sha256:80036f4be87dafee`
 
 ## Dataset composition
 
@@ -66,11 +66,11 @@
 
 | Checklet | N applicable | N adjudicated | N indeterminate | Precision | Recall | FPR | FNR | Abstention | Unique criterion catches | P(reject\|clean) | P(reject\|finding) | Lift | Mean cost | p95 latency |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| requirement_coverage | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0.0000 | 0 | 1 / 3 | 2 / 4 | 0.1667 | 0.0 | 1.0 |
-| test_adequacy | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0.0000 | 0 | 3 / 6 | 0 / 1 | -0.5000 | 0.0 | 1.0 |
-| change_scope | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0.0000 | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
-| dependency_integration_risk | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0.0000 | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
-| error_boundary | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0.0000 | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
+| requirement_coverage | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | n/a | 0 | 1 / 3 | 2 / 4 | 0.1667 | 0.0 | 1.0 |
+| test_adequacy | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | n/a | 0 | 3 / 6 | 0 / 1 | -0.5000 | 0.0 | 1.0 |
+| change_scope | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | n/a | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
+| dependency_integration_risk | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | n/a | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
+| error_boundary | 8 | 0 | 8 | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | 0 / 0 (undefined) | n/a | 0 | 3 / 7 | 0 / 0 | n/a | 0.0 | 1.0 |
 
 Criterion metrics measure whether each checklet detects its declared criterion.
 Hard-outcome metrics measure association with independent verifier rejection, not criterion correctness.
