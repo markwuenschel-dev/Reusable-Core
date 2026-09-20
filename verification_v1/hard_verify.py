@@ -27,6 +27,18 @@ def _file_digest(path: str) -> str:
         return sha256(stream.read()).hexdigest()
 
 
+def _text_digest(path: str) -> str:
+    """Digest a materialised file with line endings normalised.
+
+    Matches evidence.utf8_digest so the recorded materialised surface is directly
+    comparable to the candidate's declared surface, and so a checkout that writes
+    CRLF is not mistaken for tampering.
+    """
+    with open(path, "rb") as stream:
+        raw = stream.read()
+    return sha256(raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n")).hexdigest()
+
+
 def _surface_digests(root: Path, relative_paths: Sequence[str]) -> dict[str, str | None]:
     """Digest exactly the files this verifier placed in the workspace.
 
@@ -37,7 +49,7 @@ def _surface_digests(root: Path, relative_paths: Sequence[str]) -> dict[str, str
     for relative in sorted(set(relative_paths)):
         target = root.joinpath(*str(relative).replace("\\", "/").split("/"))
         try:
-            digests[str(relative)] = _file_digest(str(target))
+            digests[str(relative)] = _text_digest(str(target))
         except OSError:
             digests[str(relative)] = None
     return digests
@@ -340,6 +352,19 @@ class CommandHardVerifier:
                     "stderr": stderr[-2000:],
                     "materialized_artifact_digest": materialized_digest,
                     "workspace": workspace,
+                    # The oracle argv template, so a replay can re-run what
+                    # actually ran instead of substituting a stub. The template is
+                    # recorded rather than the resolved argv so that {python} is
+                    # re-interpolated on the replaying machine.
+                    "command": list(self.command),
+                    "resolved_command": list(command),
+                    # Candidate paths only -- oracle files are excluded so this is
+                    # directly comparable to the candidate's declared surface.
+                    "materialized_candidate_files": {
+                        path: digest
+                        for path, digest in before_digests.items()
+                        if path in candidate_paths
+                    },
                 }
             except subprocess.TimeoutExpired:
                 outcome, evidence, metadata = HardVerifierOutcome.OUTCOME_UNKNOWN, ("command_timeout",), {"timeout_seconds": self.timeout_seconds}

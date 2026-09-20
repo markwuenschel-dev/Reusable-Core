@@ -17,11 +17,26 @@ from verification_v1.runner import VerificationRunner
 
 
 class BaselineFreezeTests(unittest.TestCase):
+    def test_frozen_v11_control_stays_intact(self) -> None:
+        """The V1.1 control is verified from its own stored bytes, so it keeps its
+        meaning after the runtime forked away from it."""
+        from verification_v1.baseline import validate_frozen_control
+
+        control = validate_frozen_control()
+        self.assertTrue(control["ok"], control["errors"])
+        self.assertEqual(EXPERIMENT_BASELINE_ID, control["baseline_id"])
+        self.assertEqual(
+            EXPERIMENT_BASELINE_ID, load_frozen_baseline()["experiment_baseline_id"]
+        )
+
     def test_baseline_manifest_is_frozen(self) -> None:
-        frozen = load_frozen_baseline()
-        live = collect_baseline()
+        from verification_v1.baseline import active_baseline_paths
+
+        manifest_path, _snapshot_path, active_id = active_baseline_paths()
+        frozen = load_frozen_baseline(manifest_path)
+        live = collect_baseline(baseline_id=active_id)
         result = validate_baseline(frozen)
-        self.assertEqual(EXPERIMENT_BASELINE_ID, frozen["experiment_baseline_id"])
+        self.assertEqual(active_id, frozen["experiment_baseline_id"])
         self.assertTrue(result["content_match"], result["errors"])
         self.assertTrue(result.get("snapshot_reconstructable"), result["errors"])
         if result.get("verification_v1_working_tree_dirty") and not result.get("snapshot_tracked"):
@@ -40,7 +55,7 @@ class BaselineFreezeTests(unittest.TestCase):
         self.assertTrue(result["snapshot_reconstructable"], result["errors"])
         self.assertIn("git_reconstructable", result)
         self.assertEqual(result["ok"], result["collection_ready"])
-        snapshot = load_source_snapshot()
+        snapshot = load_source_snapshot(_snapshot_path)
         with tempfile.TemporaryDirectory() as directory:
             restored = restore_source_snapshot(snapshot, Path(directory))
             self.assertEqual(live["implementation_hashes"], restored)

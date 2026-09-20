@@ -341,18 +341,25 @@ def replay_record(record: RealTaskEvidenceRecord, mode: str) -> dict[str, Any]:
                 "content": __import__("base64").b64decode(record.candidate_bytes_b64).decode("utf-8"),
                 "metadata": {},
             },
-            "hard_command": ["{python}", "-c", "import sys; sys.exit(0)"],
             "reference_files": dict(record.oracle_files),
             "task_origin": record.task_origin.value,
             "task_family_id": record.task_family_id,
             "repository_id": record.repository_id,
             "candidate_lineage_id": record.candidate_lineage_id,
         }
-        if record.oracle_files:
-            # Full replay keeps the recorded command if present in hard metadata.
-            command = (record.hard_verifier_result.get("metadata") or {}).get("command")
-            if command:
-                manifest["hard_command"] = command
+        # A full replay must re-run the oracle that produced the recorded verdict.
+        # The default used to be a hardcoded `sys.exit(0)` stub, and the recovery
+        # below was gated on an unrelated condition and read a metadata key nothing
+        # wrote -- so a record whose oracle rejected the candidate replayed as
+        # accepted, exit 0. There is no safe default here: without the recorded
+        # command there is nothing to replay against.
+        command = (record.hard_verifier_result.get("metadata") or {}).get("command")
+        if not command:
+            raise ValueError(
+                f"{FailureCode.ORACLE_UNAVAILABLE.value}: record {record.record_id} has no recorded "
+                "hard-verifier command; a full replay cannot be performed without one"
+            )
+        manifest["hard_command"] = list(command)
         ingested = ingest_task_manifest(manifest)
         return {"replay_mode": mode, "record_id": ingested.record_id, "hard_outcome": ingested.hard_outcome.value}
     raise ValueError(f"unknown replay_mode: {mode}")
