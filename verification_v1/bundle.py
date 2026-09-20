@@ -12,6 +12,21 @@ from typing import Any, Mapping, Sequence
 
 CODING_BUNDLE_FORMAT = "coding_bundle/1.0.0"
 
+# The hard verifier runs the oracle with the candidate's materialized workspace as
+# cwd, so every top-level file in a bundle is importable by the judging interpreter.
+# CPython imports sitecustomize/usercustomize during startup -- before the oracle's
+# own modules are collected -- and cwd precedes the standard library on sys.path, so
+# a candidate shipping any of these names executes ahead of, or in place of, the
+# verifier that is supposed to judge it.
+RESERVED_TOP_LEVEL_MODULES = frozenset(
+    {
+        "sitecustomize",
+        "usercustomize",
+        "unittest",
+        "pytest",
+    }
+)
+
 _DIFF_PLUS_PATH = re.compile(r"^\+\+\+\s+(?:b/)?(.+?)(?:\t.*)?$")
 _DIFF_GIT_PATH = re.compile(r"^diff --git a/(.+?) b/(.+)$")
 _EMPTY_INPUT_MARKERS = (
@@ -58,6 +73,13 @@ class CodingBundle:
         )
 
 
+def _reserved_top_level_module(normalized: str) -> str | None:
+    """Return the reserved module name a repository path would become importable as."""
+    head = normalized.split("/", 1)[0]
+    name = head[:-3] if head.endswith(".py") else head
+    return name if name in RESERVED_TOP_LEVEL_MODULES else None
+
+
 def normalize_repo_path(path: str) -> str:
     normalized = str(path).replace("\\", "/").strip()
     if normalized.startswith("./"):
@@ -65,6 +87,11 @@ def normalize_repo_path(path: str) -> str:
     normalized = normalized.lstrip("/")
     if not normalized or normalized in {".", ".."} or ".." in normalized.split("/"):
         raise BundleParseError(f"unsafe repository path: {path}")
+    reserved = _reserved_top_level_module(normalized)
+    if reserved is not None:
+        raise BundleParseError(
+            f"candidate may not supply the reserved top-level module {reserved!r}: {path}"
+        )
     return normalized
 
 

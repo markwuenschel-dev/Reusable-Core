@@ -162,8 +162,13 @@ class CommandHardVerifier:
                 for part in self.command
             ]
             env = os.environ.copy()
-            existing = env.get("PYTHONPATH", "")
-            env["PYTHONPATH"] = workspace + (os.pathsep + existing if existing else "")
+            # The oracle is meant to be independently configured. Inheriting the
+            # parent's PYTHONPATH lets the calling process' import surface leak into
+            # the judging interpreter, so the workspace is the only entry we add.
+            # PYTHONNOUSERSITE blocks a user-site usercustomize from running;
+            # bundle.RESERVED_TOP_LEVEL_MODULES blocks the in-workspace variants.
+            env["PYTHONPATH"] = workspace
+            env["PYTHONNOUSERSITE"] = "1"
             env["VERIFICATION_V1_WORKSPACE"] = workspace
             try:
                 completed = subprocess.run(
