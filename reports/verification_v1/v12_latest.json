@@ -503,16 +503,16 @@
     },
     "cross_checklet_dependence": {
       "co_finding_matrix": {
-        "change_scope|dependency_integration_risk": null,
-        "change_scope|error_boundary": null,
-        "dependency_integration_risk|error_boundary": null,
-        "requirement_coverage|change_scope": 0.0,
-        "requirement_coverage|dependency_integration_risk": 0.0,
-        "requirement_coverage|error_boundary": 0.0,
-        "requirement_coverage|test_adequacy": 0.0,
-        "test_adequacy|change_scope": 0.0,
-        "test_adequacy|dependency_integration_risk": 0.0,
-        "test_adequacy|error_boundary": 0.0
+        "change_scope|dependency_integration_risk": 0,
+        "change_scope|error_boundary": 0,
+        "dependency_integration_risk|error_boundary": 0,
+        "requirement_coverage|change_scope": 0,
+        "requirement_coverage|dependency_integration_risk": 0,
+        "requirement_coverage|error_boundary": 0,
+        "requirement_coverage|test_adequacy": 0,
+        "test_adequacy|change_scope": 0,
+        "test_adequacy|dependency_integration_risk": 0,
+        "test_adequacy|error_boundary": 0
       },
       "conditional_finding_rates": {
         "change_scope|dependency_integration_risk": null,
@@ -1106,6 +1106,7 @@
       "infrastructure_error_rate": 0.0,
       "n_correct_shadow_waives": 1,
       "n_determinate": 7,
+      "n_determinate_would_hard_verify": 5,
       "n_determinate_would_waive": 2,
       "n_false_shadow_waives": 1,
       "n_infrastructure_error": 0,
@@ -1244,7 +1245,7 @@
       ]
     }
   },
-  "analysis_code_version": "sha256:80036f4be87dafee",
+  "analysis_code_version": "sha256:0d54baca22b15751",
   "analysis_schema_version": "verification-v1.2-analysis/1.1.0",
   "baseline_content_address": "19ab491a0e0b852362f74c69329e455b23bbd663d4adf4f42e5636501f7014b6",
   "baseline_id": "vs-v1.1-baseline-001",
@@ -1252,8 +1253,8 @@
   "dataset_id": "vs-v1.2-metric-integrity",
   "dataset_version": "1.2.0",
   "experiment_id": "vs-v1.2-exp-001",
-  "generated_at": "2026-09-20T14:34:41.035293+00:00",
-  "git_revision": "46768d8ac3ea980127adfb957574ba303c3a2841",
+  "generated_at": "2026-09-20T16:49:14.088059+00:00",
+  "git_revision": "f3c9a13c28fbee21ffd07501a971fca159c25074",
   "schema_version": "verification-v1.2-report/1.0.0",
   "split_version": "grouped-sha256-v1/vs-v1.2-split-seed-001"
 }

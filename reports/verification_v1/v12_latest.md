@@ -28,8 +28,8 @@
 - Baseline reconstructability: see validate-baseline (`content_match` / `source_reconstructable` / `git_commit_match`)
 - Adjudication modes: {'shared_deterministic': 'deterministic-shared', 'independent_deterministic': 'independent-ast-inspector', 'expert_blind': 'bounded-expert-review', 'expert_assisted': 'bounded-expert-review/assisted'}
 - Isolation: sequential fixture evaluation must leave no child workers; hosted Linux semaphore warnings remain environment-specific
-- Git revision: `46768d8ac3ea980127adfb957574ba303c3a2841`
-- Analysis code: `sha256:80036f4be87dafee`
+- Git revision: `f3c9a13c28fbee21ffd07501a971fca159c25074`
+- Analysis code: `sha256:0d54baca22b15751`
 
 ## Dataset composition
 
