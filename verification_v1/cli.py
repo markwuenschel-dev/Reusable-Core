@@ -156,9 +156,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             _emit_json(run_to_record(replay))
             return 0 if replay.final_outcome == HardVerifierOutcome.ACCEPTED else 1
         if args.command == "validate-baseline":
-            from .baseline import baseline_manifest_path
+            from .baseline import runtime_manifest_path
 
-            manifest = baseline_manifest_path()
+            # Only ever mint the runtime baseline. The VS-V1.1 control must not be
+            # rewritten from the live tree -- being un-rewritable is the whole
+            # point of it. (validate-baseline regenerating its own reference when
+            # the manifest is absent remains a separate open defect, INTEG-008.)
+            manifest = runtime_manifest_path()
             if args.write or not manifest.exists():
                 write_baseline(manifest)
             result = validate_baseline()
@@ -167,6 +171,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "ok": result["ok"],
                     "errors": result["errors"],
                     "baseline_id": result.get("baseline_id"),
+                    "active_baseline_id": result.get("active_baseline_id"),
+                    "frozen_control": result.get("frozen_control"),
                     "content_address": result["content_address"],
                     "frozen_id": result["frozen_id"],
                     "content_match": result.get("content_match"),

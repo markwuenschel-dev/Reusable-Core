@@ -53,6 +53,9 @@ class Checklet(Protocol):
 
 
 MAX_CHECKLET_ARTIFACT_BYTES = 512_000
+# Bound on each teardown step, so a checklet that ignores SIGTERM cannot make the
+# registry wait forever on a process its own timeout already gave up on.
+_TEARDOWN_GRACE_SECONDS = 1.0
 _MAX_TRANSPORT_ITEMS = 4_096
 _MAX_TRANSPORT_TEXT_CHARS = 65_536
 _MAX_TRANSPORT_BYTES = 1_000_000
@@ -635,8 +638,14 @@ class CheckletRegistry:
                 remaining = checklet.spec.timeout_seconds - (perf_counter() - timer)
                 process.join(max(0.0, remaining))
                 if process.is_alive():
+                    # terminate() is SIGTERM on POSIX and can be ignored; an
+                    # unbounded join here turned the checklet's own timeout into
+                    # no bound at all. Escalate to kill if it does not go.
                     process.terminate()
-                    process.join()
+                    process.join(_TEARDOWN_GRACE_SECONDS)
+                    if process.is_alive():
+                        process.kill()
+                        process.join(_TEARDOWN_GRACE_SECONDS)
                     observations.append(
                         error_observation(
                             checklet.spec,
@@ -723,10 +732,18 @@ class CheckletRegistry:
                 )
             finally:
                 if process is not None:
+                    # The kill escalation exists precisely because terminate() can
+                    # fail or be ignored -- it is SIGTERM on POSIX. Nesting it inside
+                    # terminate()'s own except made the hard-kill fallback
+                    # unreachable in exactly the case it was written for, so each
+                    # step now gets its own scope.
                     try:
                         if process.is_alive():
                             process.terminate()
                             process.join(1.0)
+                    except Exception:
+                        pass
+                    try:
                         if process.is_alive():
                             process.kill()
                             process.join(1.0)

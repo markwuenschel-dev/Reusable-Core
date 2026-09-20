@@ -53,6 +53,14 @@ class ShadowAggregator:
         ):
             risk, action = RiskBand.ELEVATED, ShadowAction.WOULD_HARD_VERIFY
             reason_codes.append("medium_finding")
+        elif not observations:
+            # No checklet inspected the artifact at all -- reachable end to end when
+            # required_artifact_types does not match, since CheckletRegistry.run_all
+            # then emits no observation for it. Falling through to the permissive
+            # branch made "nothing looked at this" indistinguishable from
+            # "everything looked at this and found nothing".
+            risk, action = RiskBand.INDETERMINATE, ShadowAction.WOULD_HARD_VERIFY
+            reason_codes.append("no_checklet_observed_artifact")
         else:
             risk, action = RiskBand.LOW, ShadowAction.WOULD_WAIVE
             reason_codes.append("no_shadow_escalation_rule_triggered")

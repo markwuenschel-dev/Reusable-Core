@@ -29,6 +29,7 @@ from .evidence import (
     identity_record_id,
     utf8_digest,
     workspace_manifest_digest,
+    workspace_manifest_digest_from_hashes,
 )
 from .hard_verify import CommandHardVerifier, HardVerifier, UnavailableHardVerifier
 from .integrity import checklet_context_is_clean
@@ -274,6 +275,15 @@ def ingest_task_manifest(manifest: Mapping[str, Any]) -> RealTaskEvidenceRecord:
             "note": "selective verification is off; this is a hypothetical accounting field only",
         },
     }
+    # materialized_workspace_digest was a copy of candidate_workspace_digest, which
+    # made integrity.validate_record's comparison of the two a tautology. Use what
+    # the verifier actually wrote into the workspace when it reports it; verifiers
+    # that never materialise a workspace keep the declared surface.
+    reported_files = (run.hard_verifier_result.metadata or {}).get("materialized_candidate_files")
+    if isinstance(reported_files, Mapping) and reported_files:
+        materialized_workspace_digest = workspace_manifest_digest_from_hashes(reported_files)
+    else:
+        materialized_workspace_digest = candidate_workspace_digest
     latency_summary = {
         "objective_gate_latency_ms": [gate.latency_ms for gate in run.gates],
         "per_checklet_latency_ms": {
@@ -315,7 +325,7 @@ def ingest_task_manifest(manifest: Mapping[str, Any]) -> RealTaskEvidenceRecord:
         candidate_patch_digest=run.artifact.artifact_digest,
         candidate_workspace_digest=candidate_workspace_digest,
         verifier_workspace_digest=verifier_workspace_digest,
-        materialized_workspace_digest=candidate_workspace_digest,
+        materialized_workspace_digest=materialized_workspace_digest,
         oracle_bundle_digest=oracle_bundle_digest,
         oracle_scope=oracle_scope,
         oracle_limitations=oracle_limitations,

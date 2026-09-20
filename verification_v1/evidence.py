@@ -180,9 +180,21 @@ def utf8_digest(text: str) -> str:
 
 
 def workspace_manifest_digest(files: Mapping[str, str]) -> str:
+    return workspace_manifest_digest_from_hashes(
+        {path: utf8_digest(str(content)) for path, content in files.items()}
+    )
+
+
+def workspace_manifest_digest_from_hashes(file_hashes: Mapping[str, str]) -> str:
+    """The same manifest digest, for a surface that is already hashed.
+
+    Lets the hard verifier report what it actually materialised without shipping
+    file contents back, so the recorded materialised digest is real evidence
+    rather than a copy of the declared one.
+    """
     entries = [
-        {"path": str(path).replace("\\", "/"), "sha256": utf8_digest(str(content))}
-        for path, content in sorted(files.items(), key=lambda item: str(item[0]).replace("\\", "/"))
+        {"path": str(path).replace("\\", "/"), "sha256": str(digest)}
+        for path, digest in sorted(file_hashes.items(), key=lambda item: str(item[0]).replace("\\", "/"))
     ]
     return canonical_digest(entries)
 

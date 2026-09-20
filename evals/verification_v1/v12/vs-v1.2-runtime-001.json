@@ -1,0 +1,108 @@
+{
+  "checklets": [
+    {
+      "checklet_id": "requirement_coverage",
+      "criterion_id": "requirements-covered",
+      "evidence_family_id": "deterministic:vs-v1:requirement_coverage",
+      "implementation_hash": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+      "implementation_type": "deterministic",
+      "prompt_template_hash": null,
+      "version": "1.1.0"
+    },
+    {
+      "checklet_id": "test_adequacy",
+      "criterion_id": "producer-test-adequacy",
+      "evidence_family_id": "deterministic:vs-v1:test_adequacy",
+      "implementation_hash": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+      "implementation_type": "deterministic",
+      "prompt_template_hash": null,
+      "version": "1.1.0"
+    },
+    {
+      "checklet_id": "change_scope",
+      "criterion_id": "declared-change-scope",
+      "evidence_family_id": "deterministic:vs-v1:change_scope",
+      "implementation_hash": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+      "implementation_type": "deterministic",
+      "prompt_template_hash": null,
+      "version": "1.1.0"
+    },
+    {
+      "checklet_id": "dependency_integration_risk",
+      "criterion_id": "interface-dependency-risk",
+      "evidence_family_id": "deterministic:vs-v1:dependency_integration_risk",
+      "implementation_hash": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+      "implementation_type": "deterministic",
+      "prompt_template_hash": null,
+      "version": "1.1.0"
+    },
+    {
+      "checklet_id": "error_boundary",
+      "criterion_id": "failure-boundaries",
+      "evidence_family_id": "deterministic:vs-v1:error_boundary",
+      "implementation_hash": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+      "implementation_type": "deterministic",
+      "prompt_template_hash": null,
+      "version": "1.1.0"
+    }
+  ],
+  "content_address": "8bd868d899db6d823f947197d725818bfecc284bc6efd4a6cb9ca60f286c2053",
+  "domain_pack": {
+    "id": "coding-v1",
+    "version": "1.1.0"
+  },
+  "evaluation_schema_version": "verification-v1-evaluation/1.0.0",
+  "experiment_baseline_id": "vs-v1.2-runtime-001",
+  "gates": [
+    {
+      "id": "coding_metadata_shape",
+      "version": "1.1.0"
+    }
+  ],
+  "hard_verifiers": [
+    {
+      "id": "command-hard-verifier",
+      "version": "1.1.0"
+    },
+    {
+      "id": "unavailable-reference-oracle",
+      "version": "1.1.0"
+    }
+  ],
+  "implementation_hashes": {
+    "verification_v1/aggregation.py": "1b6d329c874de410d839f38ce3763bce44835355c444693d3874dba1903b6a93",
+    "verification_v1/artifacts.py": "d489bf7145dcf3d067a50c524e752e17e571993acd96751f81c5cc47881a60d2",
+    "verification_v1/bundle.py": "32e21874aff747c439106ef2c86b007dcbe8f45ee5b32e09a67a94222180435d",
+    "verification_v1/checklets.py": "32d59f46c57ca5788a0357691e9f69664b9959020ba6a2fc028af14d62201c4e",
+    "verification_v1/contracts.py": "a681fe90c5dd100c46d4d615cb35df9b02d6a3684dcecf6aef7470b4d5b93c65",
+    "verification_v1/domain.py": "7c30398896cbe254925e860a08ab57daccb487bb8a996b2d50dc822fa3e95c92",
+    "verification_v1/evaluation.py": "d9a2e0c5fd58527d059f6fbecfa195f8d1a99129fceff601f3cd75363ce1f6d3",
+    "verification_v1/gates.py": "8ba973b915a550399d4ab9a7639f0a237c369e3fb677e6a23dfa5e9d749d45e6",
+    "verification_v1/hard_verify.py": "c759b6312466437b262b07cf500402fc964793be345b0511cd50e44a5746e03a",
+    "verification_v1/runner.py": "20e43e6eabe1ee11b098ac790d77cbb65570e4de0a8efb1623ad204757dcacc8",
+    "verification_v1/telemetry.py": "e5aef1883c553e4d90dcae17d42a170e2afdab66a9ba5a81c368561586f4fa9c"
+  },
+  "repository_commit_sha": "a78fe061d854627787d8effd80503de6b141db56",
+  "runner": {
+    "version": "1.1.0"
+  },
+  "runtime_python": "3.14.7",
+  "schema_version": "verification-v1.2-baseline/1.1.0",
+  "shadow_policy": {
+    "id": "shadow-rule-v1.1",
+    "version": "1.1.0"
+  },
+  "source_snapshot_digest": "d557d682eb38aadc1470dc0b985ddd295480835fb65aee8934e76f82026c315c",
+  "supported_python_versions": [
+    "3.11",
+    "3.12",
+    "3.13"
+  ],
+  "verification_schema_versions": {
+    "baseline": "verification-v1.2-baseline/1.1.0",
+    "contracts": "verification-v1-contracts/1.0.0",
+    "evaluation": "verification-v1-evaluation/1.0.0",
+    "events": "verification-v1-events/1.0.0"
+  },
+  "verification_v1_working_tree_dirty": true
+}

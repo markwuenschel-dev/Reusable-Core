@@ -24,6 +24,17 @@ from .telemetry import EVENT_SCHEMA_VERSION
 
 BASELINE_SCHEMA_VERSION = "verification-v1.2-baseline/1.1.0"
 SNAPSHOT_SCHEMA_VERSION = "verification-v1.2-baseline-snapshot/1.0.0"
+# The VS-V1.1 freeze is the experimental control the existing V1.2 evidence
+# records are bound to. It is never rewritten: its own source snapshot carries the
+# bytes, so it stays reconstructable whatever the live tree becomes.
+#
+# Correctness fixes to the runtime therefore cannot land against it, because any
+# change to a frozen file drifts it by construction. The runtime forks instead:
+# the live implementation is frozen under its own identity, validate-baseline
+# checks the live tree against that, and the V1.1 control is proved intact
+# separately from its stored bytes. A new cohort binds to the runtime baseline
+# that actually produced it.
+RUNTIME_BASELINE_ID = "vs-v1.2-runtime-001"
 SUPPORTED_PYTHON_VERSIONS = ("3.11", "3.12", "3.13")
 FROZEN_IMPLEMENTATION_PATHS = (
     "verification_v1/aggregation.py",
@@ -97,7 +108,7 @@ def implementation_hashes(root: Path | None = None) -> dict[str, str]:
     return hashes
 
 
-def collect_baseline(root: Path | None = None) -> dict[str, Any]:
+def collect_baseline(root: Path | None = None, baseline_id: str | None = None) -> dict[str, Any]:
     base = root or repo_root()
     pack = CodingDomainPack.default()
     checklets = default_coding_checklets()
@@ -114,7 +125,7 @@ def collect_baseline(root: Path | None = None) -> dict[str, Any]:
     git_dirty = bool(dirty_paths)
     return {
         "schema_version": BASELINE_SCHEMA_VERSION,
-        "experiment_baseline_id": EXPERIMENT_BASELINE_ID,
+        "experiment_baseline_id": baseline_id or EXPERIMENT_BASELINE_ID,
         "verification_schema_versions": {
             "contracts": CONTRACT_SCHEMA_VERSION,
             "evaluation": DATASET_SCHEMA_VERSION,
@@ -158,6 +169,26 @@ def baseline_manifest_path(root: Path | None = None) -> Path:
 
 def baseline_snapshot_path(root: Path | None = None) -> Path:
     return (root or repo_root()) / "evals" / "verification_v1" / "v12" / "vs-v1.1-baseline-001.sources.json"
+
+
+def runtime_manifest_path(root: Path | None = None) -> Path:
+    return (root or repo_root()) / "evals" / "verification_v1" / "v12" / f"{RUNTIME_BASELINE_ID}.json"
+
+
+def runtime_snapshot_path(root: Path | None = None) -> Path:
+    return (root or repo_root()) / "evals" / "verification_v1" / "v12" / f"{RUNTIME_BASELINE_ID}.sources.json"
+
+
+def active_baseline_paths(root: Path | None = None) -> tuple[Path, Path, str]:
+    """Manifest, snapshot and id of the baseline the live tree is checked against.
+
+    Falls back to the V1.1 freeze when no runtime baseline has been minted, so a
+    checkout from before the fork keeps its original meaning.
+    """
+    manifest = runtime_manifest_path(root)
+    if manifest.exists():
+        return manifest, runtime_snapshot_path(root), RUNTIME_BASELINE_ID
+    return baseline_manifest_path(root), baseline_snapshot_path(root), EXPERIMENT_BASELINE_ID
 
 
 def collect_source_snapshot(root: Path | None = None) -> dict[str, Any]:
@@ -222,14 +253,49 @@ def load_frozen_baseline(path: Path | None = None) -> dict[str, Any]:
     return payload
 
 
-def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None = None) -> dict[str, Any]:
-    live = collect_baseline(root)
-    reference = dict(frozen) if frozen is not None else load_frozen_baseline(baseline_manifest_path(root))
+def validate_frozen_control(root: Path | None = None) -> dict[str, Any]:
+    """Prove the VS-V1.1 control is intact, independently of the live tree.
+
+    The control's meaning does not depend on what the runtime has become: its
+    snapshot carries the bytes, so this restores them, rehashes them, and checks
+    them against the manifest it was frozen with.
+    """
     errors: list[str] = []
-    if reference.get("experiment_baseline_id") != EXPERIMENT_BASELINE_ID:
-        errors.append("frozen baseline id is not vs-v1.1-baseline-001")
+    try:
+        manifest = load_frozen_baseline(baseline_manifest_path(root))
+        snapshot = load_source_snapshot(baseline_snapshot_path(root))
+        recorded = {
+            path: str(payload["sha256"])
+            for path, payload in dict(snapshot.get("files") or {}).items()
+        }
+        if manifest.get("experiment_baseline_id") != EXPERIMENT_BASELINE_ID:
+            errors.append("frozen control id is not vs-v1.1-baseline-001")
+        if recorded != manifest.get("implementation_hashes"):
+            errors.append("control snapshot hashes do not match the control manifest")
+        if snapshot.get("snapshot_digest") != manifest.get("source_snapshot_digest"):
+            errors.append("control snapshot digest does not match the control manifest")
+        with tempfile.TemporaryDirectory(prefix="vs-v11-control-restore-") as directory:
+            restored = restore_source_snapshot(snapshot, Path(directory))
+        if restored != manifest.get("implementation_hashes"):
+            errors.append("control is not reconstructable from its stored bytes")
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        errors.append(f"control unavailable or invalid: {type(exc).__name__}")
+    return {
+        "baseline_id": EXPERIMENT_BASELINE_ID,
+        "ok": not errors,
+        "errors": errors,
+    }
+
+
+def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None = None) -> dict[str, Any]:
+    manifest_path, snapshot_source, active_id = active_baseline_paths(root)
+    live = collect_baseline(root, baseline_id=active_id)
+    reference = dict(frozen) if frozen is not None else load_frozen_baseline(manifest_path)
+    errors: list[str] = []
+    if reference.get("experiment_baseline_id") != active_id:
+        errors.append(f"active baseline id is not {active_id}")
     if live["implementation_hashes"] != reference.get("implementation_hashes"):
-        errors.append("implementation hashes drifted from frozen V1.1 baseline")
+        errors.append(f"implementation hashes drifted from {active_id}")
     if live["content_address"] != reference.get("content_address"):
         errors.append("baseline content address drifted")
     live_ids = tuple(item["checklet_id"] for item in live["checklets"])
@@ -245,13 +311,13 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
     snapshot_ok = False
     snapshot_errors: list[str] = []
     try:
-        snapshot = load_source_snapshot(baseline_snapshot_path(root))
+        snapshot = load_source_snapshot(snapshot_source)
         snapshot_hashes = {
             path: str(payload["sha256"])
             for path, payload in dict(snapshot.get("files") or {}).items()
         }
         if snapshot_hashes != live["implementation_hashes"]:
-            snapshot_errors.append("source snapshot hashes do not match live V1.1 files")
+            snapshot_errors.append("source snapshot hashes do not match the live implementation")
         if snapshot.get("snapshot_digest") != live.get("source_snapshot_digest"):
             snapshot_errors.append("source snapshot digest drifted")
         with tempfile.TemporaryDirectory(prefix="vs-v11-baseline-restore-") as directory:
@@ -274,7 +340,7 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
         if commit_hashes == live["implementation_hashes"]:
             git_reconstructable = True
             break
-    snapshot_path = baseline_snapshot_path(root)
+    snapshot_path = snapshot_source
     snapshot_tracked = _git(("ls-files", "--error-unmatch", str(snapshot_path.relative_to(root or repo_root())).replace("\\", "/")), root or repo_root()) is not None
     content_match = live["implementation_hashes"] == reference.get("implementation_hashes") and live["content_address"] == reference.get("content_address")
     source_reconstructable = snapshot_ok and (snapshot_tracked or git_reconstructable)
@@ -282,11 +348,16 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
     if dirty and not git_reconstructable and not snapshot_tracked:
         errors.append("baseline content depends on an uncommitted working tree and is not reconstructable from tracked source")
     errors.extend(snapshot_errors)
+    control = validate_frozen_control(root)
+    if not control["ok"]:
+        errors.extend(f"frozen control: {item}" for item in control["errors"])
     ok = (not errors) and content_match and source_reconstructable
     return {
         "ok": ok,
         "errors": errors,
         "live": live,
+        "active_baseline_id": active_id,
+        "frozen_control": control,
         "frozen_id": reference.get("experiment_baseline_id"),
         "baseline_id": reference.get("experiment_baseline_id"),
         "content_address": live["content_address"],
@@ -301,18 +372,28 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
         "collection_ready": ok,
         "verification_v1_working_tree_dirty": dirty,
         "git_note": (
-            "Git HEAD currently contains the frozen V1.1 files"
+            f"Git HEAD currently contains the {active_id} implementation files"
             if git_reconstructable
-            else "Git HEAD does not contain the frozen V1.1 files; reconstruct from a tracked source snapshot or commit those files"
+            else f"Git HEAD does not contain the {active_id} implementation files; reconstruct from a tracked source snapshot or commit those files"
         ),
     }
 
 
 def write_baseline(path: Path | None = None, root: Path | None = None) -> Path:
-    destination = path or baseline_manifest_path(root)
+    """Mint the active runtime baseline.
+
+    Writes to the runtime identity, never over the VS-V1.1 control: the control's
+    value is that it cannot be rewritten by the tree it is supposed to anchor.
+    """
+    destination = path or runtime_manifest_path(root)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    payload = collect_baseline(root)
+    baseline_id = RUNTIME_BASELINE_ID if destination == runtime_manifest_path(root) else None
+    payload = collect_baseline(root, baseline_id=baseline_id)
     destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    snapshot_path = baseline_snapshot_path(root)
+    snapshot_path = (
+        runtime_snapshot_path(root)
+        if destination == runtime_manifest_path(root)
+        else baseline_snapshot_path(root)
+    )
     snapshot_path.write_text(json.dumps(collect_source_snapshot(root), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return destination

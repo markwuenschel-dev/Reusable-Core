@@ -44,14 +44,30 @@ except ImportError:
 
 
 class V12aBaselineTests(unittest.TestCase):
-    def test_baseline_exact_source_is_reconstructable(self) -> None:
-        from verification_v1.baseline import load_source_snapshot
+    def test_active_baseline_source_is_reconstructable(self) -> None:
+        from verification_v1.baseline import active_baseline_paths, load_source_snapshot
 
-        live = collect_baseline()
-        snapshot = load_source_snapshot()
+        _manifest, snapshot_path, active_id = active_baseline_paths()
+        live = collect_baseline(baseline_id=active_id)
+        snapshot = load_source_snapshot(snapshot_path)
         with tempfile.TemporaryDirectory() as directory:
             restored = restore_source_snapshot(snapshot, Path(directory))
         self.assertEqual(live["implementation_hashes"], restored)
+
+    def test_frozen_v11_control_is_reconstructable_from_its_own_bytes(self) -> None:
+        """The control no longer matches the live tree, by design. It must still
+        reconstruct exactly from the snapshot it was frozen with."""
+        from verification_v1.baseline import (
+            baseline_manifest_path,
+            baseline_snapshot_path,
+            load_source_snapshot,
+        )
+
+        manifest = load_frozen_baseline(baseline_manifest_path())
+        snapshot = load_source_snapshot(baseline_snapshot_path())
+        with tempfile.TemporaryDirectory() as directory:
+            restored = restore_source_snapshot(snapshot, Path(directory))
+        self.assertEqual(manifest["implementation_hashes"], restored)
 
     def test_baseline_detects_runtime_file_mutation(self) -> None:
         frozen = load_frozen_baseline()
