@@ -38,6 +38,10 @@ from .telemetry import InMemoryEventSink
 
 INGESTION_VERSION = "v1.2-ingest/1.0.0"
 STRIPPED_METADATA_KEYS = FORBIDDEN_ARTIFACT_METADATA | FORBIDDEN_CHECKLET_CONTEXT_KEYS
+# Origins whose producer is never entitled to know the oracle label. Engineering
+# fixtures and controlled mutations carry labels by construction and are
+# sanitised instead; see ingest_task_manifest.
+REAL_TASK_ORIGINS = frozenset({TaskOrigin.REAL_HISTORICAL, TaskOrigin.REAL_LIVE})
 
 
 def _task_from_mapping(payload: Mapping[str, Any]) -> TaskContract:
@@ -146,10 +150,23 @@ def _oracle_verifier(manifest: Mapping[str, Any]) -> tuple[HardVerifier, dict[st
 def ingest_task_manifest(manifest: Mapping[str, Any]) -> RealTaskEvidenceRecord:
     task = _task_from_mapping(manifest["task"])
     artifact_payload = dict(manifest["artifact"])
-    metadata = _strip_metadata(dict(artifact_payload.get("metadata", {})))
-    leaks = checklet_context_is_clean(metadata)
-    if leaks:
-        raise ValueError(f"{FailureCode.LABEL_CONTAMINATION.value}: {sorted(STRIPPED_METADATA_KEYS & set(artifact_payload.get('metadata', {})))}")
+    # The contamination check must see the manifest as supplied: stripping first
+    # removed every forbidden key before the check ran, so LABEL_CONTAMINATION
+    # was unreachable and any leaking manifest was silently laundered in.
+    #
+    # Sanitisation is still correct for engineering fixtures -- they carry their
+    # own oracle labels by construction and stripping is how those are kept away
+    # from the checklets. A real-task producer has no such excuse: a label key in
+    # a real manifest is contamination of the prevalence sample, and the cohort
+    # this gate exists to protect is exactly the real-task one.
+    raw_metadata = dict(artifact_payload.get("metadata", {}))
+    manifest_origin = TaskOrigin(manifest.get("task_origin", TaskOrigin.ENGINEERING_FIXTURE.value))
+    if checklet_context_is_clean(raw_metadata) and manifest_origin in REAL_TASK_ORIGINS:
+        raise ValueError(
+            f"{FailureCode.LABEL_CONTAMINATION.value}: "
+            f"{sorted(STRIPPED_METADATA_KEYS & set(raw_metadata))}"
+        )
+    metadata = _strip_metadata(raw_metadata)
     candidate = CandidateArtifact.from_text(
         artifact_id=str(artifact_payload["artifact_id"]),
         artifact_type=str(artifact_payload.get("artifact_type", "coding_patch")),
