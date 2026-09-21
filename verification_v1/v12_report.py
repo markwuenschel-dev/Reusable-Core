@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .analysis import ANALYSIS_SCHEMA_VERSION, analyze_records
+from .artifacts import canonical_artifact_bytes
 from .baseline import collect_baseline, repo_root
 from .contracts import utc_now
 from .dataset import EvidenceDataset
@@ -24,10 +25,17 @@ ANALYSIS_CODE_PATHS = (
 
 
 def analysis_code_version(root: Path | None = None) -> str:
+    """Provenance hash of the analysis code, independent of checkout line endings.
+
+    This hashed raw bytes while baseline.py normalises to LF, so identical source
+    produced two different published provenance values depending on whether the
+    checkout used CRLF -- and the committed value was the LF one, which a Windows
+    checkout could not reproduce even though CI regenerates this artifact there.
+    """
     base = root or repo_root()
     material = b""
     for relative in ANALYSIS_CODE_PATHS:
-        material += (base / relative).read_bytes()
+        material += canonical_artifact_bytes((base / relative).read_bytes())
     return "sha256:" + sha256(material).hexdigest()[:16]
 
 

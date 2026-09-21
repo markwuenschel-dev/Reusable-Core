@@ -144,10 +144,9 @@ def validate_record(record: RealTaskEvidenceRecord, *, live_baseline: Mapping[st
         errors.append(FailureCode.BASELINE_VERSION_UNKNOWN)
     elif record.hard_verifier_id != "recorded-hard-verifier" and record.hard_verifier_version != known_hard_version:
         errors.append(FailureCode.BASELINE_VERSION_UNKNOWN)
-    try:
-        record.hard_outcome  # already enum-validated
-    except Exception:
-        errors.append(FailureCode.HARD_VERIFY_UNKNOWN)
+    # A try/except around `record.hard_outcome` stood here. Attribute access on a
+    # set dataclass field cannot raise, and the line below dereferences .value
+    # outside the try anyway, so the guard could never fire.
     if record.hard_outcome.value == "outcome_unknown":
         errors.append(FailureCode.HARD_VERIFY_UNKNOWN)
     if record.hard_outcome.value == "infrastructure_error":
@@ -183,16 +182,15 @@ def validate_record(record: RealTaskEvidenceRecord, *, live_baseline: Mapping[st
             FailureCode.RECORD_INVALIDATED,
         }
     ]
-    quality = [code for code in errors if code not in blocking]
-    record_flags = list(record.data_quality_flags)
-    for code in quality:
-        if code.value not in record_flags:
-            record_flags.append(code.value)
+    # record_flags was assembled here and discarded by the return below;
+    # validate_record_with_quality re-derives the same codes independently.
     return blocking
 
 
-def validate_record_with_quality(record: RealTaskEvidenceRecord) -> dict[str, Any]:
-    blocking = validate_record(record)
+def validate_record_with_quality(
+    record: RealTaskEvidenceRecord, *, live_baseline: Mapping[str, Any] | None = None
+) -> dict[str, Any]:
+    blocking = validate_record(record, live_baseline=live_baseline)
     quality: list[str] = list(record.data_quality_flags)
     if record.hard_outcome.value == "outcome_unknown" and FailureCode.HARD_VERIFY_UNKNOWN.value not in quality:
         quality.append(FailureCode.HARD_VERIFY_UNKNOWN.value)
@@ -273,10 +271,17 @@ def checklet_context_is_clean(metadata: Mapping[str, Any]) -> list[FailureCode]:
 def validate_dataset_records(records: Sequence[RealTaskEvidenceRecord]) -> dict[str, Any]:
     blocking: list[dict[str, Any]] = []
     quality: list[dict[str, Any]] = []
+    failing_records: list[RealTaskEvidenceRecord] = []
+    # Collected once for the whole dataset. validate_record fell back to
+    # collect_baseline() per record, and that shells out to `git show` for every
+    # frozen file -- so an N-record dataset paid 11*N subprocesses to compare one
+    # constant it could have been handed.
+    live_baseline = collect_baseline()
     for record in records:
-        result = validate_record_with_quality(record)
+        result = validate_record_with_quality(record, live_baseline=live_baseline)
         if result["blocking"]:
             blocking.append({"record_id": record.record_id, "codes": result["blocking"]})
+            failing_records.append(record)
         if result["quality"]:
             quality.append({"record_id": record.record_id, "codes": result["quality"]})
     duplicates = duplicate_failures(records)
@@ -291,5 +296,10 @@ def validate_dataset_records(records: Sequence[RealTaskEvidenceRecord]) -> dict[
         "quality": quality,
         "near_duplicates": near_duplicate_groups(records),
         "n_records": len(records),
-        "n_valid": len(records) - len({item["record_id"] for item in blocking if item["record_id"] != "*"}),
+        # Count what passed. Subtracting a set of failing ids de-duplicated two
+        # distinct records that shared an id, handing one of them back as valid,
+        # and dataset-level rows (record_id "*") were excluded from the
+        # subtraction entirely rather than being reported.
+        "n_valid": len(records) - len(failing_records),
+        "n_dataset_level_failures": sum(1 for item in blocking if item["record_id"] == "*"),
     }

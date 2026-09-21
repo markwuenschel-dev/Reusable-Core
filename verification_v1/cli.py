@@ -150,7 +150,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             report = evaluate_fixture_set(Path(args.fixture_set))
             locations = write_report(report, Path(args.report_dir))
             _emit_json({"report": report.to_dict(), "artifacts": {key: str(value) for key, value in locations.items()}})
-            return 0
+            # This returned 0 unconditionally, so the CI step running it could
+            # only fail by crashing. A counterfactual waiver that the independent
+            # oracle then rejected is the one result this slice exists to catch.
+            false_waives = int(report.to_dict()["shadow_metrics"].get("false_shadow_waiver_count") or 0)
+            return 1 if false_waives else 0
         if args.command == "replay":
             replay = replay_run_record(_load_json(args.record))
             _emit_json(run_to_record(replay))
@@ -163,8 +167,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             # point of it. (validate-baseline regenerating its own reference when
             # the manifest is absent remains a separate open defect, INTEG-008.)
             manifest = runtime_manifest_path()
-            if args.write or not manifest.exists():
+            # Minting the reference from the same live tree being validated made
+            # the check vacuous: an absent manifest was silently regenerated and
+            # then "matched". Minting is now explicit.
+            if args.write:
                 write_baseline(manifest)
+            if not manifest.exists():
+                _emit_json(
+                    {
+                        "ok": False,
+                        "errors": [
+                            f"no runtime baseline at {manifest.name}; mint one explicitly "
+                            "with `validate-baseline --write`"
+                        ],
+                        "baseline_id": None,
+                    }
+                )
+                return 1
             result = validate_baseline()
             _emit_json(
                 {
@@ -179,6 +198,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "source_reconstructable": result.get("source_reconstructable"),
                     "snapshot_reconstructable": result.get("snapshot_reconstructable"),
                     "snapshot_tracked": result.get("snapshot_tracked"),
+                    "snapshot_path_tracked": result.get("snapshot_path_tracked"),
+                    "snapshot_content_matches_git": result.get("snapshot_content_matches_git"),
                     "git_commit_match": result.get("git_commit_match"),
                     "tree_match": result.get("tree_match"),
                     "git_reconstructable": result.get("git_reconstructable"),
@@ -233,15 +254,21 @@ def main(argv: Sequence[str] | None = None) -> int:
                 scope=args.scope,
                 unseal_receipt=receipt,
             )
+            data_quality = payload["report"]["analysis"].get("data_quality") or {}
             _emit_json(
                 {
                     "decision": payload["report"]["analysis"]["v2_decision"]["decision"],
                     "n_records": payload["report"]["analysis"]["n_records_analyzed"],
                     "analysis_scope": payload["report"]["analysis"].get("analysis_scope"),
+                    "validator_ok": data_quality.get("ok"),
                     "artifacts": payload["artifacts"],
                 }
             )
-            return 0
+            # This returned 0 unconditionally. The V2 decision itself is not a
+            # pass/fail signal -- COLLECT_MORE_V1_2_DATA is the expected state --
+            # but a dataset that fails its own integrity validator is, and that
+            # was previously emitted and then discarded.
+            return 0 if data_quality.get("ok", True) else 1
         if args.command in {"finalize-holdout", "unseal-calibration"}:
             from .baseline import collect_baseline
             from .dataset import persist_partition_unseal, write_dataset
@@ -283,8 +310,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0 if payload.get("ok") else 1
         if args.command == "replay-v12":
             record = RealTaskEvidenceRecord.from_dict(_load_json(args.record))
-            _emit_json(replay_record(record, args.mode))
-            return 0
+            replayed = replay_record(record, args.mode)
+            _emit_json(replayed)
+            # This returned 0 whatever came back, so a replay that disagreed with
+            # the recorded verdict -- the only thing a replay can tell you -- was
+            # indistinguishable from one that reproduced it.
+            outcome = replayed.get("hard_outcome")
+            if outcome is None:
+                return 0
+            return 0 if outcome == record.hard_outcome.value else 1
     except (KeyError, OSError, ValueError, json.JSONDecodeError, PermissionError) as exc:
         parser.error(str(exc))
     return 2
