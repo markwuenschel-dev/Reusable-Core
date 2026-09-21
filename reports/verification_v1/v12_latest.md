@@ -18,7 +18,7 @@
 - Decision gate: `v12-decision-gate-1.1` (research heuristic)
 
 - Experiment: `vs-v1.2-exp-001` cohort `v1.2-c01-v11-frozen`
-- Baseline: `vs-v1.1-baseline-001` `19ab491a0e0b852362f74c69329e455b23bbd663d4adf4f42e5636501f7014b6`
+- Baseline: `vs-v1.1-baseline-001` `8bd868d899db6d823f947197d725818bfecc284bc6efd4a6cb9ca60f286c2053`
 - Dataset: `vs-v1.2-metric-integrity` v`1.2.0` split `grouped-sha256-v1/vs-v1.2-split-seed-001`
 - Analysis scope: `operational`
 - Holdout state: `sealed`
@@ -28,8 +28,8 @@
 - Baseline reconstructability: see validate-baseline (`content_match` / `source_reconstructable` / `git_commit_match`)
 - Adjudication modes: {'shared_deterministic': 'deterministic-shared', 'independent_deterministic': 'independent-ast-inspector', 'expert_blind': 'bounded-expert-review', 'expert_assisted': 'bounded-expert-review/assisted'}
 - Isolation: sequential fixture evaluation must leave no child workers; hosted Linux semaphore warnings remain environment-specific
-- Git revision: `f3c9a13c28fbee21ffd07501a971fca159c25074`
-- Analysis code: `sha256:0d54baca22b15751`
+- Git revision: `3770d5655f9d23555dcbda4d3d2c048df6fc9db8`
+- Analysis code: `sha256:e329a02b91bf0e28`
 
 ## Dataset composition
 

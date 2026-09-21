@@ -260,19 +260,6 @@ def adjudicate_artifact_bytes(
     return adjudicate_bundle(task, bundle, artifact_digest)
 
 
-def resolve_primary_labels(
-    adjudications: tuple[CriterionAdjudication, ...],
-) -> dict[str, CriterionLabel]:
-    grouped: dict[str, list[CriterionLabel]] = {checklet_id: [] for checklet_id in CHECKLET_IDS}
-    for item in adjudications:
-        grouped[item.checklet_id].append(item.label)
-    resolved: dict[str, CriterionLabel] = {}
-    for checklet_id, labels in grouped.items():
-        unique = set(labels)
-        if not labels:
-            continue
-        if len(unique) == 1:
-            resolved[checklet_id] = labels[0]
-        else:
-            resolved[checklet_id] = CriterionLabel.INDETERMINATE
-    return resolved
+# resolve_primary_labels removed (INTEG-024): no call site anywhere; the
+# unanimity rule it implemented lives in
+# RealTaskEvidenceRecord.primary_criterion_label.

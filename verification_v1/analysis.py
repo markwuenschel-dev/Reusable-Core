@@ -49,7 +49,8 @@ class DecisionGateConfig:
 
 
 DEFAULT_DECISION_GATE = DecisionGateConfig()
-MINIMUM_REAL_DETERMINATE_FOR_V2 = DEFAULT_DECISION_GATE.minimum_real_determinate_n
+# MINIMUM_REAL_DETERMINATE_FOR_V2 removed (INTEG-024): a decoy threshold with no
+# reader -- decide_v2 uses gate_config.minimum_real_determinate_n directly.
 MATERIAL_FINDING_SEVERITIES = {Severity.MEDIUM.value, Severity.HIGH.value, Severity.CRITICAL.value}
 
 V2_PROCEED = "PROCEED_TO_V2_RESEARCH"
@@ -151,6 +152,39 @@ def _low_risk(record: RealTaskEvidenceRecord) -> bool:
     return True
 
 
+def adjudicator_agreement(
+    records: Sequence[RealTaskEvidenceRecord], checklet_id: str
+) -> dict[str, Any]:
+    """Inter-rater agreement between the two adjudicators for one criterion.
+
+    Two adjudicators are run precisely so they can be compared, but cohens_kappa
+    had no caller anywhere -- so the comparison that justifies keeping both was
+    never actually computed.
+    """
+    paired: dict[str, dict[str, str]] = {}
+    for record in records:
+        for item in record.criterion_adjudications:
+            if item.checklet_id != checklet_id:
+                continue
+            paired.setdefault(record.record_id, {})[item.adjudicator_id] = item.label.value
+    adjudicators = sorted({name for row in paired.values() for name in row})
+    if len(adjudicators) != 2:
+        return {"adjudicators": adjudicators, "n_paired": 0, "kappa": None, "raw_agreement": None}
+    left_id, right_id = adjudicators
+    left: list[str] = []
+    right: list[str] = []
+    for row in paired.values():
+        if left_id in row and right_id in row:
+            left.append(row[left_id])
+            right.append(row[right_id])
+    return {
+        "adjudicators": adjudicators,
+        "n_paired": len(left),
+        "kappa": cohens_kappa(left, right),
+        "raw_agreement": _ratio(sum(a == b for a, b in zip(left, right)), len(left)),
+    }
+
+
 def criterion_metrics(
     records: Sequence[RealTaskEvidenceRecord],
     checklet_id: str,
@@ -161,6 +195,7 @@ def criterion_metrics(
     adjudicated: list[RealTaskEvidenceRecord] = []
     tp = fp = tn = fn = 0
     abstain = error = indeterminate = not_applicable = 0
+    unlabelled = disagreement = 0
     unique_catches = 0
     severity_rows: dict[str, dict[str, int]] = {}
     for record in records:
@@ -170,7 +205,17 @@ def criterion_metrics(
             not_applicable += 1
             continue
         applicable.append(record)
-        if label is None or label == CriterionLabel.INDETERMINATE:
+        # These are two different absences and were collapsed into one counter:
+        # `None` means no adjudicator produced a label for this criterion at all,
+        # while INDETERMINATE means adjudicators ran and disagreed. The committed
+        # report showed 8 "indeterminate" for every checklet, which reads as
+        # disagreement but was in fact an empty adjudicator column.
+        if label is None:
+            unlabelled += 1
+            indeterminate += 1
+            continue
+        if label == CriterionLabel.INDETERMINATE:
+            disagreement += 1
             indeterminate += 1
             continue
         adjudicated.append(record)
@@ -211,6 +256,9 @@ def criterion_metrics(
         "n_applicable": len(applicable),
         "n_adjudicated": n_adj,
         "n_indeterminate": indeterminate,
+        "n_unlabelled": unlabelled,
+        "n_adjudicator_disagreement": disagreement,
+        "adjudicator_agreement": adjudicator_agreement(records, checklet_id),
         "n_not_applicable": not_applicable,
         "true_positive": tp,
         "false_positive": fp,

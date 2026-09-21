@@ -200,8 +200,4 @@ def sealed_partition_counts(records: Sequence[RealTaskEvidenceRecord]) -> dict[s
     return counts
 
 
-def freeze_split_metadata() -> Mapping[str, str]:
-    return {
-        "split_algorithm_version": SPLIT_ALGORITHM_VERSION,
-        "split_seed": SPLIT_SEED,
-    }
+# freeze_split_metadata removed (INTEG-024): no call site anywhere.

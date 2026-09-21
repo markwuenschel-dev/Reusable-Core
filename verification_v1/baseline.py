@@ -341,7 +341,24 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
             git_reconstructable = True
             break
     snapshot_path = snapshot_source
-    snapshot_tracked = _git(("ls-files", "--error-unmatch", str(snapshot_path.relative_to(root or repo_root())).replace("\\", "/")), root or repo_root()) is not None
+    # "Tracked" used to mean only that the path was known to Git, which a path
+    # committed once and then edited still satisfies -- so an uncommitted snapshot
+    # could stand in as reconstructable source. Require the committed bytes to
+    # match the ones on disk.
+    snapshot_relative = str(snapshot_path.relative_to(root or repo_root())).replace("\\", "/")
+    snapshot_base = root or repo_root()
+    snapshot_path_known = (
+        _git(("ls-files", "--error-unmatch", snapshot_relative), snapshot_base) is not None
+    )
+    snapshot_committed = _git_bytes(("show", f"HEAD:{snapshot_relative}"), snapshot_base)
+    snapshot_content_tracked = False
+    if snapshot_path_known and snapshot_committed is not None:
+        try:
+            on_disk = snapshot_path.read_bytes().replace(b"\r\n", b"\n")
+            snapshot_content_tracked = on_disk == snapshot_committed.replace(b"\r\n", b"\n")
+        except OSError:
+            snapshot_content_tracked = False
+    snapshot_tracked = snapshot_content_tracked
     content_match = live["implementation_hashes"] == reference.get("implementation_hashes") and live["content_address"] == reference.get("content_address")
     source_reconstructable = snapshot_ok and (snapshot_tracked or git_reconstructable)
     dirty = bool(live.get("verification_v1_working_tree_dirty"))
@@ -366,6 +383,8 @@ def validate_baseline(frozen: Mapping[str, Any] | None = None, root: Path | None
         "source_reconstructable": source_reconstructable,
         "snapshot_reconstructable": snapshot_ok,
         "snapshot_tracked": snapshot_tracked,
+        "snapshot_path_tracked": snapshot_path_known,
+        "snapshot_content_matches_git": snapshot_content_tracked,
         "git_commit_match": git_reconstructable,
         "tree_match": git_reconstructable,
         "git_reconstructable": git_reconstructable,
