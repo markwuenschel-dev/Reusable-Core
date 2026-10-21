@@ -21,6 +21,8 @@
 
 VS-V1.1 is the frozen shadow-verification runtime. VS-V1.2 is the real-task evidence program that measures those checklets without waiving hard verification. Operator commands live in [`docs/verification/v1.2-real-task-evidence.md`](docs/verification/v1.2-real-task-evidence.md).
 
+The normative specification is the [Reusable Core v1.10 kernel](docs/spec/reusable-core-v1.10-kernel.md). Its §0.4 dashboard shows what is built against the spec, and §20.3 names the next milestone. Supporting volumes live in [`docs/spec/`](docs/spec/README.md).
+
 This repository is building a reusable autonomous-agent architecture rather than a fixed multi-agent workflow.
 
 The project is based on the **Reusable Core** research program and its central design rule:
