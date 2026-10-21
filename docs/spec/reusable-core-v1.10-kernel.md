@@ -57,15 +57,15 @@ Within Vols. I–III the inherited precedence holds: CORE semantics > canonical 
 | §8 Verification stack | PARTIAL | L1 metadata gate, L3 `CommandHardVerifier`, 5 diagnostic checklets; no L2/L4/L5/L6, no profiles |
 | §9 Verifier authority & instantiation proofs | PARTIAL | Checklets hard-capped at `diagnostic`; typed `abstain`/`error`; no profiles or wiring proofs |
 | §10 Aggregation & certification governor | PARTIAL | `shadow-rule-v1.1` + V1.2 evidence program; decision gate returns `COLLECT_MORE_V1_2_DATA` (0/50 real tasks) |
-| §11 Certification durability | NOT STARTED | SHA-256 artifact digests are the only content identity |
+| §11 Certification durability | NOT STARTED | SHA-256 digests are the only *artifact* content identity |
 | §12 Compositional assurance | NOT STARTED | — |
 | §13 Contracts and handoff | PARTIAL | `TaskContract`, `ArtifactRef`, `coding_bundle/1.0.0`; no producer contract, no `RequirementTrace` |
 | §14 Memory | NOT STARTED | — |
 | §15 Federation | NOT STARTED | — |
 | §16 Telemetry | PARTIAL | Append-only JSONL events with identity envelope; unauthenticated, no closed schema, no `core_lint` |
 | §17 Runtime, stopping | PARTIAL | Typed `outcome_unknown`/`infrastructure_error`; no resource governor or stopping controller |
-| §18 Learning & Model Factory | NOT STARTED | Correctly deferred (§20 Phase 5) |
-| §19 Evaluation & promotion | PARTIAL | Grouped hash partitions, sealed holdout/calibration, fixture evaluation; baseline ladder rungs B0–B2 absent |
+| §18 Learning & Model Factory | NOT STARTED | Correctly deferred (§20 Phase 6) |
+| §19 Evaluation & promotion | PARTIAL | Grouped hash partitions, sealed holdout/calibration, fixture evaluation; only rung B3 exists (B0–B2, B4–B7 absent) |
 | §20 Build order | — | Repository is a Phase 4 slice built before Phases 0–3 |
 
 ---
@@ -156,7 +156,7 @@ A change is promoted only if it improves the holdout frontier under equalized me
 
 **Detail:** Vol. I §1–§1.2, §6.7; Vol. II §13.2.
 
-**Implementation status — PARTIAL.** `verification_v1/analysis.py` and `v12_report.py` compute shadow waiver coverage (counterfactual κ), observed counterfactual miss rate with Wilson 95% intervals, per-checklet criterion metrics, and lift, with unknown/infrastructure outcomes excluded from denominators. Missing: `ν`, `R_v`, `L_escape`, `R_accept`, `C_complete`, the sibling spines, and any tier-ordered promotion logic. Note that every current κ is counterfactual: no artifact is ever accepted by waiver.
+**Implementation status — PARTIAL.** `verification_v1/analysis.py` and `v12_report.py` compute shadow waiver coverage (counterfactual κ), observed counterfactual miss rate with Wilson 95% intervals, per-checklet criterion metrics, and lift, with unknown/infrastructure outcomes excluded from the miss-rate and unnecessary-verify denominators (shadow κ is computed over all records, including indeterminate ones). Missing: `ν`, `R_v`, `L_escape`, `R_accept`, `C_complete`, the sibling spines, and any tier-ordered promotion logic. Note that every current κ is counterfactual: no artifact is ever accepted by waiver.
 
 ---
 
@@ -212,7 +212,7 @@ The authoritative register is `invariants.yaml`, pinned by `registry.manifest.ya
 
 | Family | Kernel-level content |
 |---|---|
-| **Global `INV-G*`** | exact-object authority; fail-closed unknowns; non-compensable harms (G3); no self-attestation and instantiation proofs — no inert assurance, consumer-observed wiring (G5–G7); additive repair forbidden, superseded paths deleted (G8); protected control-plane boundary; monotonic policy composition; typed missingness; witnessed authority freshness; recursive-evidence provenance (G12) |
+| **Global `INV-G*`** | exact-object authority; fail-closed unknowns; non-compensable harms (G3); no inert assurance (G5); no self-attestation, with consumer-observed wiring proofs (G6); instantiation-proof discipline (G6–G8, per RQ15); additive repair forbidden, superseded paths deleted (G8); protected control-plane boundary; monotonic policy composition; typed missingness; witnessed authority freshness; recursive-evidence provenance (G12) |
 | **Authority/effects `INV-A*`** | complete mediation; no amplification; terminal non-elevatable mechanical failures; principal separation; effect cardinality `N_commit ≤ m` (A5); credential isolation; evidence-write authority (A7); isolated compute; atomic governed commits |
 | **Memory `INV-M*`** | evidence-first birth; eligibility-before-ranking; protected-canon firewall; provenance-family support counting (M4); descendant revocation |
 | **Certification `INV-C*`** | exact closure-bound and CCH-bound certificates; mutation invalidation (C2); `R_fw` undefined at zero coverage; path-specific causal certification; never self-renewing |
@@ -340,7 +340,7 @@ The boundary is not "prevent all bad reasoning"; it is `compromised reasoning �
 
 **Detail:** Vol. I §4A; Vol. II §4.1 (SPIFFE), §6 (broker), §7 (sandbox tiers); Vol. IV RQ12 (`AUTH-T1…T5`).
 
-**Implementation status — NOT STARTED, with one relevant precursor.** `CommandHardVerifier` (`verification_v1/hard_verify.py`) materializes the patched repository in a fresh workspace, injects independent reference tests, runs a configured command with a timeout and process-tree kill, rechecks the artifact digest afterward, and since INTEG-026/007/027/029/031 blocks candidate control of the judging interpreter. That is the seed of an isolated compute cell, but it declares no sandbox profile, does not deny network, and holds no effect authority because nothing in the system has any. There are no principals, grants, action registry, or effect slots.
+**Implementation status — NOT STARTED, with one relevant precursor.** `CommandHardVerifier` (`verification_v1/hard_verify.py`) materializes the patched repository in a fresh workspace, injects independent reference tests, runs a configured command with a timeout and process-tree kill, rechecks the artifact digest afterward. INTEG-026 blocks candidate control of the judging interpreter; INTEG-007/027/029/031 make materialization failure an `infrastructure_error`, kill the whole process tree on timeout, digest the workspace surface, and handle exit code 5. That is the seed of an isolated compute cell, but it declares no sandbox profile, does not deny network, and **passes the parent's full environment to the candidate command** (`env = os.environ.copy()`), so there is no credential isolation. It holds no effect authority only because nothing in the system has any. There are no principals, grants, action registry, or effect slots.
 
 ---
 
@@ -446,7 +446,7 @@ Three layers: conformal risk control / RCPS; Learn-then-Test / Pareto testing fo
 
 A scheduler may *propose* `stop_accept`; only the governor authorizes unverified acceptance. A certificate binds to a **`CertificationClosure`** — the mechanically derived causal slice able to affect the waiver decision for its stratum (reachable scheduler branches, producers, checklets/probers, qualifying verifiers, prompts/tools/schemas, mutation-capable repair paths, terminal policy, parent policy digests, effective-policy digest, closure digest, completeness proof) — and to an exact `CCH` (§11).
 
-The governor checks exact digest, current policy and closure, stratum support, required observation states, qualifying verification, certificate validity and watermark, shift and incident status, absence of post-verification mutation, and coverage floors. It returns exactly one of:
+The governor checks exact digest, current policy and closure, stratum support, required observation states, qualifying verification, certificate validity and watermark, shift, incident, lease, and always-verify status, absence of post-verification mutation, and coverage floors. It returns exactly one of:
 
 ```text
 authorize_verified_accept | authorize_certified_waiver
@@ -458,9 +458,9 @@ A certificate is not a bag of actions; recombining pieces of certified closures 
 **Detail:** Vol. I §6; Vol. IV RQ2, RQ3, RQ13 (`SCHED-T1…T6`).
 
 **Implementation status — PARTIAL. This is where the repository has concentrated.**
-- `ShadowAggregator` with deterministic `shadow-rule-v1.1`: any gate fail/error, any required checklet error or abstain, and any medium-or-higher finding → `would_hard_verify`; only all-clean → `would_waive` (`verification_v1/aggregation.py`). This is baseline rung **B3** (static bundle, no risk model). `would_waive` is counterfactual only and never accepts. **BUILT.**
+- `ShadowAggregator` with deterministic `shadow-rule-v1.1`: any gate fail/error, any required checklet error or abstain, and any medium-or-higher finding, or zero observations (INTEG-018) → `would_hard_verify`; otherwise — including low/info findings — `would_waive` (`verification_v1/aggregation.py`). This is baseline rung **B3** (static bundle, no risk model). `would_waive` is counterfactual only and never accepts. **BUILT.**
 - The **VS-V1.2 evidence program** is **BUILT**: frozen, reconstructable V1.1 baseline (`validate-baseline`); grouped SHA-256 partitions — 40% development, 20% policy selection, 20% sealed calibration, 20% sealed holdout with one-way `finalize-holdout`; separate criterion-truth and hard-outcome-truth layers; an AST-based independent adjudicator; a fail-closed dataset validator; and a five-way V2 decision gate (`verification_v1/analysis.py`, `evidence.py`, `splits.py`, `independent_adjudication.py`, `v12_report.py`).
-- **Current verdict: `COLLECT_MORE_V1_2_DATA`.** 0 of 50 required real determinate tasks; diversity gate failed; all 8 records are controlled fixtures (`reports/verification_v1/v12_latest.md`). `evals/verification_v1/real_tasks/` holds only its README.
+- **Current verdict: `COLLECT_MORE_V1_2_DATA`.** 0 of 50 required real determinate tasks; diversity gate failed; all 8 records are controlled fixtures (`reports/verification_v1/v12_latest.md`, generated at `3770d56`, before the PR #6 integrity fixes; regenerate before relying on its exact figures). `evals/verification_v1/real_tasks/` holds only its README.
 - **NOT STARTED:** calibrated aggregator, VoI acquisition, conformal or LTT controller, audit streams, `CertificationClosure`, governor, certificates.
 
 ---
@@ -504,7 +504,7 @@ The impact object is **`CertificationClosurePlus = DependencyClosure + Interacti
 
 **Detail:** Vol. II §5.8, §10.4–§10.9, §13.4, §18.7–§18.10, CDR-014–016; Vol. III "Certification durability"; Sources: RQ18 report; Vol. IV RQ18 (`CERT-D*`).
 
-**Implementation status — NOT STARTED.** The repository's only content identity is SHA-256 over canonicalized artifact bytes (`verification_v1/artifacts.py`). That is the right primitive for one leaf of a CCH. There is no context hash, no certificate, and no drift monitor. The VS-V1.1 baseline freeze — live files, recorded hashes, and a content-addressed source snapshot must match — is a precursor of exact-context identity for the verifier itself.
+**Implementation status — NOT STARTED.** The repository's only content identity is SHA-256 over canonicalized artifact bytes (`verification_v1/artifacts.py`). That is the right primitive for one leaf of a CCH. There is no context hash, no certificate, and no drift monitor. Two baseline mechanisms are precursors of exact-context identity for the verifier itself (`verification_v1/baseline.py`): the live tree is checked against the `vs-v1.2-runtime-001` runtime baseline, and the frozen V1.1 control is validated from its content-addressed source snapshot alone, never against live code.
 
 ---
 
@@ -646,7 +646,7 @@ No minimum human-data percentage is canonical; the stability boundary is system-
 
 **Implementation status — NOT STARTED, correctly.** Learning is Phase 6 (§20). Two existing pieces are relevant precursors:
 - The V1.2 sealed calibration and holdout partitions model the data-role separation this section requires.
-- `independent_adjudication.py` deliberately does not import checklet helpers. That is a small, real instance of keeping evidence lineage independent.
+- `independent_adjudication.py` does not call the checklet primitives; it reimplements criterion checks on an AST. Lineage is not fully separated, though: it imports criterion definitions from `adjudication.py`, which imports the shared checklet primitives. A small, real, and still imperfect instance of keeping evidence lineage independent.
 
 ---
 
@@ -684,7 +684,7 @@ A change is promoted only when all applicable gates pass, in order: objective va
 **Implementation status — PARTIAL.**
 - **BUILT:**
   - fixture evaluation (`evaluate`) and replay with provenance checks;
-  - V1.2 grouped partitions, with calibration and holdout sealed and a one-way holdout receipt (these map onto three of the six roles);
+  - V1.2 grouped partitions, with calibration and holdout sealed and a one-way holdout receipt (these map onto four of the six roles: development, policy-development, certification-calibration, confirmatory holdout);
   - a fail-closed dataset validator;
   - Wilson intervals;
   - a V2 decision gate;
@@ -712,18 +712,18 @@ A change is promoted only when all applicable gates pass, in order: objective va
 
 ### 20.2 Phases and exit proofs
 
-*v1.10 reconciles CORE v1.9 §13 with implementation profile §21. Where they differed, federation moves after learning and promotion, following the profile.*
+*v1.10 reconciles CORE v1.9 §13 with implementation profile §21. The profile has no memory phase, so v1.10 inserts one from CORE §13 (item 9) as Phase 5; the profile's Phases 5–7 become 6–8. Where the two orders differed, federation follows learning and promotion, as in the profile. Two Phase 0 changes are new in v1.10: the `ModelEndpoint` contract moves forward from Phase 3 so B0 can exist, and the exit proof adds that B0 runs real tasks into the evidence dataset.*
 
 | Phase | Builds | Exit proof | Status |
 |---|---|---|---|
-| **0 · Semantics, identity, baseline** | registry package + `core_lint`; exact run, artifact, and principal identity; closed telemetry schema; typed artifacts and contracts; deterministic gate-runner; `ModelEndpoint` contract; **B0 single executor** | the same task and artifact are referred to by stable digests and typed contracts across the system, and **B0 runs real tasks end to end into the evidence dataset** | **PARTIAL — artifact identity, typed contracts, a minimal gate exist; registry, principal identity, and B0 do not** |
+| **0 · Semantics, identity, baseline** | registry package + `core_lint`; exact run, artifact, and principal identity; **authenticated** telemetry with a closed schema; typed artifacts and contracts; deterministic gate-runner; `PackCompositionManifest` / `InteractionCertificate` schemas and initial composition-lint registry; `ModelEndpoint` contract *(moved from Phase 3, new in v1.10)*; **B0 single executor** | the same task and artifact are referred to by stable digests and typed contracts across the system, and **B0 runs real tasks end to end into the evidence dataset** *(new in v1.10)* | **PARTIAL — artifact identity, typed contracts, a minimal gate exist; registry, authenticated telemetry, principal identity, composition schemas, and B0 do not** |
 | 1 · Authority microkernel | workload identity; typed policy composer + Cedar; PostgreSQL authority state; broker, grants, effect slots, operations; invalidation head + outbox + stream; monitor keys; signed ledger + witness | no tested untrusted principal can cause an authoritative effect outside the broker/grant path | NOT STARTED |
-| 2 · Isolation + durable execution | sandbox tiers, default-deny egress; durable workflows; effect reconciliation; content-addressed artifact store; authenticated evidence ingress | crash, replay, and timeout experiments cannot exceed effect cardinality or turn unknowns into success | NOT STARTED (hard-verifier workspace is a precursor) |
+| 2 · Isolation + durable execution | sandbox tiers, default-deny egress; durable workflows; effect reconciliation; content-addressed artifact store; authenticated evidence ingress | crash, replay, and timeout experiments cannot exceed effect cardinality or turn unknowns into success | NOT STARTED (precursors: hard-verifier workspace; SHA-256-named `ArtifactStore` via `run --artifact-store`) |
 | 3 · Heterogeneous inference | `ModelRouter`; one frontier and one cheap model; second, vendor-neutral serving path | model substitution changes compute while the authorization and verification interfaces stay intact | NOT STARTED |
-| 4 · Verification economics | checklets, adversarial prober, calibrated aggregation, VoI, `CertificationClosure`, `CCH`, successor certificates, `CertificationClosurePlus`, composition linter and `COMP-L*` | a certified terminal-artifact path; exact-context invalidation after mutation; evidence carry-forward only when applicable; refusal of unresolved modular credit | **PARTIAL — checklets + shadow B3 + measurement program built, ahead of Phases 0–3 (quarantined per §20.1.5)** |
+| 4 · Verification economics | checklets, adversarial prober, calibrated aggregation, VoI, `CertificationClosure`, `CCH`, successor certificates, `CertificationClosurePlus`, composition linter and `COMP-L*` | a certified terminal-artifact path; exact-context invalidation after mutation; evidence carry-forward only when applicable; issuance of a successor certificate without stale old-context authority; refusal of unresolved modular credit | **PARTIAL — checklets + shadow B3 + measurement program built, ahead of Phases 0–3 (quarantined per §20.1.5)** |
 | 5 · Governed memory | lifecycle, attestations, firewall, descendant revocation | no automatic path mutates protected canon; `R_c < 1` | NOT STARTED |
 | 6 · Model Factory | trace zones, rights eligibility, curation, root lineage, split locks, propensity logging, router baselines, distillation pilot, verifier calibration | complete lineage for every example and checkpoint; the factory cannot make itself active | NOT STARTED |
-| 7 · Governed promotion + production audit | shadow and canary; closure impact; promotion monitor; uniform and targeted audit; epistemic-stability gate; demotion; drift hooks | a candidate cuts cost on a validated slice without weakening a higher bound, and a later incident demotes it cleanly | NOT STARTED |
+| 7 · Governed promotion + production audit | shadow and canary; closure impact; promotion monitor; uniform and targeted audit; epistemic-stability gate; demotion; drift hooks | a candidate cuts cost on a validated slice without weakening a higher bound; recursive evidence stays distinguishable from independently grounded evidence; counterfactual route claims stay supported; and a later incident or epistemic-decoupling signal demotes it cleanly | NOT STARTED |
 | 8 · Federation | portable contracts and manifests; authority-home epochs; federated identity; residency-aware policy; release-time revalidation | remote compute can be replaced or lost without creating remote sovereign authority or hidden state | NOT STARTED |
 
 Domain packs and publication integrations are cross-cutting: the coding pack grows with each phase, and a second pack (writing, as the oracle-poor stress case) begins only after Phase 4's exit proof.
@@ -745,9 +745,9 @@ The repository is a careful **Phase 4 slice built before Phases 0–3**. Its own
 **M2 — Phase 0 registry seed.**
 - `registry/invariants.yaml`, seeded from the existing safety tests.
 - `codes.yaml` and `state_machines.yaml`, covering checklet-observation states (migrating `CheckletVerdict` to the §9.4 set with `requiredness`) and run terminal reasons.
-- A closed `telemetry_event.schema.json` with an explicit `producer_principal{authenticated: false}` until Phase 1.
+- A closed `telemetry_event.schema.json` with an **authenticated** `producer_principal`. At laptop scale this is a per-principal signing key checked on append, so an unsigned or wrongly signed event is rejected. Workload identity (SPIFFE) replaces the local keys in Phase 1; the authentication requirement itself is not deferred.
 - `core_lint verify-manifest | check-event`.
-- *Exit proof:* CI fails on an unknown code, an unknown state, or a malformed event.
+- *Exit proof:* CI fails on an unknown code, an unknown state, a malformed event, or an unauthenticated append.
 
 **M3 — Unblock the V1.2 decision gate.**
 - B0 runs on historical commits from at least two repositories (`real_historical`) and on live issues (`real_live`).
@@ -762,7 +762,7 @@ After M3, the next phase is a laptop-scale Phase 1. Run the infrastructure-free 
 - artifact mutation after verification;
 - self-verification rejection;
 - verifier mutation attempt;
-- mechanical-failure-to-approval conversion.
+- mechanical-failure-to-approval conversion (from Vol. IV RQ12's "must be 0" metric rather than the §17.2 table).
 
 **Detail:** Vol. I §13; Vol. II §16–§17, §21; Vol. III (deployment progression and roadmap).
 
@@ -810,7 +810,7 @@ After M3, the next phase is a laptop-scale Phase 1. Run the infrastructure-free 
 4. **RQ17 (composition), RQ18 (durability), and RQ26 (epistemic stability)** given normative kernel sections (§11, §12, §18.3). Previously they were spread across companion revisions.
 5. **New invariant family `INV-P*`** for compositional assurance (IDs to be assigned in the register).
 6. **Governed transitions** extended to name pack/spine activation and learned-component promotion explicitly.
-7. **Build order reconciled** across CORE §13 and implementation profile §21 into Phases 0–8 with exit proofs. Federation now follows learning and promotion.
+7. **Build order reconciled** across CORE §13 and implementation profile §21 into Phases 0–8 with exit proofs. Memory is inserted as Phase 5 from CORE §13; federation follows learning and promotion; the `ModelEndpoint` contract moves into Phase 0 so the B0 baseline can exist.
 8. **Two new build rules:** out-of-order work is quarantined (§20.1.5), and status is part of the change (§20.1.6).
 9. **Concrete next milestones M1–M3** tied to the repository's own blocked decision gate.
 
